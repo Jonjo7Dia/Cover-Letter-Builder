@@ -1,3 +1,5 @@
+@import "@fontsource/roboto";
+@import "./variables.scss";
 /* CSS reset */
 body,
 div,
@@ -42,7 +44,6 @@ input {
   border: 1px solid #b0b0b0;
   padding: 3px 5px 4px;
   color: #979797;
-  width: 190px;
 }
 address,
 caption,
@@ -82,4 +83,14 @@ acronym {
 
 main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: rem(20px);
+  padding: rem(50px) 0;
+}
+
+* {
+  font-size: "Roboto";
 }

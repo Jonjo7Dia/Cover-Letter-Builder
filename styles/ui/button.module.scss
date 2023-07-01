@@ -1,0 +1,23 @@
+@import "../variables.scss";
+
+.submitButton {
+  padding: rem(15px) rem(30px);
+  background-color: $color-main-blue;
+  border: none;
+  font-size: rem(18px);
+  color: $color-white;
+  border-radius: rem(4px);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--disabled {
+    background-color: $color-main-blue-transparent;
+    border: solid rem(1px) $color-main-blue;
+
+    &:hover {
+      cursor: inherit;
+    }
+  }
+}
