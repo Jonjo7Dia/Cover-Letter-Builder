@@ -36,3 +36,11 @@ $breakpoint-xl: 1400px;
 @function rem($pixels, $base-font-size: 16px) {
   @return #{$pixels / $base-font-size}rem;
 }
+
+$color-main-blue: #5a4ff3;
+$color-main-blue-transparent: rgba(90, 79, 243, 0.54);
+$color-light-blue: #edf1ff;
+$color-black: #000000;
+$color-white: #ffffff;
+$color-dark-grey: #6d7d8b;
+$color-light-grey: #dae3ea;
