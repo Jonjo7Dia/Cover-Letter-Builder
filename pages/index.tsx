@@ -9,6 +9,7 @@ export default function Index() {
         <InputString
           placeholder={"Add Company Mission Statement"}
           inputTitle={"Company Mission Statement (Recommended)"}
+          info={"this is to test"}
         />
         <SubmitButton text={"Next"} disabled={false} />
       </form>

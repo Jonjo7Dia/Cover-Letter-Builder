@@ -1,0 +1,42 @@
+@import "../variables.scss";
+.info {
+  color: $color-grey;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $color-main-blue;
+    cursor: pointer;
+  }
+
+  &__tooltip {
+    visibility: hidden;
+    width: rem(200px);
+    background-color: $color-white;
+    border: solid rem(1px) $color-main-blue;
+    color: $color-black;
+    text-align: center;
+    padding: rem(5px) rem(10px);
+    border-radius: rem(4px);
+    position: absolute;
+    z-index: 1;
+    bottom: calc(100% + rem(10px));
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 100%; /* At the bottom of the tooltip */
+      left: 50%;
+      margin-left: rem(-5px);
+      border-width: rem(5px);
+      border-style: solid;
+      border-color: $color-main-blue transparent transparent transparent;
+    }
+  }
+
+  &:hover &__tooltip {
+    visibility: visible;
+  }
+}
