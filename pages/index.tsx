@@ -1,28 +1,32 @@
+import "styles/global.scss";
+import styles from "styles/ui/forms.module.scss";
 import SubmitButton from "ui/buttons/submit";
 import InputString from "ui/inputs/inputString";
 import RepeatInputString from "ui/inputs/repeatableInputString";
-import styles from "styles/ui/forms.module.scss";
-import "styles/global.scss";
+import InputText from "ui/inputs/inputText";
 import { useState } from "react";
 export default function Index() {
   const [inputFields, setInputFields] = useState([""]);
-
+  const [inputTextField, setInputTextField] = useState("");
   const handleAddField = () => {
     setInputFields([...inputFields, ""]);
   };
 
   const handleInputChange = (index: number, newValue: string) => {
-    // Add this function
     const newInputFields = [...inputFields];
     newInputFields[index] = newValue;
     setInputFields(newInputFields);
   };
 
   const handleRemoveField = (index: number) => {
-    // New
     const newInputFields = [...inputFields];
     newInputFields.splice(index, 1);
     setInputFields(newInputFields);
+  };
+
+  const handleInputTextField = (input: string) => {
+    setInputTextField(input);
+    console.log(inputTextField);
   };
   return (
     <main>
@@ -39,6 +43,10 @@ export default function Index() {
           addField={handleAddField}
           onChange={handleInputChange}
           removeField={handleRemoveField}
+        />
+        <InputText
+          placeholder="Paste Job Application..."
+          onChange={handleInputTextField}
         />
         <SubmitButton text={"Next"} disabled={false} />
       </form>

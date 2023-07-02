@@ -1,7 +1,7 @@
 import styles from "styles/ui/repeatableInputString.module.scss";
 import Info from "./info";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 type RepeatInputStringProps = {
   placeholder: string;
@@ -37,24 +37,27 @@ const RepeatInputString: React.FC<RepeatInputStringProps> = ({
             value={field}
             onChange={(e) => onChange(index, e.target.value)}
           />
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              addField();
+            }}
+            className={styles["inputString__button"]}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
           {inputFields.length > 1 && ( // Conditionally render the remove button
             <button
               onClick={(e) => {
                 e.preventDefault();
                 removeField(index);
               }}
+              className={`${styles["inputString__button"]} ${styles["inputString__button--remove"]}`}
             >
-              Remove
+              <FontAwesomeIcon icon={faMinus} />
             </button>
           )}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              addField();
-            }}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
         </div>
       ))}
     </div>

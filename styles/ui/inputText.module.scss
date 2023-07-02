@@ -1,0 +1,15 @@
+@import "../variables.scss";
+
+.inputText {
+  width: 100%;
+  height: rem(400px);
+  overflow-y: scroll;
+  padding: rem(10px);
+  border: solid rem(2px) $color-main-blue;
+  border-radius: rem(4px);
+  font-size: rem(16px);
+
+  &::placeholder {
+    color: $color-grey;
+  }
+}
