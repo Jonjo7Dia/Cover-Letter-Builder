@@ -5,6 +5,7 @@ import InputString from "ui/inputs/inputString";
 import RepeatInputString from "ui/inputs/repeatableInputString";
 import InputText from "ui/inputs/inputText";
 import InputFile from "ui/inputs/inputFile";
+import Steps from "components/steps";
 import { useState } from "react";
 export default function Index() {
   const [inputFields, setInputFields] = useState([""]);
@@ -31,6 +32,7 @@ export default function Index() {
   };
   return (
     <main>
+      <Steps />
       <form className={styles["form"]}>
         <InputString
           placeholder={"Add Company Mission Statement"}

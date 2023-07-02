@@ -1,0 +1,54 @@
+@import "../variables.scss";
+.steps {
+  &__wrapper {
+    width: rem(500px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: rem(10px);
+  }
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(40px);
+    height: rem(40px);
+    border: solid rem(2px) $color-grey;
+    border-radius: 100%;
+
+    &--activate {
+      border-color: $color-main-blue;
+    }
+  }
+
+  &__header {
+    font-size: rem(18px);
+    color: $color-grey;
+
+    &--activate {
+      color: $color-main-blue;
+    }
+  }
+
+  &__connector {
+    width: rem(120px);
+    height: rem(3px);
+    border-radius: rem(4px);
+    background-color: $color-grey;
+    margin-top: rem(25px);
+
+    &--activate {
+      background-color: $color-main-blue;
+    }
+  }
+}
