@@ -3,6 +3,7 @@ import Info from "./info";
 type InputStringProps = {
   placeholder: string;
   inputTitle: string;
+  onChange: (newValue: string) => void;
   info?: string;
 };
 
@@ -10,6 +11,7 @@ const InputString: React.FC<InputStringProps> = ({
   placeholder,
   inputTitle,
   info,
+  onChange,
 }) => {
   return (
     <div className={styles["inputString"]}>
@@ -21,6 +23,9 @@ const InputString: React.FC<InputStringProps> = ({
         type="text"
         className={styles["inputString__input"]}
         placeholder={placeholder}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
       />
     </div>
   );

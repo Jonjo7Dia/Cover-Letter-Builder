@@ -8,9 +8,15 @@ import RepeatInputString from "ui/inputs/repeatableInputString";
 import { useUser } from "contexts/userContext";
 
 const AddJobStep = () => {
-  const { setOnboardingStep } = useUser();
+  const {
+    setOnboardingStep,
+    setJobApplicationText,
+    setCompanyMissionStatement,
+    setCompanyValues,
+  } = useUser();
   const [inputFields, setInputFields] = useState([""]);
   const [inputTextField, setInputTextField] = useState("");
+  const [missionStatement, setMissionStatement] = useState("");
   const handleAddField = () => {
     setInputFields([...inputFields, ""]);
   };
@@ -29,10 +35,14 @@ const AddJobStep = () => {
 
   const handleInputTextField = (input: string) => {
     setInputTextField(input);
-    console.log(inputTextField);
   };
-
+  const handleMissionStatement = (input: string) => {
+    setMissionStatement(input);
+  };
   const handleSubmit = () => {
+    setJobApplicationText(inputTextField);
+    setCompanyValues(inputFields);
+    setCompanyMissionStatement(missionStatement);
     setOnboardingStep(3);
   };
 
@@ -66,6 +76,7 @@ const AddJobStep = () => {
           info={
             "It shows you're not only aware of the company's long-term goals, but you're also excited to help achieve them. This reinforces your understanding of the role's relevance and signals your intention to be a long-term asset to the company"
           }
+          onChange={handleMissionStatement}
         />
         <div className={classes["addJob__submit"]}>
           <SubmitButton
