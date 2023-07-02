@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styles from "styles/ui/forms.module.scss";
+import classes from "styles/component/addJob.module.scss";
 import SubmitButton from "ui/buttons/submit";
 import InputString from "ui/inputs/inputString";
 import InputText from "ui/inputs/inputText";
 import RepeatInputString from "ui/inputs/repeatableInputString";
+import { useUser } from "contexts/userContext";
 
 const AddJobStep = () => {
+  const { setOnboardingStep } = useUser();
   const [inputFields, setInputFields] = useState([""]);
   const [inputTextField, setInputTextField] = useState("");
   const handleAddField = () => {
@@ -28,9 +31,20 @@ const AddJobStep = () => {
     setInputTextField(input);
     console.log(inputTextField);
   };
+
+  const handleSubmit = () => {
+    setOnboardingStep(3);
+  };
+
   return (
     <div>
-      <form className={styles["form"]}>
+      <form
+        className={styles["form"]}
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
         <InputText
           placeholder="Paste Job Application..."
           onChange={handleInputTextField}
@@ -42,13 +56,24 @@ const AddJobStep = () => {
           addField={handleAddField}
           onChange={handleInputChange}
           removeField={handleRemoveField}
+          info={
+            "Show how your personal values align with the company's in your cover letter. This signals your cultural fit, differentiates you from other candidates, and exhibits your potential for long-term commitment to the company's ethos"
+          }
         />
         <InputString
           placeholder={"Add Company Mission Statement"}
           inputTitle={"Company Mission Statement (Recommended)"}
-          info={"this is to test"}
+          info={
+            "It shows you're not only aware of the company's long-term goals, but you're also excited to help achieve them. This reinforces your understanding of the role's relevance and signals your intention to be a long-term asset to the company"
+          }
         />
-        <SubmitButton text={"Next"} disabled={false} />
+        <div className={classes["addJob__submit"]}>
+          <SubmitButton
+            text={"Next"}
+            disabled={!(inputTextField.length > 200)}
+            onClick={handleSubmit}
+          />
+        </div>
       </form>
     </div>
   );

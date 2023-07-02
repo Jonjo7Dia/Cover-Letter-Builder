@@ -3,8 +3,11 @@ import classes from "styles/component/uploadCV.module.scss";
 import SubmitButton from "ui/buttons/submit";
 import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
+import { useUser } from "contexts/userContext";
 
 const UploadCVStep = () => {
+  const { setOnboardingStep } = useUser();
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleDragOver = (event: React.DragEvent) => {
@@ -31,9 +34,19 @@ const UploadCVStep = () => {
     }
   };
 
+  const handleSubmit = () => {
+    setOnboardingStep(2);
+  };
+
   return (
     <div>
-      <form className={styles["form"]}>
+      <form
+        className={styles["form"]}
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
         <InputFile
           selectedFile={selectedFile}
           handleDragOver={handleDragOver}
@@ -41,7 +54,11 @@ const UploadCVStep = () => {
           handleChange={handleChange}
         />
         <div className={classes["cv__submit"]}>
-          <SubmitButton text={"Next"} disabled={!(selectedFile != null)} />
+          <SubmitButton
+            text={"Next"}
+            disabled={!(selectedFile != null)}
+            onClick={handleSubmit}
+          />
         </div>
       </form>
     </div>
