@@ -1,0 +1,50 @@
+@import "../variables.scss";
+
+.inputFile {
+  width: 100%;
+  height: rem(400px);
+  background-color: $color-light-blue;
+  border: solid rem(1px) $color-main-blue;
+  border-radius: rem(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: rem(10px);
+  }
+
+  &__icon {
+    font-size: rem(32px);
+    color: $color-dark-grey;
+    margin-bottom: rem(10px);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__upload {
+    border: none;
+    display: none;
+  }
+
+  &__link {
+    color: $color-main-blue;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__label {
+    text-align: center;
+  }
+
+  &__format {
+    font-weight: 300;
+    color: $color-dark-grey;
+  }
+}

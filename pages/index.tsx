@@ -4,6 +4,7 @@ import SubmitButton from "ui/buttons/submit";
 import InputString from "ui/inputs/inputString";
 import RepeatInputString from "ui/inputs/repeatableInputString";
 import InputText from "ui/inputs/inputText";
+import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
 export default function Index() {
   const [inputFields, setInputFields] = useState([""]);
@@ -48,6 +49,7 @@ export default function Index() {
           placeholder="Paste Job Application..."
           onChange={handleInputTextField}
         />
+        <InputFile />
         <SubmitButton text={"Next"} disabled={false} />
       </form>
       <form>
