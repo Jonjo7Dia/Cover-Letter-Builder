@@ -7,6 +7,7 @@ import InputText from "ui/inputs/inputText";
 import InputFile from "ui/inputs/inputFile";
 import Steps from "components/steps";
 import { useState } from "react";
+import UploadCVStep from "components/uploadCVStep";
 export default function Index() {
   const [inputFields, setInputFields] = useState([""]);
   const [inputTextField, setInputTextField] = useState("");
@@ -33,7 +34,7 @@ export default function Index() {
   return (
     <main>
       <Steps />
-      <form className={styles["form"]}>
+      {/* <form className={styles["form"]}>
         <InputString
           placeholder={"Add Company Mission Statement"}
           inputTitle={"Company Mission Statement (Recommended)"}
@@ -56,7 +57,8 @@ export default function Index() {
       </form>
       <form>
         <SubmitButton text={"Next"} disabled={true} />
-      </form>
+      </form> */}
+      <UploadCVStep />
     </main>
   );
 }

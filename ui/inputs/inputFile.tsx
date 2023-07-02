@@ -3,33 +3,19 @@ import styles from "styles/ui/inputFile.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-const InputFile = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+type InputFileProps = {
+  selectedFile: File | null;
+  handleDragOver: (event: React.DragEvent) => void;
+  handleDrop: (event: React.DragEvent) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-  const handleDragOver = (event: React.DragEvent) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event: React.DragEvent) => {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    if (files.length) {
-      const file = files[0];
-      if (file.type === "application/pdf") {
-        setSelectedFile(file);
-      } else {
-        alert("Only PDF files can be uploaded");
-      }
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      setSelectedFile(files[0]);
-    }
-  };
-
+const InputFile: React.FC<InputFileProps> = ({
+  selectedFile,
+  handleDragOver,
+  handleDrop,
+  handleChange,
+}) => {
   return (
     <div
       onDrop={handleDrop}
