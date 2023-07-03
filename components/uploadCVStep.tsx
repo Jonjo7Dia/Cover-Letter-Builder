@@ -39,7 +39,6 @@ const UploadCVStep = () => {
     if (selectedFile) {
       await parsePdf(selectedFile);
       setParsedPdfText(parsedText);
-      console.log(parsedPdfText);
     }
     setOnboardingStep(2);
   };

@@ -34,7 +34,7 @@ const AddJobStep = () => {
   };
 
   const handleInputTextField = (input: string) => {
-    setInputTextField(input);
+    setInputTextField(input.replace(/^\s*[\r\n]/gm, ""));
   };
   const handleMissionStatement = (input: string) => {
     setMissionStatement(input);
