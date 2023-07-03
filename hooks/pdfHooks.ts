@@ -1,40 +1,37 @@
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
-interface PdfParseResponse {
-  text: string;
-  error?: string;
-}
-
-const usePdfParse = () => {
+export const usePdfParse = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<PdfParseResponse | null>(null);
-  const [error, setError] = useState<AxiosError | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [parsedText, setParsedText] = useState<string | null>(null);
 
-  const parsePdf = async (file: File): Promise<PdfParseResponse> => {
+  const parsePdf = async (file: File) => {
+    setLoading(true);
+    setError(null);
+
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      setLoading(true);
-      const res = await axios.post<PdfParseResponse>(
-        "/api/pdfParse",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      setResponse(res.data);
-      return res.data; // return the response
-    } catch (err) {
-      setError(err as AxiosError);
-      throw err; // re-throw the error to allow it to be caught in handleSubmit
+      const response = await axios.post("/api/pdfParse", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const text = response.data;
+
+      // remove extra spaces and trim the lines
+      const cleanedText = text.replace(/^\s*[\r\n]/gm, "");
+      console.log(cleanedText);
+      setParsedText(cleanedText);
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return { loading, response, error, parsePdf };
+  return { loading, error, parsedText, parsePdf };
 };
-
-export default usePdfParse;

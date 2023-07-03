@@ -4,12 +4,11 @@ import SubmitButton from "ui/buttons/submit";
 import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
 import { useUser } from "contexts/userContext";
-import usePdfParse from "hooks/pdfHooks"; // import the custom hook
+import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 
 const UploadCVStep = () => {
-  const { setOnboardingStep, setParsedPdfText } = useUser();
-  const { loading, response, error, parsePdf } = usePdfParse(); // use the custom hook
-
+  const { setOnboardingStep, setParsedPdfText, parsedPdfText } = useUser();
+  const { loading, error, parsedText, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleDragOver = (event: React.DragEvent) => {
@@ -38,9 +37,9 @@ const UploadCVStep = () => {
 
   const handleSubmit = async () => {
     if (selectedFile) {
-      const result = await parsePdf(selectedFile);
-      console.log(result);
-      setParsedPdfText(result); // parse the selected PDF file
+      await parsePdf(selectedFile);
+      setParsedPdfText(parsedText);
+      console.log(parsedPdfText);
     }
     setOnboardingStep(2);
   };
@@ -68,8 +67,7 @@ const UploadCVStep = () => {
           />
         </div>
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
-        {response && <p>Text: {response.text}</p>}
+        {error && <p>Error: {error}</p>}
       </form>
     </div>
   );
