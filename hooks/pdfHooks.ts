@@ -24,7 +24,6 @@ export const usePdfParse = () => {
 
       // remove extra spaces and trim the lines
       const cleanedText = text.replace(/^\s*[\r\n]/gm, "");
-      console.log(cleanedText);
       setParsedText(cleanedText);
     } catch (err: any) {
       setError(err.message);

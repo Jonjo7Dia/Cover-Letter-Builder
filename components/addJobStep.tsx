@@ -6,14 +6,16 @@ import InputString from "ui/inputs/inputString";
 import InputText from "ui/inputs/inputText";
 import RepeatInputString from "ui/inputs/repeatableInputString";
 import { useUser } from "contexts/userContext";
-
+import { useOpenAI } from "hooks/gptHooks";
 const AddJobStep = () => {
   const {
     setOnboardingStep,
     setJobApplicationText,
     setCompanyMissionStatement,
     setCompanyValues,
+    parsedPdfText,
   } = useUser();
+  const { data, error, generateCoverLetter } = useOpenAI();
   const [inputFields, setInputFields] = useState([""]);
   const [inputTextField, setInputTextField] = useState("");
   const [missionStatement, setMissionStatement] = useState("");
@@ -39,10 +41,16 @@ const AddJobStep = () => {
   const handleMissionStatement = (input: string) => {
     setMissionStatement(input);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setJobApplicationText(inputTextField);
     setCompanyValues(inputFields);
     setCompanyMissionStatement(missionStatement);
+    await generateCoverLetter(
+      parsedPdfText,
+      inputTextField,
+      inputFields,
+      missionStatement
+    );
     setOnboardingStep(3);
   };
 
