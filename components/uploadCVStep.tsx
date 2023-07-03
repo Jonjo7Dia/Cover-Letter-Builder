@@ -4,9 +4,11 @@ import SubmitButton from "ui/buttons/submit";
 import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
 import { useUser } from "contexts/userContext";
+import usePdfParse from "hooks/pdfHooks"; // import the custom hook
 
 const UploadCVStep = () => {
-  const { setOnboardingStep } = useUser();
+  const { setOnboardingStep, setParsedPdfText } = useUser();
+  const { loading, response, error, parsePdf } = usePdfParse(); // use the custom hook
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -34,7 +36,12 @@ const UploadCVStep = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (selectedFile) {
+      const result = await parsePdf(selectedFile);
+      console.log(result);
+      setParsedPdfText(result); // parse the selected PDF file
+    }
     setOnboardingStep(2);
   };
 
@@ -56,10 +63,13 @@ const UploadCVStep = () => {
         <div className={classes["cv__submit"]}>
           <SubmitButton
             text={"Next"}
-            disabled={!(selectedFile != null)}
+            disabled={!(selectedFile != null) || loading} // disable the button while loading
             onClick={handleSubmit}
           />
         </div>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error.message}</p>}
+        {response && <p>Text: {response.text}</p>}
       </form>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
 type UserState = {
-  parsedPdfText: string;
+  parsedPdfText: any;
   jobApplicationText: string;
   companyValues: string[];
   companyMissionStatement: string;
@@ -9,7 +9,7 @@ type UserState = {
 };
 
 type UserContextType = UserState & {
-  setParsedPdfText: (text: string) => void;
+  setParsedPdfText: (text: any) => void;
   setJobApplicationText: (text: string) => void;
   setCompanyValues: (values: string[]) => void;
   setCompanyMissionStatement: (text: string) => void;
