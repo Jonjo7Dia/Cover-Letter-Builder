@@ -31,7 +31,19 @@ export default async function handler(
               ? "this is the company's mission: " + companyMission
               : ""
           }
-          return the cover letter in json format with html elements as keys. Only use the skills from the cv. put contact info in the beginning like headers. please return it like this {title:{}, contactinfo:{}, body:{}} do not nest too many objects
+          Please generate a cover letter and return it in JSON format, with the following HTML elements as keys: title, contactinfo, and body. Be sure to incorporate the skills from the CV. Insert the contact info at the beginning, as headers. Please include the HTML tags in the JSON response and do not nest more than one object in an object.Here is the format I need:
+          {
+            "title": {
+              "h2": "<h2>Cover Letter for [Position]</h2>"
+            },
+            "contactInfo": {
+              "h3": "<h3>Contact Information</h3>",
+              "p": "<p>Name<br/><br/>Phone: number<br/>Email: email@example.com<br/>LinkedIn: linkedin.com/in/example</p>"
+            },
+            "body": {
+              "p": "<p>Dear Hiring Manager,<br/><br/>[Cover letter body text]<br/><br/>Sincerely,<br/><br/>Name</p>"
+            }
+          }
           `;
   try {
     const result = await openai.createChatCompletion({
