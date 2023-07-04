@@ -8,7 +8,8 @@ type UserState = {
   companyValues: string[];
   companyMissionStatement: string;
   onboardingStep: 1 | 2 | 3;
-  apiResponse: ApiResponse | null; // Add state for API response
+  apiResponse: ApiResponse | null; // State for API response
+  isFetching: boolean; // State for fetch status
 };
 
 type UserContextType = UserState & {
@@ -17,7 +18,8 @@ type UserContextType = UserState & {
   setCompanyValues: (values: string[]) => void;
   setCompanyMissionStatement: (text: string) => void;
   setOnboardingStep: (step: 1 | 2 | 3) => void;
-  setApiResponse: (response: ApiResponse | null) => void; // Add setter for API response
+  setApiResponse: (response: ApiResponse | null) => void; // Setter for API response
+  setIsFetching: (fetching: boolean) => void; // Setter for fetch status
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -33,6 +35,7 @@ export function UserProvider({ children }: UserProviderProps) {
   const [companyMissionStatement, setCompanyMissionStatement] = useState("");
   const [onboardingStep, setOnboardingStep] = useState<1 | 2 | 3>(1);
   const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null); // Initialize state for API response
+  const [isFetching, setIsFetching] = useState(false); // Initialize state for fetch status
 
   return (
     <UserContext.Provider
@@ -43,12 +46,14 @@ export function UserProvider({ children }: UserProviderProps) {
         companyMissionStatement,
         onboardingStep,
         apiResponse, // Provide API response state
+        isFetching, // Provide fetch status state
         setParsedPdfText,
         setJobApplicationText,
         setCompanyValues,
         setCompanyMissionStatement,
         setOnboardingStep,
         setApiResponse, // Provide setter for API response
+        setIsFetching, // Provide setter for fetch status
       }}
     >
       {children}

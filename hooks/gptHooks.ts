@@ -6,7 +6,7 @@ import { useUser } from "contexts/userContext";
 export const useOpenAI = () => {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const { setApiResponse } = useUser();
+  const { setApiResponse, setIsFetching } = useUser();
 
   const generateCoverLetter = async (
     parsedPdfText: string,
@@ -25,6 +25,7 @@ export const useOpenAI = () => {
       setData(response.data.data);
       setApiResponse(response.data.data);
       console.log(response.data.data);
+      setIsFetching(false);
     } catch (err: any) {
       setError(err.message);
     }

@@ -14,7 +14,7 @@ const AddJobStep = () => {
     setCompanyMissionStatement,
     setCompanyValues,
     parsedPdfText,
-    setApiResponse,
+    setIsFetching,
   } = useUser();
   const { data, error, generateCoverLetter } = useOpenAI();
   const [inputFields, setInputFields] = useState([""]);
@@ -50,7 +50,7 @@ const AddJobStep = () => {
     setCompanyValues(inputFields);
     setCompanyMissionStatement(missionStatement);
     setIsLoading(false);
-
+    setIsFetching(true);
     await generateCoverLetter(
       parsedPdfText,
       inputTextField,
