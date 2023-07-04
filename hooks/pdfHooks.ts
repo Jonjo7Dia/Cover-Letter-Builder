@@ -6,7 +6,7 @@ export const usePdfParse = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [parsedText, setParsedText] = useState<string | null>(null);
-  const { setParsedPdfText } = useUser();
+  const { setParsedPdfText, setIsFetching } = useUser();
 
   const parsePdf = async (file: File) => {
     setLoading(true);
@@ -28,6 +28,7 @@ export const usePdfParse = () => {
       const cleanedText = text
         .replace(/\n/g, "<linebreak>")
         .replace(/^\s*[\r\n]/gm, "");
+
       setParsedText(cleanedText);
       setParsedPdfText(cleanedText);
     } catch (err: any) {

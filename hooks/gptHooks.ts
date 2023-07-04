@@ -24,7 +24,6 @@ export const useOpenAI = () => {
 
       setData(response.data.data);
       setApiResponse(response.data.data);
-      console.log(response.data.data);
       setIsFetching(false);
     } catch (err: any) {
       setError(err.message);

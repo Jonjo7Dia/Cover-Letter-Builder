@@ -17,7 +17,7 @@ export default async function handler(
   const { parsedPdfText, jobApplicationText, companyValues, companyMission } =
     req.body;
 
-  const question = `I need you to create a cover letter based on my cv text here (<linebreak> refers to a line break in text) only use the skills pertaining to my cv:
+  const question = `I need you to create a cover letter based on my cv text here (<linebreak> refers to a line break in text) only use the skills pertaining to my cv. if there are company values and mission statemtent seperate them from the "hard skills/ technical skills" and add content related to soft skills if there are experiences related to the values draw on that:
           - ${parsedPdfText}
           This is the job application:
           - Job application text: ${jobApplicationText}

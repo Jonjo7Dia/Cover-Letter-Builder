@@ -7,7 +7,7 @@ import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 
 const UploadCVStep = () => {
-  const { setOnboardingStep } = useUser();
+  const { setOnboardingStep, setIsFetching } = useUser();
   const { loading, error, parsedText, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -63,7 +63,6 @@ const UploadCVStep = () => {
             disabled={!(selectedFile != null) || loading} // disable the button while loading
           />
         </div>
-        {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
       </form>
     </div>

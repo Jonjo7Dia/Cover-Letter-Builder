@@ -5,7 +5,6 @@ import React, { useRef, useEffect } from "react";
 const PreviewCoverLetter = () => {
   const { apiResponse } = useUser();
   const jsonLetter = JSON.parse(apiResponse);
-  console.log(jsonLetter);
 
   // Create a reference to the container div
   const containerRef = useRef<HTMLDivElement>(null);
