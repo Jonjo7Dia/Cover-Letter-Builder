@@ -7,7 +7,7 @@ import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 
 const UploadCVStep = () => {
-  const { setOnboardingStep, setParsedPdfText, parsedPdfText } = useUser();
+  const { setOnboardingStep } = useUser();
   const { loading, error, parsedText, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -38,7 +38,6 @@ const UploadCVStep = () => {
   const handleSubmit = async () => {
     if (selectedFile) {
       await parsePdf(selectedFile);
-      setParsedPdfText(parsedText);
     }
     setOnboardingStep(2);
   };
@@ -62,7 +61,6 @@ const UploadCVStep = () => {
           <SubmitButton
             text={"Next"}
             disabled={!(selectedFile != null) || loading} // disable the button while loading
-            onClick={handleSubmit}
           />
         </div>
         {loading && <p>Loading...</p>}

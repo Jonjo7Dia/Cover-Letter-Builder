@@ -1,10 +1,12 @@
 // utils/useOpenAI.tsx
 import { useState } from "react";
 import axios from "axios";
+import { useUser } from "contexts/userContext";
 
 export const useOpenAI = () => {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<any>(null);
+  const { setApiResponse } = useUser();
 
   const generateCoverLetter = async (
     parsedPdfText: string,
@@ -21,7 +23,8 @@ export const useOpenAI = () => {
       });
 
       setData(response.data.data);
-      console.log(data);
+      setApiResponse(response.data.data);
+      console.log(response.data.data);
     } catch (err: any) {
       setError(err.message);
     }
