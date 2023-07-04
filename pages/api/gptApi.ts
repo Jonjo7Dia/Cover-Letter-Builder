@@ -31,7 +31,7 @@ export default async function handler(
               ? "this is the company's mission: " + companyMission
               : ""
           }
-          return the cover letter in json format with html elements as keys. Only use the skills from the cv. put contact info in the beginning like headers
+          return the cover letter in json format with html elements as keys. Only use the skills from the cv. put contact info in the beginning like headers. please return it like this {title:{}, contactinfo:{}, body:{}} do not nest too many objects
           `;
   try {
     const result = await openai.createChatCompletion({
