@@ -5,6 +5,9 @@ import AddJobStep from "components/addJobStep";
 import PreviewCoverLetter from "components/previewCoverLetter";
 import Loader from "components/loader";
 import { useUser } from "contexts/userContext";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 export default function Index() {
   const { onboardingStep, jobApplicationText, companyValues, isFetching } =
