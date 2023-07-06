@@ -1,12 +1,20 @@
 import styles from "styles/component/coverLetter.module.scss";
+import SubmitButton from "ui/buttons/submit";
 import { useUser } from "contexts/userContext";
 import React, { useRef, useEffect } from "react";
+import { useOpenAI } from "hooks/gptHooks";
 
 const PreviewCoverLetter = () => {
-  const { apiResponse } = useUser();
-  const jsonLetter = JSON.parse(apiResponse);
+  const {
+    apiResponse,
+    parsedPdfText,
+    jobApplicationText,
+    companyValues,
+    companyMissionStatement,
+    setIsFetching,
+  } = useUser();
+  const { generateCoverLetter } = useOpenAI();
 
-  // Create a reference to the container div
   const containerRef = useRef<HTMLDivElement>(null);
 
   const parseContent = (
@@ -22,17 +30,45 @@ const PreviewCoverLetter = () => {
     }
   };
 
-  // After the component has rendered, append the parsed HTML to the container div
+  let jsonLetter: any;
+
+  if (!apiResponse.error) {
+    jsonLetter = JSON.parse(apiResponse);
+  }
+
   useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current && jsonLetter) {
       Object.keys(jsonLetter).forEach((key, i) => {
         const parsedHTML = parseContent(jsonLetter[key], i);
         containerRef.current!.innerHTML += parsedHTML;
       });
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jsonLetter]); // Add jsonLetter to the dependency array
 
-  return <div className={styles["preview"]} ref={containerRef}></div>;
+  if (apiResponse.error) {
+    // Display error message and retry button
+    return (
+      <div className={styles["preview__retry"]}>
+        <p>{apiResponse.error}</p> {/* Display the error message */}
+        <SubmitButton
+          text="Retry"
+          disabled={false}
+          onClick={() => {
+            setIsFetching(true);
+            generateCoverLetter(
+              parsedPdfText,
+              jobApplicationText,
+              companyValues,
+              companyMissionStatement
+            );
+          }}
+        />
+      </div>
+    );
+  } else {
+    return <div className={styles["preview"]} ref={containerRef}></div>;
+  }
 };
 
 export default PreviewCoverLetter;

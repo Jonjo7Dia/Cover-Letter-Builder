@@ -4,9 +4,14 @@ import styles from "styles/ui/button.module.scss";
 type SubmitButtonProps = {
   text: string;
   disabled: boolean;
+  onClick?: () => void;
 };
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ text, disabled }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  text,
+  disabled,
+  onClick,
+}) => {
   return (
     <input
       type="submit"
@@ -15,6 +20,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ text, disabled }) => {
       className={`${styles["submitButton"]} ${
         disabled ? styles["submitButton--disabled"] : ""
       }`}
+      onClick={onClick}
     />
   );
 };

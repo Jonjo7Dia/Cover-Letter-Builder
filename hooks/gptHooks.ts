@@ -15,7 +15,7 @@ export const useOpenAI = () => {
     companyMission: string
   ) => {
     try {
-      const response = await axios.post("/api/gptApi", {
+      const response = await axios.post("/api/gptAi", {
         parsedPdfText,
         jobApplicationText,
         companyValues,
@@ -26,7 +26,10 @@ export const useOpenAI = () => {
       setApiResponse(response.data.data);
       setIsFetching(false);
     } catch (err: any) {
-      setError(err.message);
+      const errorMessage = err.message;
+      setError(errorMessage);
+      setApiResponse({ error: errorMessage }); // set error message in apiResponse
+      setIsFetching(false);
     }
   };
 

@@ -9,6 +9,15 @@
   font-size: rem(16px);
   line-height: 1.5;
   color: #333;
+
+  &__retry {
+    height: rem(500px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: rem(40px);
+  }
   & > * {
     font-family: "Times New Roman", Times, serif;
 
