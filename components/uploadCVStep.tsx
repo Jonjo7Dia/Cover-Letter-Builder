@@ -8,7 +8,7 @@ import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 
 const UploadCVStep = () => {
   const { setOnboardingStep, setIsFetching } = useUser();
-  const { loading, error, parsedText, parsePdf } = usePdfParse();
+  const { error, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleDragOver = (event: React.DragEvent) => {
@@ -36,6 +36,7 @@ const UploadCVStep = () => {
   };
 
   const handleSubmit = async () => {
+    setIsFetching(true);
     if (selectedFile) {
       await parsePdf(selectedFile);
     }
@@ -60,7 +61,7 @@ const UploadCVStep = () => {
         <div className={classes["cv__submit"]}>
           <SubmitButton
             text={"Next"}
-            disabled={!(selectedFile != null) || loading} // disable the button while loading
+            disabled={!(selectedFile != null)} // disable the button while loading
           />
         </div>
         {error && <p>Error: {error}</p>}

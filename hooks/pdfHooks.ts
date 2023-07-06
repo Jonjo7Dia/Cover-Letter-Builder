@@ -3,13 +3,11 @@ import axios from "axios";
 import { useUser } from "contexts/userContext";
 
 export const usePdfParse = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [parsedText, setParsedText] = useState<string | null>(null);
   const { setParsedPdfText, setIsFetching } = useUser();
 
   const parsePdf = async (file: File) => {
-    setLoading(true);
     setError(null);
 
     const formData = new FormData();
@@ -23,7 +21,6 @@ export const usePdfParse = () => {
       });
 
       const text = response.data;
-
       // remove extra spaces and trim the lines
       const cleanedText = text
         .replace(/\n/g, "<linebreak>")
@@ -34,9 +31,9 @@ export const usePdfParse = () => {
     } catch (err: any) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      setIsFetching(false);
     }
   };
 
-  return { loading, error, parsedText, parsePdf };
+  return { error, parsedText, parsePdf };
 };

@@ -65,6 +65,27 @@ export default async function handler(
     res.status(200).json({ data });
   } catch (err: any) {
     console.error(err);
-    res.status(500).json({ error: err.message || "An error occurred." });
+
+    if (err.status === 401) {
+      // Unauthorized Error
+      res
+        .status(401)
+        .json({ error: "Unauthorized. Please check your API key." });
+    } else if (err.status === 429) {
+      // Too Many Requests Error
+      res
+        .status(429)
+        .json({
+          error: "Rate limit exceeded. Please slow down your requests.",
+        });
+    } else if (err.status === 502) {
+      // Bad Gateway Error
+      res
+        .status(502)
+        .json({ error: "Bad gateway. The API server or a proxy is down." });
+    } else {
+      // Generic Error Response
+      res.status(500).json({ error: err.message || "An error occurred." });
+    }
   }
 }
