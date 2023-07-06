@@ -15,7 +15,7 @@ export const useOpenAI = () => {
     companyMission: string
   ) => {
     try {
-      const response = await axios.post("/api/gptAi", {
+      const response = await axios.post("/api/gptApi", {
         parsedPdfText,
         jobApplicationText,
         companyValues,
