@@ -17,7 +17,7 @@ export default async function handler(
   const { parsedPdfText, jobApplicationText, companyValues, companyMission } =
     req.body;
 
-  const question = `I need you to create a cover letter based on my cv text here (<linebreak> refers to a line break in text) only use the skills pertaining to my cv. if there are company values and mission statemtent seperate them from the "hard skills/ technical skills" and add content related to soft skills if there are experiences related to the values draw on that:
+  const question = `I need you to create a cover letter based on my cv text here (<linebreak> refers to a line break in text) only use the skills pertaining to my cv. if there are company values and mission statemtent seperate them from the "hard skills/ technical skills" and add content related to soft skills if there are experiences related to the values draw on that, also include available contact information at the top, dont include anything that i have to input myself:
           - ${parsedPdfText}
           This is the job application:
           - Job application text: ${jobApplicationText}
@@ -31,19 +31,7 @@ export default async function handler(
               ? "this is the company's mission: " + companyMission
               : ""
           }
-          Please generate a cover letter and return it in JSON format, with the following HTML elements as keys: title, contactinfo, and body. Be sure to incorporate the skills from the CV. Insert the contact info at the beginning, as headers. Please include the HTML tags in the JSON response and do not nest more than one object in an object.Here is the format I need:
-          {
-            "title": {
-              "h2": "<h2>Cover Letter for [Position]</h2>"
-            },
-            "contactInfo": {
-              "h3": "<h3>Contact Information</h3>",
-              "p": "<p>Name<br/><br/>Phone: number<br/>Email: email@example.com<br/>LinkedIn: linkedin.com/in/example</p>"
-            },
-            "body": {
-              "p": "<p>Dear Hiring Manager,<br/><br/>[Cover letter body text]<br/><br/>Sincerely,<br/><br/>Name</p>"
-            }
-          }
+           generate a cover letter and return it in a array of objects thats parsable to JSON.parse(), dont include <br> in any of the content ,like this [{htmlTag: "h3/h4/p" , content:"tagContent"}, {element2} , {element3}] salutations and valediction need to be the same html tag as body contents. also include the position of application at the top. dont use h1/h2 tags
           `;
   try {
     const result = await openai.createChatCompletion({
@@ -73,11 +61,9 @@ export default async function handler(
         .json({ error: "Unauthorized. Please check your API key." });
     } else if (err.status === 429) {
       // Too Many Requests Error
-      res
-        .status(429)
-        .json({
-          error: "Rate limit exceeded. Please slow down your requests.",
-        });
+      res.status(429).json({
+        error: "Rate limit exceeded. Please slow down your requests.",
+      });
     } else if (err.status === 502) {
       // Bad Gateway Error
       res
