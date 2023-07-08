@@ -15,6 +15,7 @@ const AddJobStep = () => {
     setCompanyValues,
     parsedPdfText,
     setIsFetching,
+    setApiResponse,
   } = useUser();
   const { data, error, generateCoverLetter } = useOpenAI();
   const [inputFields, setInputFields] = useState([""]);

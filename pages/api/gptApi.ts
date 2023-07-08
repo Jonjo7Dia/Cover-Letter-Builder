@@ -31,7 +31,7 @@ export default async function handler(
               ? "this is the company's mission: " + companyMission
               : ""
           }
-           generate a cover letter and return it in a array of objects thats parsable to JSON.parse(), dont include <br> in any of the content ,like this [{htmlTag: "h3/h4/p" , content:"tagContent"}, {element2} , {element3}] salutations and valediction need to be the same html tag as body contents. also include the position of application at the top. dont use h1/h2 tags
+           generate a cover letter for a document and return it in a array of objects thats parsable to JSON.parse(), dont include <br> in any of the content ,like this [{htmlTag: "h3/h4/p" , content:"tagContent"}, {element2} , {element3}] salutations and valediction need to be the same html tag as body contents. also include the position of application at the top. dont use h1/h2 tags
           `;
   try {
     const result = await openai.createChatCompletion({
