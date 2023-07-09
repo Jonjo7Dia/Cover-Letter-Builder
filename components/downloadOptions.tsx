@@ -1,4 +1,5 @@
 import DropDown from "ui/buttons/dropdown";
+import generateDOCX from "utils/docxFileDownload";
 import generatePDF from "utils/pdfFileDownload";
 
 type DownloadOptionProps = {
@@ -10,7 +11,7 @@ const DownloadOptions: React.FC<DownloadOptionProps> = ({ text }) => {
     generatePDF({ text });
   };
   const docxDownload = () => {
-    alert("docx download not ready yet");
+    generateDOCX({ text });
   };
   const copyText = () => {
     alert("copy text not ready yet");
