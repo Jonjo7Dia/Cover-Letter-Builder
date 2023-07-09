@@ -40,7 +40,7 @@ export default async function handler(
         {
           role: "system",
           content:
-            "you are a cover letter writer using the users cv to help write a nice coverletter to a job application. only use the available information of the cv but highight the relvant experience and skills",
+            "you are a cover letter writer using the users cv to help write a nice coverletter to a job application. only use the available information of the cv but highight the relvant experience and skills, dont place any information that the user has to input themselves",
         },
         {
           role: "user",
