@@ -51,13 +51,59 @@ const AddJobStep = () => {
     setCompanyValues(inputFields);
     setCompanyMissionStatement(missionStatement);
     setIsLoading(false);
-    setIsFetching(true);
-    await generateCoverLetter(
-      parsedPdfText,
-      inputTextField,
-      inputFields,
-      missionStatement
-    );
+    // setIsFetching(true);
+    // await generateCoverLetter(
+    //   parsedPdfText,
+    //   inputTextField,
+    //   inputFields,
+    //   missionStatement
+    // );
+    setApiResponse(`[
+        {
+          "htmlTag": "p",
+          "content": "Subject: Application for Front End Developer Position"
+        },
+        {
+          "htmlTag": "p",
+          "content": "Dear Hiring Manager,"
+        },
+        {
+          "htmlTag": "p",
+          "content": "I am writing to apply for the Front End Developer position at Allakando. With my strong background in front end development and experience in managing projects, I am confident in my ability to contribute to the development of your next generation educational platform."
+        },
+        {
+          "htmlTag": "p",
+          "content": "In my previous role as a Web Developer at Luna Web Design, I was responsible for collaborating with designers to create clean and intuitive user interfaces. I also worked closely with senior developers to manage large and complex design projects for corporate clients. My experience includes completing detailed programming and development tasks for front end websites, as well as conducting quality assurance tests to optimize usability."
+        },
+        {
+          "htmlTag": "p",
+          "content": "I have a Bachelor of Science degree in Computer Information Systems from Columbia University, where I learned various programming languages including HTML5, PHP OOP, JavaScript, CSS, and SQL. I have also obtained certifications in PHP frameworks such as Zend, Codeigniter, and Symfony, further enhancing my technical skills."
+        },
+        {
+          "htmlTag": "p",
+          "content": "Throughout my career, I have demonstrated strong project management skills, making sound decisions and solving complex problems. I am a creative and innovative thinker, always striving to deliver design solutions that meet user needs. Additionally, I am service-focused, consistently putting customer satisfaction at the forefront of my work."
+        },
+        {
+          "htmlTag": "p",
+          "content": "I am thrilled about the opportunity to work on Allakando's next generation educational platform, contributing to the modernization of existing solutions and helping shape the technical architecture for the company's entire digital offering. I am highly proficient in JavaScript and have experience with modern front end frameworks, making me well-suited for this role."
+        },
+        {
+          "htmlTag": "p",
+          "content": "I share your company's values of accelerating growth academically and personally, and I am excited to join an innovative environment that promotes personal development. I am also keen on participating in open source initiatives, and I believe my passion for exploring new technologies aligns well with Allakando's goals."
+        },
+        {
+          "htmlTag": "p",
+          "content": "Thank you for considering my application. I have attached my CV for your review, and I look forward to the opportunity to discuss how my skills and experience can contribute to the success of Allakando. Please feel free to reach me via phone at +49 800 600 600 or email at christoper.morgan@gmail.com."
+        },
+        {
+          "htmlTag": "p",
+          "content": "Best regards,"
+        },
+        {
+          "htmlTag": "p",
+          "content": "Christopher Morgan"
+        }
+      ]`);
     setOnboardingStep(3);
   };
 

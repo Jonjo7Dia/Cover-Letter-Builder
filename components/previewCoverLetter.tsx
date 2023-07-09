@@ -3,8 +3,7 @@ import SubmitButton from "ui/buttons/submit";
 import { useUser } from "contexts/userContext";
 import React, { useRef, useEffect } from "react";
 import { useOpenAI } from "hooks/gptHooks";
-import DownloadPDF from "./pdfFileDownload";
-import { useState } from "react";
+import DownloadOptions from "./downloadOptions";
 const PreviewCoverLetter = () => {
   const {
     apiResponse,
@@ -58,7 +57,9 @@ const PreviewCoverLetter = () => {
     return (
       <>
         <div className={styles["preview"]} ref={containerRef}></div>
-        <DownloadPDF text={apiResponse} />
+        <div className={`${styles["preview__download"]}`}>
+          <DownloadOptions text={apiResponse} />
+        </div>
       </>
     );
   }

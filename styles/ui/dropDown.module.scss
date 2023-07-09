@@ -1,0 +1,62 @@
+@import "../variables.scss";
+.dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: rem(5px) rem(10px);
+  border: solid rem(1px) $color-main-blue;
+  border-radius: rem(4px);
+  gap: rem(10px);
+  height: auto;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-main-blue;
+    color: $color-white;
+  }
+
+  &__clicked {
+    border-bottom-color: $color-white;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    &:hover {
+      background-color: transparent;
+      color: $color-black;
+    }
+  }
+
+  &__label {
+    user-select: none;
+    font-family: "Roboto";
+  }
+
+  &__options {
+    position: absolute;
+    width: calc(100% + rem(2px));
+    top: 100%;
+    border: solid rem(1px) $color-main-blue;
+    border-top: none;
+    display: none;
+    border-bottom-left-radius: rem(4px);
+    border-bottom-right-radius: rem(4px);
+    &--show {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__option {
+    width: 100%;
+    padding: rem(5px) rem(10px);
+
+    &:hover {
+      background-color: $color-main-blue;
+      color: $color-white;
+    }
+
+    &-name {
+      user-select: none;
+    }
+  }
+}

@@ -6,8 +6,9 @@ import {
   Text,
   StyleSheet,
   PDFDownloadLink,
-  Font,
+  pdf,
 } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 
 const styles = StyleSheet.create({
   page: {
@@ -88,21 +89,11 @@ const MyDocument: React.FC<DownloadPDFProps> = ({ text }) => (
   </Document>
 );
 
-const DownloadPDF: React.FC<DownloadPDFProps> = ({ text }) => {
-  return (
-    <PDFDownloadLink
-      document={<MyDocument text={JSON.parse(text)} />}
-      fileName="cover_letter.pdf"
-    >
-      {({ loading }) =>
-        loading ? (
-          "Loading document..."
-        ) : (
-          <SubmitButton disabled={false} text={"Download PDF"} />
-        )
-      }
-    </PDFDownloadLink>
-  );
+const generatePDF = ({ text }: DownloadPDFProps) => {
+  const blob = pdf(<MyDocument text={JSON.parse(text)} />).toBlob();
+  blob.then((blob) => {
+    saveAs(blob, "Coverletter.pdf");
+  });
 };
 
-export default DownloadPDF;
+export default generatePDF;
