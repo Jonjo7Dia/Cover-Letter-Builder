@@ -58,7 +58,7 @@ const PreviewCoverLetter = () => {
       <>
         <div className={styles["preview"]} ref={containerRef}></div>
         <div className={`${styles["preview__download"]}`}>
-          <DownloadOptions text={apiResponse} />
+          <DownloadOptions text={apiResponse} textToCopy={containerRef} />
         </div>
       </>
     );
