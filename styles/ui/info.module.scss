@@ -13,7 +13,7 @@
 
   &__tooltip {
     visibility: hidden;
-    width: rem(400px);
+    width: rem(240px);
     background-color: $color-white;
     border: solid rem(1px) $color-main-blue;
     color: $color-black;
@@ -23,16 +23,26 @@
     position: absolute;
     z-index: 1;
     bottom: calc(100% + rem(10px));
+    transform: translateX(-40%);
+
+    @include breakpoint(sm) {
+      width: rem(400px);
+      transform: translateX(0);
+    }
 
     &::after {
       content: " ";
       position: absolute;
       top: 100%; /* At the bottom of the tooltip */
-      left: 50%;
+      left: 90%;
       margin-left: rem(-5px);
       border-width: rem(5px);
       border-style: solid;
       border-color: $color-main-blue transparent transparent transparent;
+
+      @include breakpoint(sm) {
+        left: 50%;
+      }
     }
   }
 

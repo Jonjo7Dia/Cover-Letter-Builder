@@ -1,7 +1,7 @@
 @import "../variables.scss";
 .steps {
   &__wrapper {
-    width: rem(500px);
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -9,6 +9,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @include breakpoint(sm) {
+      width: rem(500px);
+    }
   }
   &__step {
     display: flex;

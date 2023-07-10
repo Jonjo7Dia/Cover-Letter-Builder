@@ -7,7 +7,7 @@
   font-size: rem(18px);
   color: $color-white;
   border-radius: rem(4px);
-
+  min-height: rem(55px);
   &:hover {
     cursor: pointer;
   }

@@ -1,6 +1,6 @@
 @import "../variables.scss";
 .preview {
-  width: rem(700px);
+  width: 100%;
   margin: 0 auto;
   padding: rem(20px);
   border: solid rem(1px) $color-main-blue;
@@ -9,6 +9,10 @@
   font-size: rem(16px);
   line-height: 1.5;
   color: #333;
+
+  @include breakpoint(sm) {
+    width: rem(700px);
+  }
 
   &__retry {
     height: rem(500px);
@@ -67,8 +71,12 @@
 }
 
 .preview__download {
-  width: rem(700px);
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
+
+  @include breakpoint(sm) {
+    width: rem(700px);
+  }
 }

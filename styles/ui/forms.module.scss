@@ -4,5 +4,9 @@
   flex-direction: column;
   align-items: center;
   gap: rem(30px);
-  width: rem(568px);
+  width: 100%;
+
+  @include breakpoint(sm) {
+    width: rem(568px);
+  }
 }

@@ -48,29 +48,27 @@ const UploadCVStep = () => {
   };
 
   return (
-    <div>
-      <form
-        className={styles["form"]}
-        onSubmit={(event) => {
-          event.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <InputFile
-          selectedFile={selectedFile}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
-          handleChange={handleChange}
+    <form
+      className={styles["form"]}
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <InputFile
+        selectedFile={selectedFile}
+        handleDragOver={handleDragOver}
+        handleDrop={handleDrop}
+        handleChange={handleChange}
+      />
+      <div className={classes["cv__submit"]}>
+        <SubmitButton
+          text={"Next"}
+          disabled={!(selectedFile != null)} // disable the button while loading
         />
-        <div className={classes["cv__submit"]}>
-          <SubmitButton
-            text={"Next"}
-            disabled={!(selectedFile != null)} // disable the button while loading
-          />
-        </div>
-        {error && <p>Error: {error}</p>}
-      </form>
-    </div>
+      </div>
+      {error && <p>Error: {error}</p>}
+    </form>
   );
 };
 
