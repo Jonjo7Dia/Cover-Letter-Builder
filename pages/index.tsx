@@ -7,18 +7,19 @@ import Loader from "components/loader";
 import { useUser } from "contexts/userContext";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Layout from "components/layout";
 config.autoAddCss = false;
 
 export default function Index() {
   const { onboardingStep, jobApplicationText, companyValues, isFetching } =
     useUser();
   return (
-    <main>
+    <Layout>
       <Steps />
       {onboardingStep == 1 && !isFetching && <UploadCVStep />}
       {onboardingStep == 2 && !isFetching && <AddJobStep />}
       {onboardingStep == 3 && !isFetching && <PreviewCoverLetter />}
       {isFetching && <Loader />}
-    </main>
+    </Layout>
   );
 }

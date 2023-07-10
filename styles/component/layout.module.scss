@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.layout {
+  &__wrapper {
+    width: 100%;
+    height: rem(200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: rem(10px);
+  }
+
+  &__logo {
+    width: rem(600px);
+    max-width: 100%;
+    height: max-content;
+    left: rem(10px);
+    top: rem(10px);
+  }
+}

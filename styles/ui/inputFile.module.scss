@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  position: relative;
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -46,5 +46,12 @@
   &__format {
     font-weight: 300;
     color: $color-dark-grey;
+  }
+
+  &__instructions {
+    top: rem(45px);
+    position: absolute;
+    width: 100%;
+    text-align: center;
   }
 }

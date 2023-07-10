@@ -80,6 +80,9 @@ abbr,
 acronym {
   border: 0;
 }
+header {
+  position: relative;
+}
 
 main {
   position: relative;
@@ -87,8 +90,8 @@ main {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: rem(30px);
-  padding: rem(50px) rem(10px);
+  gap: rem(40px);
+  padding: 0 rem(10px);
   padding-bottom: rem(200px);
 
   @include breakpoint(sm) {
