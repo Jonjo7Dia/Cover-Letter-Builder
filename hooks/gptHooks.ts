@@ -20,6 +20,7 @@ export const useOpenAI = () => {
         jobApplicationText,
         companyValues,
         companyMission,
+        temperature: 0.0,
       });
 
       setData(response.data.data);

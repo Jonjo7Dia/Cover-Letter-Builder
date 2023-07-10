@@ -1,9 +1,10 @@
 import styles from "styles/component/coverLetter.module.scss";
 import SubmitButton from "ui/buttons/submit";
 import { useUser } from "contexts/userContext";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useOpenAI } from "hooks/gptHooks";
 import DownloadOptions from "./downloadOptions";
+
 const PreviewCoverLetter = () => {
   const {
     apiResponse,
@@ -16,6 +17,8 @@ const PreviewCoverLetter = () => {
   const { generateCoverLetter } = useOpenAI();
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
 
   const parseContent = (contentElement: {
     htmlTag: string;
@@ -25,12 +28,34 @@ const PreviewCoverLetter = () => {
     return `<${htmlTag}>${content}</${htmlTag}>`;
   };
 
+  const regenerateCoverLetter = () => {
+    if (retryCount < maxRetries) {
+      setIsFetching(true);
+      generateCoverLetter(
+        parsedPdfText,
+        jobApplicationText,
+        companyValues,
+        companyMissionStatement
+      );
+      setRetryCount(retryCount + 1);
+    } else {
+      console.error(
+        "Maximum retries reached. Failed to regenerate cover letter."
+      );
+    }
+  };
+
   useEffect(() => {
     if (containerRef.current && !apiResponse.error) {
-      const coverLetter = JSON.parse(apiResponse);
-      const parsedHTMLArray = coverLetter.map(parseContent);
-      const combinedHTML = parsedHTMLArray.join("");
-      containerRef.current!.innerHTML = combinedHTML;
+      try {
+        const coverLetter = JSON.parse(apiResponse);
+        const parsedHTMLArray = coverLetter.map(parseContent);
+        const combinedHTML = parsedHTMLArray.join("");
+        containerRef.current.innerHTML = combinedHTML;
+      } catch (error) {
+        console.error("Error parsing cover letter JSON:", error);
+        regenerateCoverLetter();
+      }
     }
   }, [apiResponse]);
 
@@ -41,15 +66,7 @@ const PreviewCoverLetter = () => {
         <SubmitButton
           text="Retry"
           disabled={false}
-          onClick={() => {
-            setIsFetching(true);
-            generateCoverLetter(
-              parsedPdfText,
-              jobApplicationText,
-              companyValues,
-              companyMissionStatement
-            );
-          }}
+          onClick={regenerateCoverLetter}
         />
       </div>
     );
