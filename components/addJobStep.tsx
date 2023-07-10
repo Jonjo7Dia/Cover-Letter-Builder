@@ -70,7 +70,7 @@ const AddJobStep = () => {
       }}
     >
       <InputText
-        placeholder="Paste Job Application..."
+        placeholder="Copy & Paste Content of the Job Ad..."
         onChange={handleInputTextField}
       />
       <RepeatInputString
