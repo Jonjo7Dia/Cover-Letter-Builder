@@ -11,15 +11,19 @@ import Layout from "components/layout";
 config.autoAddCss = false;
 
 export default function Index() {
-  const { onboardingStep, jobApplicationText, companyValues, isFetching } =
-    useUser();
+  const { onboardingStep, isFetching } = useUser();
+  console.log(onboardingStep);
   return (
     <Layout>
       <Steps />
       {onboardingStep == 1 && !isFetching && <UploadCVStep />}
       {onboardingStep == 2 && !isFetching && <AddJobStep />}
       {onboardingStep == 3 && !isFetching && <PreviewCoverLetter />}
-      {isFetching && <Loader />}
+      {isFetching && (
+        <Loader
+          text={"This can take up to 30 seconds, Our tailor is busy at work"}
+        />
+      )}
     </Layout>
   );
 }

@@ -5,7 +5,6 @@ import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
 import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
-import DropDown from "ui/buttons/dropdown";
 
 const UploadCVStep = () => {
   const { setOnboardingStep, setIsFetching } = useUser();
