@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+.restart {
+  display: flex;
+  flex-direction: row;
+  gap: rem(10px);
+  width: 100%;
+  flex-wrap: wrap-reverse;
+
+  @include breakpoint(sm) {
+    width: auto;
+  }
+}

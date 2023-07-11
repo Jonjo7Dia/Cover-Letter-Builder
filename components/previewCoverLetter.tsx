@@ -4,6 +4,7 @@ import { useUser } from "contexts/userContext";
 import React, { useRef, useEffect, useState } from "react";
 import { useOpenAI } from "hooks/gptHooks";
 import DownloadOptions from "./downloadOptions";
+import Restart from "./restartSteps";
 
 const PreviewCoverLetter = () => {
   const {
@@ -57,6 +58,7 @@ const PreviewCoverLetter = () => {
         regenerateCoverLetter();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponse]);
 
   if (apiResponse.error) {
@@ -75,6 +77,7 @@ const PreviewCoverLetter = () => {
       <>
         <div className={styles["preview"]} ref={containerRef}></div>
         <div className={`${styles["preview__download"]}`}>
+          <Restart />
           <DownloadOptions text={apiResponse} textToCopy={containerRef} />
         </div>
       </>

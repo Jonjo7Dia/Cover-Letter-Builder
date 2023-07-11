@@ -4,7 +4,7 @@ import pdfParse from "pdf-parse";
 
 export const config = {
   api: {
-    bodyParser: false, // Disabling Next.js's body parser as Multer will handle the file data
+    bodyParser: false,
   },
 };
 

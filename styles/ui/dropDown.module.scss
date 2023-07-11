@@ -40,6 +40,8 @@
     display: none;
     border-bottom-left-radius: rem(4px);
     border-bottom-right-radius: rem(4px);
+    z-index: 1;
+    background-color: white;
     &--show {
       display: flex;
       flex-direction: column;

@@ -74,9 +74,13 @@
   width: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
+  gap: rem(10px);
+  justify-content: space-between;
 
   @include breakpoint(sm) {
+    flex-direction: row;
+    gap: 0;
     width: rem(700px);
   }
 }
