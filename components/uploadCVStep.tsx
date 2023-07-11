@@ -42,9 +42,13 @@ const UploadCVStep = () => {
   const handleSubmit = async () => {
     setIsFetching(true);
     if (selectedFile) {
-      await parsePdf(selectedFile);
+      const isParsed = await parsePdf(selectedFile);
+      if (isParsed) {
+        setOnboardingStep(2);
+      }
+    } else {
+      setIsFetching(false);
     }
-    setOnboardingStep(2);
   };
 
   return (

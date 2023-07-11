@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "contexts/userContext";
+import Filter from "bad-words";
 
 export const usePdfParse = () => {
   const [error, setError] = useState<string | null>(null);
@@ -9,6 +10,7 @@ export const usePdfParse = () => {
 
   const parsePdf = async (file: File) => {
     setError(null);
+    const filter = new Filter();
 
     const formData = new FormData();
     formData.append("file", file);
@@ -21,7 +23,12 @@ export const usePdfParse = () => {
       });
 
       const text = response.data;
-      // remove extra spaces and trim the lines
+
+      if (filter.isProfane(text)) {
+        setError("The provided PDF contains inappropriate language.");
+        alert("The provided PDF contains inappropriate language.");
+        return false;
+      }
       const cleanedText = text
         .replace(/\n/g, "<linebreak>")
         .replace(/^\s*[\r\n]/gm, "");
@@ -30,9 +37,12 @@ export const usePdfParse = () => {
       setParsedPdfText(cleanedText);
     } catch (err: any) {
       setError(err.message);
+      return false;
     } finally {
       setIsFetching(false);
     }
+
+    return true;
   };
 
   return { error, parsedText, parsePdf };
