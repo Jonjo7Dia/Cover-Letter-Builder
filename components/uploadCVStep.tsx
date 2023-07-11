@@ -21,8 +21,10 @@ const UploadCVStep = () => {
     const files = event.dataTransfer.files;
     if (files.length) {
       const file = files[0];
-      if (file.type === "application/pdf") {
+      if (file.type === "application/pdf" && file.size < 100000) {
         setSelectedFile(file);
+      } else if (file.size > 100000) {
+        alert("File size is to big, it should be less than 150kb for a cv");
       } else {
         alert("Only PDF files can be uploaded");
       }
@@ -31,14 +33,12 @@ const UploadCVStep = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (files) {
+    if (files && files[0].size < 100000) {
       setSelectedFile(files[0]);
+    } else if (files && files[0].size > 100000) {
+      alert("File size is to big, it should be less than 100KB for a cv");
     }
   };
-  const peace = () => {
-    console.log("pdf");
-  };
-
   const handleSubmit = async () => {
     setIsFetching(true);
     if (selectedFile) {
