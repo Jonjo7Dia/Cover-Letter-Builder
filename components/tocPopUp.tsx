@@ -13,10 +13,17 @@ const TermsPopUp: React.FC<tocProps> = ({ setTOC }) => {
       <div className={styles["toc"]}>
         <h2 className={styles["toc__header"]}>Agreement of Usage</h2>
         <p className={styles["toc__content"]}>
-          using this application you accept the following basic rules
+          Using this application you accept the following basic rules:
         </p>
+        <ul>
+          <li>
+            Your CV content will be processed for the purpose of generating a
+            cover letter. The content will not be used to train any AI models.
+          </li>
+          <li>Please avoid including malicious content in your uploads.</li>
+        </ul>
         <Link href={"/terms-and-conditions"} className={styles["toc__link"]}>
-          Read More
+          Read more about our terms and privacy
         </Link>
         <div className={styles["toc__buttons"]}>
           <SubmitButton

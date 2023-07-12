@@ -2,8 +2,16 @@
 import "styles/global.scss";
 import styles from "styles/pages/terms.module.scss";
 import Layout from "components/layout";
-
+import SubmitButton from "ui/buttons/submit";
+import { useRouter } from "next/router";
 export default function TermsAndConditions() {
+  const router = useRouter();
+
+  const handleAccept = () => {
+    localStorage.setItem("userHasAcceptedTOC", "true");
+    router.push("/");
+  };
+
   return (
     <Layout>
       {
@@ -134,6 +142,12 @@ export default function TermsAndConditions() {
           </p>
 
           <p>This document was last updated on July 12, 2023.</p>
+
+          <SubmitButton
+            text={"Accept"}
+            disabled={false}
+            onClick={handleAccept}
+          />
         </div>
       }
     </Layout>

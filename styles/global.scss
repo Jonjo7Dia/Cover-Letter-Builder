@@ -55,7 +55,16 @@ var {
   font-style: normal;
   font-weight: normal;
 }
+ul,
+ol {
+  list-style-position: inside;
+  padding-left: 1em;
 
+  li {
+    text-indent: -1em;
+    margin-bottom: 1rem;
+  }
+}
 caption,
 th {
   text-align: left;
