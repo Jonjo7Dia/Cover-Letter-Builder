@@ -50,9 +50,6 @@ export default function Index() {
           )}
         </>
       )}
-      <Loader
-        text={"This can take up to 30 seconds, our tailor is busy at work"}
-      />
     </Layout>
   );
 }
