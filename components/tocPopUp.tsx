@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import styles from "styles/component/tocPopup.module.scss";
 import SubmitButton from "ui/buttons/submit";
@@ -20,11 +21,23 @@ const TermsPopUp: React.FC<tocProps> = ({ setTOC }) => {
             Your CV content will be processed for the purpose of generating a
             cover letter. Your data will not be used to train any AI models.
           </li>
+          <li>
+            We use Netlify for website tracking to improve our service and user
+            experience, but we do not collect any personally identifiable
+            information.
+          </li>
           <li>Please avoid including malicious content in your uploads.</li>
         </ul>
-        <Link href={"/terms-and-conditions"} className={styles["toc__link"]}>
-          Read more about our terms and privacy
+        <Link href={"/terms-and-conditions"}>
+          <a className={styles["toc__link"]}>
+            Read more about our terms and privacy
+          </a>
         </Link>
+        <p>
+          By clicking "Accept," you acknowledge these terms and confirm that you
+          have read our terms and conditions page, which includes more details
+          about how we use data.
+        </p>
         <div className={styles["toc__buttons"]}>
           <SubmitButton
             text={"Accept"}

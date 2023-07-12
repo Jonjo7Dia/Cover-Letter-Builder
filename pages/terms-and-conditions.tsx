@@ -76,6 +76,16 @@ export default function TermsAndConditions() {
             of our users.
           </p>
           <p>
+            In addition, we use Netlify for website tracking purposes. Netlify
+            collects metadata about your visit, including your IP address and
+            the pages you view. However, we don't use Netlify to collect any
+            personally identifiable information about you. The purpose of this
+            tracking is to help us improve our service, understand our user
+            base, and provide you with a better user experience. You can read
+            more about how Netlify handles data in their{" "}
+            <a href="https://www.netlify.com/privacy/">Privacy Policy</a>.
+          </p>
+          <p>
             By using our Service, you acknowledge and agree to this use of data.
             Please note that the usage of the OpenAI API is subject to OpenAIs
             own terms and conditions, which can be found{" "}
