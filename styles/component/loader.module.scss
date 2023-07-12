@@ -8,6 +8,15 @@
     gap: rem(30px);
     justify-content: center;
     align-items: center;
+    width: 100%;
+
+    @include breakpoint(sm) {
+      width: rem(700px);
+    }
+    & > p {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   &__animation {
@@ -17,11 +26,6 @@
     border: 9px solid #5a4ff3;
     animation: spinner-bulqg1 0.8s infinite linear alternate,
       spinner-oaa3wk 1.6s infinite linear;
-  }
-
-  & > p {
-    width: 100%;
-    text-align: center;
   }
 }
 
