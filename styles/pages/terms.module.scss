@@ -1,0 +1,54 @@
+@import "../variables.scss";
+.terms {
+  width: 100%;
+
+  @include breakpoint(sm) {
+    width: rem(700px);
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    gap: rem(20px);
+  }
+
+  &__header {
+    font-size: rem(34px);
+  }
+
+  & > h1,
+  h2,
+  h3 {
+    color: #444;
+  }
+
+  & > h1 {
+    margin-bottom: 20px;
+  }
+
+  & > h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  & > h3 {
+    margin-bottom: 10px;
+  }
+
+  & > ul {
+    padding-left: 20px;
+    list-style: disc;
+  }
+
+  & > li {
+    margin-bottom: 10px;
+  }
+
+  & > a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  & > a:hover {
+    text-decoration: underline;
+  }
+}

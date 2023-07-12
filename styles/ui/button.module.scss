@@ -8,16 +8,27 @@
   color: $color-white;
   border-radius: rem(4px);
   min-height: rem(55px);
+  border: solid rem(1px) $color-main-blue;
+
   &:hover {
     cursor: pointer;
   }
 
   &--disabled {
     background-color: $color-main-blue-transparent;
-    border: solid rem(1px) $color-main-blue;
 
     &:hover {
       cursor: inherit;
+    }
+  }
+
+  &--secondary {
+    background-color: $color-white;
+    color: $color-main-blue;
+
+    &:hover {
+      background-color: $color-main-blue;
+      color: $color-white;
     }
   }
 }

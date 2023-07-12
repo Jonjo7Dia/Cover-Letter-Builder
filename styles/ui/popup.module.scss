@@ -1,0 +1,18 @@
+@import "../variables.scss";
+
+.popup {
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  background-color: $color-white;
+  border: solid 1px $color-main-blue;
+  min-height: rem(200px);
+  border-radius: rem(4px);
+  padding: rem(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include breakpoint(xs) {
+    width: 480px;
+  }
+}

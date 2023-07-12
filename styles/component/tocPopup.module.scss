@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.toc {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: rem(15px);
+
+  &__header {
+    font-size: rem(24px);
+    color: $color-main-blue;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__buttons {
+    margin-top: rem(10px);
+  }
+}
