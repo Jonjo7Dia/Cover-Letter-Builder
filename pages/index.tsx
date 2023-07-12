@@ -44,7 +44,7 @@ export default function Index() {
           {isFetching && (
             <Loader
               text={
-                "This can take up to 30 seconds, Our tailor is busy at work"
+                "This can take up to 30 seconds, our tailor is busy at work"
               }
             />
           )}

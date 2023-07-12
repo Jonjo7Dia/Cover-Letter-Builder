@@ -18,6 +18,11 @@
     animation: spinner-bulqg1 0.8s infinite linear alternate,
       spinner-oaa3wk 1.6s infinite linear;
   }
+
+  & > p {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @keyframes spinner-bulqg1 {

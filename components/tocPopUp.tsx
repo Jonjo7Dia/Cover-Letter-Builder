@@ -18,7 +18,7 @@ const TermsPopUp: React.FC<tocProps> = ({ setTOC }) => {
         <ul>
           <li>
             Your CV content will be processed for the purpose of generating a
-            cover letter. The content will not be used to train any AI models.
+            cover letter. Your data will not be used to train any AI models.
           </li>
           <li>Please avoid including malicious content in your uploads.</li>
         </ul>

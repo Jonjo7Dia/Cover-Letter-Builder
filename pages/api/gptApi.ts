@@ -41,7 +41,7 @@ export default async function handler(
               ? "this is the company's mission: " + companyMission
               : ""
           }
-           generate a cover letter for a document and return it in a array of objects thats parsable to JSON.parse(), dont include <br> in any of the content ,like this [{htmlTag: "h3/h4/p" , content:"tagContent"}, {element2} , {element3}] salutations and valediction need to be the same html tag as body contents. also include the position of application at the top. Requirements: dont use h1/h2 tags, dont use subheadings, dont include company address or personal address, dont include things I have to input,. 
+           generate a cover letter for a document with a maximum of 350 words, and return it in a array of objects thats parsable to JSON.parse(), dont include <br> in any of the content ,like this [{htmlTag: "h3/h4/p" , content:"tagContent"}, {element2} , {element3}] salutations and valediction need to be the same html tag as body contents. also include the position of application at the top. Requirements: dont use h1/h2 tags, dont use subheadings, dont include company address or personal address, dont include things I have to input,. 
            Always format the cover letter as follows:
            (beginning)
            Name: Your Name
