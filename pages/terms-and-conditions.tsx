@@ -89,7 +89,7 @@ export default function TermsAndConditions() {
             By using our Service, you acknowledge and agree to this use of data.
             Please note that the usage of the OpenAI API is subject to OpenAIs
             own terms and conditions, which can be found{" "}
-            <a href="https://platform.openai.com/docs/use-case-policy">here</a>.
+            <a href="https://openai.com/policies/privacy-policy">here</a>.
           </p>
 
           <h2>Prohibited Activities</h2>
