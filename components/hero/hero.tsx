@@ -2,7 +2,7 @@ import styles from "styles/component/hero.module.scss";
 import HeroProduct from "./heroProduct";
 const Hero = () => {
   return (
-    <div className={`${styles["hero"]}`}>
+    <div className={styles["hero"]}>
       <div className={styles["hero__content"]}>
         <h1 className={styles["hero__title"]}>
           Shaping Applications, <br /> Shaping Careers

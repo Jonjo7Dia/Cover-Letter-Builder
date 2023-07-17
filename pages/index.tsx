@@ -11,6 +11,7 @@ import Layout from "components/layout";
 import TermsPopUp from "components/tocPopUp";
 import React, { useEffect, useState } from "react";
 import Hero from "components/hero/hero";
+import Usp from "components/usp/usp";
 config.autoAddCss = false;
 
 export default function Index() {
@@ -38,6 +39,7 @@ export default function Index() {
       {!acceptedTOC && <TermsPopUp setTOC={tocHandler} />}
 
       {acceptedTOC && <Hero />}
+      {acceptedTOC && <Usp />}
     </Layout>
   );
 }

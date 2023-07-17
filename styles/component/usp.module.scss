@@ -1,0 +1,55 @@
+@import "../variables.scss";
+
+.usp {
+  display: flex;
+  flex-direction: column;
+  padding: rem(100px) rem(10px);
+  align-items: center;
+  font-family: "Roboto";
+
+  &__header {
+    font-size: rem(32px);
+    margin-bottom: rem(16px);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__subheader {
+    text-align: center;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(82px);
+    width: 100%;
+    gap: rem(60px);
+  }
+
+  &__card {
+    background-color: $color-light-blue;
+    width: 100%;
+    border-radius: rem(4px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: rem(45px) rem(10px);
+    gap: rem(15px);
+    box-shadow: $box-shadow;
+    &-title {
+      font-size: rem(20px);
+      font-weight: 700;
+    }
+    &-description {
+      text-align: center;
+      font-size: rem(18px);
+      font-weight: 300;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+  }
+}
