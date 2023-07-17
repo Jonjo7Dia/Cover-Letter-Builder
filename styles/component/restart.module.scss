@@ -6,7 +6,7 @@
   gap: rem(10px);
   width: 100%;
   flex-wrap: wrap-reverse;
-
+  justify-content: center;
   @include breakpoint(sm) {
     width: auto;
   }

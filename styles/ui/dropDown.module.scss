@@ -9,7 +9,7 @@
   gap: rem(10px);
   height: auto;
   position: relative;
-
+  background-color: $color-white;
   &:hover {
     cursor: pointer;
     background-color: $color-main-blue;

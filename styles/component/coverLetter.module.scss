@@ -9,6 +9,7 @@
   font-size: rem(16px);
   line-height: 1.5;
   color: #333;
+  background-color: $color-white;
 
   @include breakpoint(sm) {
     width: rem(700px);
