@@ -106,3 +106,14 @@ main {
   font-family: "Roboto";
   box-sizing: border-box;
 }
+
+.wrapper {
+  width: 100%;
+  max-width: rem(1280px);
+  margin: 0 auto;
+  padding: 0 rem(10px);
+
+  @include breakpoint(lg) {
+    padding: 0 rem(50px);
+  }
+}

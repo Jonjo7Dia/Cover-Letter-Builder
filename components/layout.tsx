@@ -1,7 +1,7 @@
 import styles from "styles/component/layout.module.scss";
 import React, { ReactNode } from "react";
 import Image from "next/image";
-import logo from "assets/tApplicationSlogan.svg";
+import logo from "assets/tailoredApplicationLogo.svg";
 import SEO from "components/seo";
 interface LayoutProps {
   children: ReactNode;
@@ -12,13 +12,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <SEO />
       <header>
-        <div className={styles["layout__wrapper"]}>
+        <nav className={`${styles["layout__nav"]} wrapper`}>
           <Image
             src={logo}
-            alt={"TailoredApplication Logo"}
-            className={styles["layout__logo"]}
+            alt={"Logo"}
+            className={styles["layout__nav-logo"]}
           />
-        </div>
+        </nav>
       </header>
       <main>{children}</main>
     </>
