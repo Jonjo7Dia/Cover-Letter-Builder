@@ -1,4 +1,5 @@
 @import "@fontsource/roboto";
+@import "@fontsource/inter";
 @import "./variables.scss";
 /* CSS reset */
 body,
@@ -94,7 +95,6 @@ main {
   align-items: center;
   width: 100%;
   gap: rem(40px);
-  padding: 0 rem(10px);
   padding-bottom: rem(200px);
 
   @include breakpoint(sm) {

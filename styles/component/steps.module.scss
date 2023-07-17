@@ -20,7 +20,6 @@
     align-items: center;
     justify-content: center;
     gap: rem(10px);
-    width: rem(85px);
   }
   &__number {
     display: flex;
@@ -28,7 +27,7 @@
     justify-content: center;
     width: rem(40px);
     height: rem(40px);
-    border: solid rem(2px) $color-grey;
+    border: solid rem(2px) $color-dark-grey;
     border-radius: 100%;
 
     &--activate {
@@ -38,7 +37,7 @@
 
   &__header {
     font-size: rem(18px);
-    color: $color-grey;
+    color: $color-dark-grey;
 
     &--activate {
       color: $color-main-blue;
@@ -46,10 +45,10 @@
   }
 
   &__connector {
-    width: rem(120px);
+    width: rem(72px);
     height: rem(3px);
     border-radius: rem(4px);
-    background-color: $color-grey;
+    background-color: $color-dark-grey;
     margin-top: rem(25px);
 
     &--activate {

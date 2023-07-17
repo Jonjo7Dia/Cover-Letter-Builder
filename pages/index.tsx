@@ -10,6 +10,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import Layout from "components/layout";
 import TermsPopUp from "components/tocPopUp";
 import React, { useEffect, useState } from "react";
+import Hero from "components/hero/hero";
 config.autoAddCss = false;
 
 export default function Index() {
@@ -35,6 +36,8 @@ export default function Index() {
   return (
     <Layout>
       {!acceptedTOC && <TermsPopUp setTOC={tocHandler} />}
+
+      <Hero />
       {acceptedTOC && <Steps />}
       {acceptedTOC && (
         <>
