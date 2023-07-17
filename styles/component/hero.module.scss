@@ -28,5 +28,8 @@
     width: 100%;
     background-color: $color-light-blue;
     padding: rem(30px) rem(10px);
+    display: flex;
+    flex-direction: column;
+    gap: rem(25px);
   }
 }

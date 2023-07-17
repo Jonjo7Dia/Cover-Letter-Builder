@@ -37,22 +37,7 @@ export default function Index() {
     <Layout>
       {!acceptedTOC && <TermsPopUp setTOC={tocHandler} />}
 
-      <Hero />
-      {acceptedTOC && <Steps />}
-      {acceptedTOC && (
-        <>
-          {onboardingStep == 1 && !isFetching && <UploadCVStep />}
-          {onboardingStep == 2 && !isFetching && <AddJobStep />}
-          {onboardingStep == 3 && !isFetching && <PreviewCoverLetter />}
-          {isFetching && (
-            <Loader
-              text={
-                "This can take up to 30 seconds, our tailor is busy at work"
-              }
-            />
-          )}
-        </>
-      )}
+      {acceptedTOC && <Hero />}
     </Layout>
   );
 }
