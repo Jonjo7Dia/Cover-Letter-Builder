@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <SEO />
       <header>
-        <nav className={`${styles["layout__nav"]} wrapper`}>
+        <nav className={`${styles["layout__nav"]}`}>
           <Image
             src={logo}
             alt={"Logo"}

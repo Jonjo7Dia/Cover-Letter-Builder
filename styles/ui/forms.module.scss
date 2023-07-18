@@ -5,7 +5,7 @@
   align-items: center;
   gap: rem(30px);
   width: 100%;
-
+  margin: 0 auto;
   @include breakpoint(sm) {
     width: rem(568px);
   }
