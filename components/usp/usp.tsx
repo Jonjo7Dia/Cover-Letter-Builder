@@ -2,7 +2,7 @@ import styles from "styles/component/usp.module.scss";
 import person from "assets/icons/Person.svg";
 import clock from "assets/icons/Clock.svg";
 import key from "assets/icons/Key.svg";
-import money from "assets/icons/Key.svg";
+import money from "assets/icons/Money.svg";
 import UspCard from "./uspCard";
 import Image from "next/image";
 

@@ -97,11 +97,6 @@ main {
   align-items: center;
   width: 100%;
   gap: rem(40px);
-  padding-bottom: rem(200px);
-
-  @include breakpoint(sm) {
-    padding-bottom: rem(100px);
-  }
 }
 
 * {

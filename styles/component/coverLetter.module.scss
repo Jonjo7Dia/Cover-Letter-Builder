@@ -15,6 +15,24 @@
     width: rem(700px);
   }
 
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(25px);
+
+    @include breakpoint(md) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+      max-height: calc(100vh);
+      overflow: scroll;
+      backdrop-filter: blur(rem(7px));
+      padding-bottom: rem(300px);
+    }
+  }
+
   &__retry {
     height: rem(500px);
     display: flex;

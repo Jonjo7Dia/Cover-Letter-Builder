@@ -26,6 +26,12 @@
     justify-content: center;
     align-items: center;
 
+    @include breakpoint(md) {
+      justify-content: flex-start;
+      height: rem(85px);
+      padding: 0 rem(30px);
+    }
+
     &-logo {
       max-width: 100%;
     }
