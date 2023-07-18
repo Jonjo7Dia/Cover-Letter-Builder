@@ -47,6 +47,7 @@ const PreviewCoverLetter = () => {
   };
 
   useEffect(() => {
+    // Your existing code...
     if (containerRef.current && !apiResponse.error) {
       try {
         const coverLetter = JSON.parse(apiResponse);
@@ -58,6 +59,28 @@ const PreviewCoverLetter = () => {
         regenerateCoverLetter();
       }
     }
+
+    const handleResize = () => {
+      if (window.innerWidth > 992 && !apiResponse.error) {
+        window.scrollTo(0, 0);
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
+    };
+
+    // Run it once to handle current size
+    handleResize();
+
+    // Add event listener to handle window resizing
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener on cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.body.style.overflow = "auto";
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponse]);
 
@@ -74,13 +97,13 @@ const PreviewCoverLetter = () => {
     );
   } else {
     return (
-      <>
+      <div className={styles["preview__wrapper"]}>
         <div className={styles["preview"]} ref={containerRef}></div>
         <div className={`${styles["preview__download"]}`}>
           <Restart />
           <DownloadOptions text={apiResponse} textToCopy={containerRef} />
         </div>
-      </>
+      </div>
     );
   }
 };
