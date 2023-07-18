@@ -14,10 +14,11 @@ type iconLogo = {
 const HeroIcons = () => {
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
   const icons: iconLogo[] = [
-    { source: money, title: "Save Money" },
-    { source: clock, title: "Save Time" },
-    { source: key, title: "Target Keywords" },
     { source: person, title: "Personally Generated" },
+    { source: money, title: "Save Money" },
+    { source: key, title: "Target Keywords" },
+
+    { source: clock, title: "Save Time" },
   ];
   return (
     <div className={styles["hero__icons"]}>

@@ -12,10 +12,17 @@
     margin-bottom: rem(16px);
     font-weight: 700;
     text-align: center;
+
+    @include breakpoint(sm) {
+      font-size: rem(40px);
+    }
   }
 
   &__subheader {
     text-align: center;
+    @include breakpoint(sm) {
+      font-size: rem(20px);
+    }
   }
   &__wrapper {
     display: flex;
@@ -23,6 +30,14 @@
     margin-top: rem(82px);
     width: 100%;
     gap: rem(60px);
+    align-items: center;
+    justify-content: center;
+    max-width: rem(1100px);
+
+    @include breakpoint(sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   &__card {
@@ -36,6 +51,10 @@
     padding: rem(45px) rem(10px);
     gap: rem(15px);
     box-shadow: $box-shadow;
+    max-width: rem(360px);
+    flex-shrink: 0;
+    min-height: rem(215px);
+
     &-title {
       font-size: rem(20px);
       font-weight: 700;
