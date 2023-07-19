@@ -5,11 +5,22 @@ import Layout from "components/layout";
 import SubmitButton from "ui/buttons/submit";
 import { useRouter } from "next/router";
 import { useTracking } from "tracking/useTracking";
+import Footer from "components/footer/footer";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function TermsAndConditions() {
   const { trackAcceptTerms } = useTracking();
   const router = useRouter();
+  const [acceptedTOC, setAcceptedTOC] = useState<boolean>(true);
 
+  useEffect(() => {
+    // Once we're on the client, check if the value is actually in localStorage
+    const isAccepted = JSON.parse(
+      localStorage.getItem("userHasAcceptedTOC") || "false"
+    );
+    setAcceptedTOC(isAccepted);
+  }, []);
   const handleAccept = () => {
     trackAcceptTerms();
     localStorage.setItem("userHasAcceptedTOC", "true");
@@ -80,20 +91,35 @@ export default function TermsAndConditions() {
             of our users.
           </p>
           <p>
-            In addition, we use Netlify for website tracking purposes. Netlify
-            collects metadata about your visit, including your IP address and
-            the pages you view. However, we don't use Netlify to collect any
-            personally identifiable information about you. The purpose of this
-            tracking is to help us improve our service, understand our user
-            base, and provide you with a better user experience. You can read
-            more about how Netlify handles data in their{" "}
-            <a href="https://www.netlify.com/privacy/">Privacy Policy</a>.
+            In addition, we use Plausible for website tracking purposes.
+            Plausible collects metadata about your visit, including your IP
+            address and the pages you view. However, we don't use Plausible to
+            collect any personally identifiable information about you. The
+            purpose of this tracking is to help us improve our service,
+            understand our user base, and provide you with a better user
+            experience. You can read more about how Plausible handles data in
+            their{" "}
+            <a
+              href="https://plausible.io/data-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Data Policy
+            </a>
+            .
           </p>
           <p>
             By using our Service, you acknowledge and agree to this use of data.
             Please note that the usage of the OpenAI API is subject to OpenAIs
             own terms and conditions, which can be found{" "}
-            <a href="https://openai.com/policies/privacy-policy">here</a>.
+            <a
+              href="https://openai.com/policies/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              here
+            </a>
+            .
           </p>
 
           <h2>Prohibited Activities</h2>
@@ -155,15 +181,20 @@ export default function TermsAndConditions() {
             determined at Our sole discretion.
           </p>
 
-          <p>This document was last updated on July 12, 2023.</p>
+          <p>This document was last updated on July 19, 2023.</p>
 
-          <SubmitButton
-            text={"Accept"}
-            disabled={false}
-            onClick={handleAccept}
-          />
+          {!acceptedTOC && (
+            <SubmitButton
+              text={"Accept"}
+              disabled={false}
+              onClick={handleAccept}
+            />
+          )}
         </div>
       }
+      <Footer>
+        <Link href="/"> Home</Link>
+      </Footer>
     </Layout>
   );
 }
