@@ -32,7 +32,7 @@ const Usp = () => {
       ),
       title: "Keyword Targeted",
       description:
-        "Cover letters generated target key words in the job application ensuring you pass any software screening",
+        "Our cover letters target key words in the job application ensuring you pass any software screening",
     },
     {
       image: (
