@@ -12,12 +12,13 @@ import TermsPopUp from "components/tocPopUp";
 import React, { useEffect, useState } from "react";
 import Hero from "components/hero/hero";
 import Usp from "components/usp/usp";
+import { usePlausible } from "next-plausible";
 config.autoAddCss = false;
 
 export default function Index() {
-  const { onboardingStep, isFetching } = useUser();
+  const plausible = usePlausible();
   const [acceptedTOC, setAcceptedTOC] = useState<boolean>(true);
-
+  plausible("pageview", { u: "Home" });
   useEffect(() => {
     // Once we're on the client, check if the value is actually in localStorage
     const isAccepted = JSON.parse(
