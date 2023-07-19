@@ -32,7 +32,7 @@ const SEO: React.FC = () => {
       <meta
         key="og:image"
         property="og:image"
-        content={"https://tailoredapplication.com/assets/logoPng.png"}
+        content={"https://tailoredapplication.com/logoPng.png"}
       />
       <meta
         key="og:url"
