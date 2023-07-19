@@ -5,11 +5,22 @@ import Layout from "components/layout";
 import SubmitButton from "ui/buttons/submit";
 import { useRouter } from "next/router";
 import { useTracking } from "tracking/useTracking";
+import Footer from "components/footer/footer";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function TermsAndConditions() {
   const { trackAcceptTerms } = useTracking();
   const router = useRouter();
+  const [acceptedTOC, setAcceptedTOC] = useState<boolean>(true);
 
+  useEffect(() => {
+    // Once we're on the client, check if the value is actually in localStorage
+    const isAccepted = JSON.parse(
+      localStorage.getItem("userHasAcceptedTOC") || "false"
+    );
+    setAcceptedTOC(isAccepted);
+  }, []);
   const handleAccept = () => {
     trackAcceptTerms();
     localStorage.setItem("userHasAcceptedTOC", "true");
@@ -157,13 +168,18 @@ export default function TermsAndConditions() {
 
           <p>This document was last updated on July 12, 2023.</p>
 
-          <SubmitButton
-            text={"Accept"}
-            disabled={false}
-            onClick={handleAccept}
-          />
+          {!acceptedTOC && (
+            <SubmitButton
+              text={"Accept"}
+              disabled={false}
+              onClick={handleAccept}
+            />
+          )}
         </div>
       }
+      <Footer>
+        <Link href="/"> Home</Link>
+      </Footer>
     </Layout>
   );
 }
