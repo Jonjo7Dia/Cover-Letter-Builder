@@ -1,0 +1,78 @@
+@import "../variables.scss";
+
+.usp {
+  display: flex;
+  flex-direction: column;
+  padding: rem(100px) rem(10px);
+  align-items: center;
+  font-family: "Roboto";
+
+  @include breakpoint(md) {
+    padding: rem(50px) rem(10px);
+  }
+
+  &__header {
+    font-size: rem(32px);
+    margin-bottom: rem(16px);
+    font-weight: 700;
+    text-align: center;
+
+    @include breakpoint(sm) {
+      font-size: rem(40px);
+    }
+  }
+
+  &__subheader {
+    text-align: center;
+    @include breakpoint(sm) {
+      font-size: rem(20px);
+    }
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(82px);
+    width: 100%;
+    gap: rem(60px);
+    align-items: center;
+    justify-content: center;
+    max-width: rem(1100px);
+
+    @include breakpoint(sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__card {
+    background-color: $color-light-blue;
+    width: 100%;
+    border-radius: rem(4px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: rem(45px) rem(10px);
+    gap: rem(15px);
+    box-shadow: $box-shadow;
+    max-width: rem(360px);
+    flex-shrink: 0;
+    min-height: rem(215px);
+
+    &-title {
+      font-size: rem(20px);
+      font-weight: 700;
+    }
+    &-description {
+      text-align: center;
+      font-size: rem(18px);
+      font-weight: 300;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+  }
+}

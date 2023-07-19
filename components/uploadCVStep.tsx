@@ -5,8 +5,10 @@ import InputFile from "ui/inputs/inputFile";
 import { useState } from "react";
 import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
+import { useTracking } from "tracking/useTracking";
 
 const UploadCVStep = () => {
+  const { trackUpload } = useTracking();
   const { setOnboardingStep, setIsFetching } = useUser();
   const { error, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -56,6 +58,7 @@ const UploadCVStep = () => {
       onSubmit={(event) => {
         event.preventDefault();
         handleSubmit();
+        trackUpload();
       }}
     >
       <InputFile

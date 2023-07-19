@@ -1,5 +1,8 @@
 @import "@fontsource/roboto";
+@import "@fontsource/inter";
+@import "@fontsource/inter/700.css";
 @import "./variables.scss";
+
 /* CSS reset */
 body,
 div,
@@ -94,15 +97,24 @@ main {
   align-items: center;
   width: 100%;
   gap: rem(40px);
-  padding: 0 rem(10px);
-  padding-bottom: rem(200px);
 
-  @include breakpoint(sm) {
-    padding-bottom: rem(100px);
+  @include breakpoint(md) {
+    gap: 0;
   }
 }
 
 * {
   font-family: "Roboto";
   box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: rem(1280px);
+  margin: 0 auto;
+  padding: 0 rem(10px);
+
+  @include breakpoint(lg) {
+    padding: 0 rem(50px);
+  }
 }

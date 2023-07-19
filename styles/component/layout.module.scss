@@ -18,4 +18,22 @@
     left: rem(10px);
     top: rem(10px);
   }
+
+  &__nav {
+    width: 100%;
+    height: rem(60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include breakpoint(md) {
+      justify-content: flex-start;
+      height: rem(85px);
+      padding: 0 rem(30px);
+    }
+
+    &-logo {
+      max-width: 100%;
+    }
+  }
 }

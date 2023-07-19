@@ -7,7 +7,10 @@ import InputText from "ui/inputs/inputText";
 import RepeatInputString from "ui/inputs/repeatableInputString";
 import { useUser } from "contexts/userContext";
 import { useOpenAI } from "hooks/gptHooks";
+import { useTracking } from "tracking/useTracking";
 const AddJobStep = () => {
+  const { trackJob } = useTracking();
+
   const {
     setOnboardingStep,
     setJobApplicationText,
@@ -47,6 +50,7 @@ const AddJobStep = () => {
     setMissionStatement(input);
   };
   const handleSubmit = async () => {
+    trackJob();
     setJobApplicationText(inputTextField);
     setCompanyValues(inputFields);
     setCompanyMissionStatement(missionStatement);
