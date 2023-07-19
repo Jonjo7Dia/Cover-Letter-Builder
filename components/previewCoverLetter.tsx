@@ -5,7 +5,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useOpenAI } from "hooks/gptHooks";
 import DownloadOptions from "./downloadOptions";
 import Restart from "./restartSteps";
-
+import { useTracking } from "tracking/useTracking";
 const PreviewCoverLetter = () => {
   const {
     apiResponse,
@@ -16,7 +16,7 @@ const PreviewCoverLetter = () => {
     setIsFetching,
   } = useUser();
   const { generateCoverLetter } = useOpenAI();
-
+  const { trackError } = useTracking();
   const containerRef = useRef<HTMLDivElement>(null);
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
@@ -85,6 +85,7 @@ const PreviewCoverLetter = () => {
   }, [apiResponse]);
 
   if (apiResponse.error) {
+    trackError(apiResponse.error);
     return (
       <div className={styles["preview__retry"]}>
         <p>{apiResponse.error}</p>

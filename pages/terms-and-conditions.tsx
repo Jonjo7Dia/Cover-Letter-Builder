@@ -4,11 +4,14 @@ import styles from "styles/pages/terms.module.scss";
 import Layout from "components/layout";
 import SubmitButton from "ui/buttons/submit";
 import { useRouter } from "next/router";
+import { useTracking } from "tracking/useTracking";
 
 export default function TermsAndConditions() {
+  const { trackAcceptTerms } = useTracking();
   const router = useRouter();
 
   const handleAccept = () => {
+    trackAcceptTerms();
     localStorage.setItem("userHasAcceptedTOC", "true");
     router.push("/");
   };

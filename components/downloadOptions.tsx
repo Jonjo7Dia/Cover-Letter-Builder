@@ -1,4 +1,5 @@
 import React from "react";
+import { useTracking } from "tracking/useTracking";
 import DropDown from "ui/buttons/dropdown";
 import generateDOCX from "utils/docxFileDownload";
 import generatePDF from "utils/pdfFileDownload";
@@ -12,13 +13,17 @@ const DownloadOptions: React.FC<DownloadOptionProps> = ({
   text,
   textToCopy,
 }) => {
+  const { trackDownload } = useTracking();
   const pdfDownload = () => {
+    trackDownload();
     generatePDF({ text });
   };
   const docxDownload = () => {
+    trackDownload();
     generateDOCX({ text });
   };
   const copyText = async () => {
+    trackDownload();
     const text = textToCopy.current?.innerText;
     if (text) {
       try {
