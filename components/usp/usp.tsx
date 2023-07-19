@@ -51,7 +51,6 @@ const Usp = () => {
         "Hiring someone to help you write cover letters can cost anywhere from 60 USD - 200 USD. Generate as many cover letters as you want for free",
     },
   ];
-  console.log(typeof person);
 
   return (
     <div className={styles["usp"]}>
