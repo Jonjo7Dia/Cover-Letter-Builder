@@ -4,8 +4,11 @@ import styles from "styles/pages/terms.module.scss";
 import Layout from "components/layout";
 import SubmitButton from "ui/buttons/submit";
 import { useRouter } from "next/router";
+import { usePageViewTracking } from "tracking/useTracking";
+
 export default function TermsAndConditions() {
   const router = useRouter();
+  usePageViewTracking("Terms and Conditions");
 
   const handleAccept = () => {
     localStorage.setItem("userHasAcceptedTOC", "true");

@@ -7,6 +7,10 @@
   align-items: center;
   font-family: "Roboto";
 
+  @include breakpoint(md) {
+    padding: rem(50px) rem(10px);
+  }
+
   &__header {
     font-size: rem(32px);
     margin-bottom: rem(16px);
