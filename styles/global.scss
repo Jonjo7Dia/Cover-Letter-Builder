@@ -97,6 +97,10 @@ main {
   align-items: center;
   width: 100%;
   gap: rem(40px);
+
+  @include breakpoint(md) {
+    gap: 0;
+  }
 }
 
 * {
