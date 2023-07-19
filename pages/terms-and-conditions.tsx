@@ -4,12 +4,11 @@ import styles from "styles/pages/terms.module.scss";
 import Layout from "components/layout";
 import SubmitButton from "ui/buttons/submit";
 import { useRouter } from "next/router";
-import { usePlausible } from "next-plausible";
+import { usePageViewTracking } from "tracking/useTracking";
 
 export default function TermsAndConditions() {
   const router = useRouter();
-  const plausible = usePlausible();
-  plausible("pageview", { u: "Terms and Conditions" });
+  usePageViewTracking("Terms and Conditions");
 
   const handleAccept = () => {
     localStorage.setItem("userHasAcceptedTOC", "true");
