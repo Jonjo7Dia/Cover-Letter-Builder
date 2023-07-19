@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import styles from "styles/component/tocPopup.module.scss";
+import { useTracking } from "tracking/useTracking";
 import SubmitButton from "ui/buttons/submit";
 import BasicPopup from "ui/popups/basicPopup";
 
@@ -9,6 +10,8 @@ type tocProps = {
 };
 
 const TermsPopUp: React.FC<tocProps> = ({ setTOC }) => {
+  const { trackAcceptTerms } = useTracking();
+
   return (
     <BasicPopup>
       <div className={styles["toc"]}>
@@ -43,6 +46,7 @@ const TermsPopUp: React.FC<tocProps> = ({ setTOC }) => {
             text={"Accept"}
             onClick={() => {
               setTOC(true);
+              trackAcceptTerms();
             }}
             disabled={false}
           />

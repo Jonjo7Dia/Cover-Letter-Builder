@@ -19,7 +19,7 @@ export const useTracking = () => {
     plausible("GPT Error", { props: { error: error } });
   };
 
-  const acceptTerms = () => {
+  const trackAcceptTerms = () => {
     plausible("Accept Terms");
   };
 
@@ -28,6 +28,6 @@ export const useTracking = () => {
     trackJob,
     trackUpload,
     trackError,
-    acceptTerms,
+    trackAcceptTerms,
   };
 };
