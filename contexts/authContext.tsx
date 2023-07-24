@@ -4,6 +4,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
 
@@ -24,6 +26,19 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
   const [loading, setLoading] = useState<boolean>(true);
 
+  const googleProvider = new GoogleAuthProvider();
+
+  const googleSignIn = async () => {
+    return signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        setUser({ email: user.email, uid: user.uid });
+      })
+      .catch((error: any) => {
+        return error.message;
+      });
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -34,8 +49,8 @@ export const AuthContextProvider = ({
       } else {
         setUser({ email: null, uid: null });
       }
+      setLoading(false);
     });
-    setLoading(false);
 
     return () => unsubscribe();
   }, []);
@@ -47,9 +62,6 @@ export const AuthContextProvider = ({
         email,
         password
       );
-      // Signed in
-      const user = userCredential.user;
-      // ...
       return null; // Return null if no errors occurred
     } catch (error: any) {
       return error.message; // Return the error code
@@ -66,7 +78,7 @@ export const AuthContextProvider = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, googleSignIn }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

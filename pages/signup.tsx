@@ -8,7 +8,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const SignupPage = () => {
-  const { signUp } = useAuth();
+  const { signUp, googleSignIn } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +42,11 @@ const SignupPage = () => {
     }
   };
 
+  const googleSignUpHandler = async () => {
+    await googleSignIn();
+    router.push("dashboard");
+  };
+
   const checkPassword = (password: string) => {
     setHasUpperCase(/[A-Z]/.test(password));
     setHasLowerCase(/[a-z]/.test(password));
@@ -51,7 +56,7 @@ const SignupPage = () => {
   return (
     <Layout>
       <div className={styles["signup"]}>
-        <a className={styles["signup__google"]}>
+        <a className={styles["signup__google"]} onClick={googleSignUpHandler}>
           <Image
             src={googleLogo}
             alt={"google logo"}
