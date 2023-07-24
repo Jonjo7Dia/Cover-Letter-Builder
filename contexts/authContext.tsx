@@ -40,18 +40,20 @@ export const AuthContextProvider = ({
     return () => unsubscribe();
   }, []);
 
-  const signUp = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+  const signUp = async (email: string, password: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // Signed in
+      const user = userCredential.user;
+      // ...
+      return null; // Return null if no errors occurred
+    } catch (error: any) {
+      return error.message; // Return the error code
+    }
   };
 
   const logIn = (email: string, password: string) => {

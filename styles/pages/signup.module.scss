@@ -84,4 +84,8 @@
     box-shadow: $box-shadow;
     background-color: $color-white;
   }
+
+  &__passwordChecker {
+    font-size: rem(10px);
+  }
 }

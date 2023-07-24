@@ -13,14 +13,40 @@ const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPasswords, setConfirmPassword] = useState("");
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasLowerCase, setHasLowerCase] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [isLongEnough, setIsLongEnough] = useState(false);
+  const errorMessages = {
+    "Firebase: Error (auth/email-already-in-use).": `This email address is already in use. Please try a different one.`,
+    "Firebase: Error (auth/invalid-email).": `The email address you entered is invalid. Please check it and try again.`,
+    "Firebase: Error (auth/operation-not-allowed).": `An error occurred during sign up. Please try again later.`,
+    "Firebase: Error (auth/weak-password).": `Your password is not strong enough. Please add additional characters including special characters and numbers.`,
+  };
 
   const submitHandler = async () => {
     if (password != confirmPasswords) {
       alert("passwords do not match");
     } else {
-      await signUp(email, password);
-      router.push("login");
+      const errorCode = await signUp(email, password);
+      if (errorCode) {
+        console.log(errorCode);
+        const errorMessage =
+          errorMessages[errorCode as keyof typeof errorMessages] ||
+          "An unknown error occurred.";
+        alert(errorMessage);
+      } else {
+        // Only redirect if no error occurred
+        router.push("login");
+      }
     }
+  };
+
+  const checkPassword = (password: string) => {
+    setHasUpperCase(/[A-Z]/.test(password));
+    setHasLowerCase(/[a-z]/.test(password));
+    setHasSpecialChar(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password));
+    setIsLongEnough(password.length >= 8);
   };
   return (
     <Layout>
@@ -64,10 +90,24 @@ const SignupPage = () => {
                 type="password"
                 onChange={(e) => {
                   setPassword(e.target.value);
+                  checkPassword(e.target.value);
                 }}
                 className={styles["signup__inputField"]}
                 required
               />
+              {password.length > 0 &&
+                (!hasUpperCase ||
+                  !hasLowerCase ||
+                  !hasSpecialChar ||
+                  !isLongEnough) && (
+                  <div className={styles["signup__passwordChecker"]}>
+                    Password must contain
+                    {!hasUpperCase && <span> an uppercase letter</span>}
+                    {!hasLowerCase && <span> a lowercase letter</span>}
+                    {!hasSpecialChar && <span> a special character</span>}
+                    {!isLongEnough && <span> at least 8 characters long</span>}
+                  </div>
+                )}
             </div>
 
             <div className={styles["signup__inputs"]}>
