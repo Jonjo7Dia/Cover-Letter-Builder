@@ -69,7 +69,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     {user.displayName}
                   </a>
 
-                  <a className={styles["layout__nav-item"]}>Dashboard</a>
+                  <a
+                    className={styles["layout__nav-item"]}
+                    onClick={() => {
+                      router.push("/dashboard");
+                    }}
+                  >
+                    Dashboard
+                  </a>
                   <a className={styles["layout__nav-item"]}>Personal Info</a>
                   <a className={styles["layout__nav-item"]}>Settings</a>
                   <a

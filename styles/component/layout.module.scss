@@ -38,6 +38,10 @@
       @include breakpoint(md) {
         max-width: 100%;
       }
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &-user {
