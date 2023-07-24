@@ -57,6 +57,7 @@
   }
 
   &__google {
+    user-select: none;
     padding: rem(5px) rem(10px);
     border-radius: rem(4px);
     box-shadow: $box-shadow;
@@ -68,6 +69,12 @@
     &-logo {
       max-height: 100%;
       width: fit-content;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-main-blue;
+      color: $color-white;
     }
   }
 
@@ -85,6 +92,13 @@
     border-radius: rem(4px);
     box-shadow: $box-shadow;
     background-color: $color-white;
+    font-size: rem(18px);
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-main-blue;
+      color: $color-white;
+    }
   }
 
   &__passwordChecker {

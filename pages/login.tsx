@@ -5,7 +5,7 @@ import { useAuth } from "contexts/authContext";
 import { useRouter } from "next/router";
 import googleLogo from "assets/icons/google-icon.svg";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
 
 const LoginPage = () => {
@@ -18,8 +18,6 @@ const LoginPage = () => {
     const errorCode = await logIn(email, password);
     if (errorCode) {
       alert(errorCode);
-    } else {
-      router.push("dashboard");
     }
   };
 

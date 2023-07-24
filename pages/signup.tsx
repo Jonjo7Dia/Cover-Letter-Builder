@@ -43,16 +43,12 @@ const SignupPage = () => {
           errorMessages[errorCode as keyof typeof errorMessages] ||
           "An unknown error occurred.";
         alert(errorMessage);
-      } else {
-        // Only redirect if no error occurred
-        router.push("dashboard");
       }
     }
   };
 
   const googleSignUpHandler = async () => {
     await googleSignIn();
-    router.push("dashboard");
   };
 
   const checkPassword = (password: string) => {
