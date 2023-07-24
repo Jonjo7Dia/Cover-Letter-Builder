@@ -9,18 +9,19 @@ interface WithAuthProps {
 const WithAuth: React.FC<WithAuthProps> = ({ children }) => {
   const router = useRouter();
   const { user } = useAuth();
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user.uid) {
       router.push("/signup");
     } else {
-      setLoading(false); // Only set loading to false when we know user is authenticated
+      router.push("/dashboard");
+      setLoading(false);
     }
   }, [router, user]);
 
   if (loading) {
-    return <p>Loading...</p>; // Or some loading spinner
+    return <p>Loading...</p>;
   }
 
   return <>{children}</>;

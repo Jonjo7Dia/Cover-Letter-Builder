@@ -26,9 +26,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 rem(10px);
+    box-sizing: border-box;
 
     @include breakpoint(md) {
-      justify-content: flex-start;
       height: rem(85px);
       padding: 0 rem(30px);
     }
@@ -38,6 +38,12 @@
       @include breakpoint(md) {
         max-width: 100%;
       }
+    }
+
+    &-user {
+      padding: rem(10px);
+      background-color: $color-main-blue;
+      color: $color-white;
     }
   }
 }
