@@ -6,6 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
 
@@ -55,21 +56,39 @@ export const AuthContextProvider = ({
     return () => unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    displayName: string
+  ) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+      if (userCredential.user) {
+        await updateProfile(userCredential.user, { displayName });
+      }
       return null; // Return null if no errors occurred
     } catch (error: any) {
       return error.message; // Return the error code
     }
   };
 
-  const logIn = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const logIn = async (email: string, password: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      return null; // Return null if no errors occurred
+    } catch (error: any) {
+      console.log(error);
+      return error.message; // Return the error message
+    }
   };
 
   const logOut = async () => {

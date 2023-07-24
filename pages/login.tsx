@@ -8,13 +8,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const LoginPage = () => {
-  const { login, googleSignIn } = useAuth();
+  const { logIn, googleSignIn } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const submitHandler = async () => {
-    const errorCode = await login(email, password);
+    const errorCode = await logIn(email, password);
     if (errorCode) {
       alert(errorCode);
     } else {
@@ -82,7 +82,7 @@ const LoginPage = () => {
         <button
           className={styles["signup__login"]}
           onClick={() => {
-            router.push("Signup");
+            router.push("signup");
           }}
         >
           Dont have an Account?

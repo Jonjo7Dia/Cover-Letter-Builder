@@ -10,6 +10,7 @@ import React, { useState } from "react";
 const SignupPage = () => {
   const { signUp, googleSignIn } = useAuth();
   const router = useRouter();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPasswords, setConfirmPassword] = useState("");
@@ -28,7 +29,7 @@ const SignupPage = () => {
     if (password != confirmPasswords) {
       alert("passwords do not match");
     } else {
-      const errorCode = await signUp(email, password);
+      const errorCode = await signUp(email, password, username);
       if (errorCode) {
         console.log(errorCode);
         const errorMessage =
@@ -73,6 +74,20 @@ const SignupPage = () => {
             }}
             className={styles["signup__form"]}
           >
+            <div className={styles["signup__inputs"]}>
+              <label htmlFor="username" className={styles["signup__label"]}>
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                className={styles["signup__inputField"]}
+                required
+              />
+            </div>
             <div className={styles["signup__inputs"]}>
               <label htmlFor="email" className={styles["signup__label"]}>
                 Email
