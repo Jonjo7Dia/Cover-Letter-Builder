@@ -37,7 +37,7 @@ const SignupPage = () => {
         alert(errorMessage);
       } else {
         // Only redirect if no error occurred
-        router.push("login");
+        router.push("dashboard");
       }
     }
   };
@@ -137,7 +137,7 @@ const SignupPage = () => {
         <button
           className={styles["signup__login"]}
           onClick={() => {
-            router.push("/login");
+            router.push("login");
           }}
         >
           Already have an account?
