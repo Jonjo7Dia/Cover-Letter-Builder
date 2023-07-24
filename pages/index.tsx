@@ -34,7 +34,7 @@ export default function Index() {
     if (user && user.email) {
       router.push("/dashboard");
     }
-  }, [user]);
+  }, [user, router]);
 
   const tocHandler = (input: boolean) => {
     setAcceptedTOC(input);
