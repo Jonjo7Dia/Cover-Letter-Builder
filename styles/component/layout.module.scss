@@ -41,32 +41,73 @@
     }
 
     &-user {
+      user-select: none;
+
       padding: rem(10px);
       background-color: $color-main-blue;
       color: $color-white;
       border-radius: rem(4px);
       font-size: rem(16px);
       position: relative;
+
+      &:hover {
+        cursor: pointer;
+      }
       @include breakpoint(xs) {
         font-size: rem(22px);
       }
 
       &-menu {
+        user-select: none;
         position: absolute;
         top: 100%;
         right: 0;
         position: absolute;
         right: 0;
         background-color: white;
-        border: 1px solid #ddd;
-        padding: 10px;
-        z-index: 1;
+        border: 1px solid $color-main-blue;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        margin-top: rem(10px);
+        border-radius: rem(4px);
 
-        button {
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          color: #333;
+        &::after {
+          content: " ";
+          position: absolute;
+          bottom: 100%; /* At the top of the tooltip */
+          right: rem(20px);
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent $color-main-blue transparent;
+        }
+      }
+    }
+    &-item {
+      user-select: none;
+      color: $color-black;
+      white-space: nowrap;
+      font-size: rem(18px);
+      width: 100%;
+      padding: rem(15px) rem(15px);
+      border-radius: rem(4px);
+      &:hover {
+        cursor: pointer;
+        color: $color-main-blue;
+        background-color: $color-light-blue;
+      }
+
+      &--user {
+        background-color: $color-light-blue;
+        color: $color-main-blue;
+      }
+
+      &--warning {
+        color: $color-red;
+
+        &:hover {
+          color: $color-red;
         }
       }
     }

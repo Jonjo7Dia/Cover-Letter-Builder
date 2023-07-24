@@ -6,14 +6,14 @@ interface WithAuthProps {
   children: React.ReactNode;
 }
 
-const WithAuth: React.FC<WithAuthProps> = ({ children }) => {
+const WithNoAuth: React.FC<WithAuthProps> = ({ children }) => {
   const router = useRouter();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user.uid) {
-      router.push("/signup");
+    if (user.uid) {
+      router.push("/dashboard");
     } else {
       setLoading(false);
     }
@@ -26,4 +26,4 @@ const WithAuth: React.FC<WithAuthProps> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default WithAuth;
+export default WithNoAuth;

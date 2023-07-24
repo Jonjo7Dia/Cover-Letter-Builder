@@ -50,6 +50,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             alt={"Logo"}
             className={styles["layout__nav-logo"]}
             priority
+            onClick={() => {
+              router.push("/");
+            }}
           />
           {user.uid && (
             <div
@@ -60,7 +63,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               {userIcon}
               {dropdownOpen && (
                 <div className={styles["layout__nav-user-menu"]}>
-                  <button onClick={logOutHandler}>Sign out</button>
+                  <a
+                    className={`${styles["layout__nav-item"]} ${styles["layout__nav-item--user"]}`}
+                  >
+                    {user.displayName}
+                  </a>
+
+                  <a className={styles["layout__nav-item"]}>Dashboard</a>
+                  <a className={styles["layout__nav-item"]}>Personal Info</a>
+                  <a className={styles["layout__nav-item"]}>Settings</a>
+                  <a
+                    onClick={logOutHandler}
+                    className={`${styles["layout__nav-item"]} ${styles["layout__nav-item--warning"]}`}
+                  >
+                    Sign out
+                  </a>
                 </div>
               )}
             </div>
