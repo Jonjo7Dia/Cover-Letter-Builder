@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
 
 interface UserType {
@@ -35,8 +40,31 @@ export const AuthContextProvider = ({
     return () => unsubscribe();
   }, []);
 
+  const signUp = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+
+  const logIn = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logOut = async () => {
+    setUser({ email: null, uid: null });
+    await signOut(auth);
+  };
+
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );
