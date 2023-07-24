@@ -18,7 +18,7 @@ const WithAuth: React.FC<WithAuthProps> = ({ children }) => {
       router.push("/dashboard");
       setLoading(false);
     }
-  }, [router, user]);
+  }, [user]);
 
   if (loading) {
     return <p>Loading...</p>;

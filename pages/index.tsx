@@ -30,12 +30,6 @@ export default function Index() {
     localStorage.setItem("userHasAcceptedTOC", JSON.stringify(acceptedTOC));
   }, [acceptedTOC]);
 
-  useEffect(() => {
-    if (user && user.email) {
-      router.push("/dashboard");
-    }
-  }, [user, router]);
-
   const tocHandler = (input: boolean) => {
     setAcceptedTOC(input);
   };

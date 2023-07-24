@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import googleLogo from "assets/icons/google-icon.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import WithAuth from "hoc/withAuth";
 
 const SignupPage = () => {
   const { signUp, googleSignIn, user } = useAuth();
@@ -30,7 +29,7 @@ const SignupPage = () => {
     if (user && user.email) {
       router.push("/dashboard");
     }
-  }, [user, router]);
+  }, [user]);
 
   const submitHandler = async () => {
     if (password != confirmPasswords) {
@@ -62,114 +61,110 @@ const SignupPage = () => {
     setIsLongEnough(password.length >= 8);
   };
   return (
-    <WithAuth>
-      <Layout>
-        <div className={styles["signup"]}>
-          <a className={styles["signup__google"]} onClick={googleSignUpHandler}>
-            <Image
-              src={googleLogo}
-              alt={"google logo"}
-              className={styles["signup__google-logo"]}
-            />
-            Sign up with Google
-          </a>
-          <div className={styles["signup__wrapper"]}>
-            <h1 className={styles["signup__header"]}>Sign Up Now</h1>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                submitHandler();
-              }}
-              className={styles["signup__form"]}
-            >
-              <div className={styles["signup__inputs"]}>
-                <label htmlFor="username" className={styles["signup__label"]}>
-                  Username
-                </label>
-                <input
-                  id="username"
-                  type="text"
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                  className={styles["signup__inputField"]}
-                  required
-                />
-              </div>
-              <div className={styles["signup__inputs"]}>
-                <label htmlFor="email" className={styles["signup__label"]}>
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  className={styles["signup__inputField"]}
-                  required
-                />
-              </div>
-
-              <div className={styles["signup__inputs"]}>
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    checkPassword(e.target.value);
-                  }}
-                  className={styles["signup__inputField"]}
-                  required
-                />
-                {password.length > 0 &&
-                  (!hasUpperCase ||
-                    !hasLowerCase ||
-                    !hasSpecialChar ||
-                    !isLongEnough) && (
-                    <div className={styles["signup__passwordChecker"]}>
-                      Password must contain
-                      {!hasUpperCase && <span> an uppercase letter</span>}
-                      {!hasLowerCase && <span> a lowercase letter</span>}
-                      {!hasSpecialChar && <span> a special character</span>}
-                      {!isLongEnough && (
-                        <span> at least 8 characters long</span>
-                      )}
-                    </div>
-                  )}
-              </div>
-
-              <div className={styles["signup__inputs"]}>
-                <label htmlFor="confirmPassword">Confirm Password</label>
-
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                  }}
-                  className={styles["signup__inputField"]}
-                  required
-                />
-              </div>
-
-              <button type="submit" className={styles["signup__submit"]}>
-                Sign Up
-              </button>
-            </form>
-          </div>
-          <button
-            className={styles["signup__login"]}
-            onClick={() => {
-              router.push("login");
+    <Layout>
+      <div className={styles["signup"]}>
+        <a className={styles["signup__google"]} onClick={googleSignUpHandler}>
+          <Image
+            src={googleLogo}
+            alt={"google logo"}
+            className={styles["signup__google-logo"]}
+          />
+          Sign up with Google
+        </a>
+        <div className={styles["signup__wrapper"]}>
+          <h1 className={styles["signup__header"]}>Sign Up Now</h1>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              submitHandler();
             }}
+            className={styles["signup__form"]}
           >
-            Already have an account?
-          </button>
+            <div className={styles["signup__inputs"]}>
+              <label htmlFor="username" className={styles["signup__label"]}>
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                className={styles["signup__inputField"]}
+                required
+              />
+            </div>
+            <div className={styles["signup__inputs"]}>
+              <label htmlFor="email" className={styles["signup__label"]}>
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                className={styles["signup__inputField"]}
+                required
+              />
+            </div>
+
+            <div className={styles["signup__inputs"]}>
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  checkPassword(e.target.value);
+                }}
+                className={styles["signup__inputField"]}
+                required
+              />
+              {password.length > 0 &&
+                (!hasUpperCase ||
+                  !hasLowerCase ||
+                  !hasSpecialChar ||
+                  !isLongEnough) && (
+                  <div className={styles["signup__passwordChecker"]}>
+                    Password must contain
+                    {!hasUpperCase && <span> an uppercase letter</span>}
+                    {!hasLowerCase && <span> a lowercase letter</span>}
+                    {!hasSpecialChar && <span> a special character</span>}
+                    {!isLongEnough && <span> at least 8 characters long</span>}
+                  </div>
+                )}
+            </div>
+
+            <div className={styles["signup__inputs"]}>
+              <label htmlFor="confirmPassword">Confirm Password</label>
+
+              <input
+                id="confirmPassword"
+                type="password"
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                className={styles["signup__inputField"]}
+                required
+              />
+            </div>
+
+            <button type="submit" className={styles["signup__submit"]}>
+              Sign Up
+            </button>
+          </form>
         </div>
-      </Layout>
-    </WithAuth>
+        <button
+          className={styles["signup__login"]}
+          onClick={() => {
+            router.push("login");
+          }}
+        >
+          Already have an account?
+        </button>
+      </div>
+    </Layout>
   );
 };
 
