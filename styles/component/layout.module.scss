@@ -44,6 +44,31 @@
       padding: rem(10px);
       background-color: $color-main-blue;
       color: $color-white;
+      border-radius: rem(4px);
+      font-size: rem(16px);
+      position: relative;
+      @include breakpoint(xs) {
+        font-size: rem(22px);
+      }
+
+      &-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        position: absolute;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        z-index: 1;
+
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          color: #333;
+        }
+      }
     }
   }
 }
