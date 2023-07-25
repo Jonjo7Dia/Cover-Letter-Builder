@@ -1,15 +1,15 @@
 import React from "react";
 import WithAuth from "../hoc/withAuth";
 import Layout from "components/layout";
-
-const Dashboard: React.FC = () => {
+import Dashboard from "components/dashboard/dashboard";
+const DashboardPage: React.FC = () => {
   return (
     <WithAuth>
       <Layout>
-        <h1>Welcome to Dashboard</h1>
+        <Dashboard />
       </Layout>
     </WithAuth>
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
