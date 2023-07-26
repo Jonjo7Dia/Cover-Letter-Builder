@@ -7,7 +7,11 @@ import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 import { useTracking } from "tracking/useTracking";
 
-const UploadCVStep = () => {
+type UploadCVStepProps = {
+  dashboard?: boolean | false;
+};
+
+const UploadCVStep: React.FC<UploadCVStepProps> = ({ dashboard }) => {
   const { trackUpload } = useTracking();
   const { setOnboardingStep, setIsFetching } = useUser();
   const { error, parsePdf } = usePdfParse();
@@ -66,6 +70,7 @@ const UploadCVStep = () => {
         handleDragOver={handleDragOver}
         handleDrop={handleDrop}
         handleChange={handleChange}
+        dashboard={dashboard}
       />
       <div className={classes["cv__submit"]}>
         <SubmitButton

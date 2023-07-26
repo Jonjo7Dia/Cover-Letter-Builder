@@ -30,6 +30,7 @@
       padding: rem(10px) 0;
       border-bottom: solid rem(2px) $color-main-blue;
       font-size: rem(18px);
+      white-space: nowrap;
 
       @include breakpoint(xs) {
         font-size: rem(22px);

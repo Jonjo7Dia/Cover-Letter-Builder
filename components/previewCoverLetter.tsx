@@ -6,7 +6,13 @@ import { useOpenAI } from "hooks/gptHooks";
 import DownloadOptions from "./downloadOptions";
 import Restart from "./restartSteps";
 import { useTracking } from "tracking/useTracking";
-const PreviewCoverLetter = () => {
+
+type PreviewCoverLetterProps = {
+  dashboard?: boolean | false;
+};
+const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
+  dashboard,
+}) => {
   const {
     apiResponse,
     parsedPdfText,
@@ -47,7 +53,6 @@ const PreviewCoverLetter = () => {
   };
 
   useEffect(() => {
-    // Your existing code...
     if (containerRef.current && !apiResponse.error) {
       try {
         const coverLetter = JSON.parse(apiResponse);
@@ -61,7 +66,7 @@ const PreviewCoverLetter = () => {
     }
 
     const handleResize = () => {
-      if (window.innerWidth > 992 && !apiResponse.error) {
+      if (window.innerWidth > 992 && !apiResponse.error && !dashboard) {
         window.scrollTo(0, 0);
         document.body.style.overflow = "hidden";
       } else {
@@ -69,13 +74,9 @@ const PreviewCoverLetter = () => {
       }
     };
 
-    // Run it once to handle current size
     handleResize();
-
-    // Add event listener to handle window resizing
     window.addEventListener("resize", handleResize);
 
-    // Remove event listener on cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
       document.body.style.overflow = "auto";
@@ -98,8 +99,17 @@ const PreviewCoverLetter = () => {
     );
   } else {
     return (
-      <div className={styles["preview__wrapper"]}>
-        <div className={styles["preview"]} ref={containerRef}></div>
+      <div
+        className={`${styles["preview__wrapper"]} ${
+          dashboard ? styles["preview__wrapper--alternate"] : ""
+        }`}
+      >
+        <div
+          className={`${styles["preview"]} ${
+            dashboard ? styles["preview--alternate"] : ""
+          }`}
+          ref={containerRef}
+        ></div>
         <div className={`${styles["preview__download"]}`}>
           <Restart />
           <DownloadOptions text={apiResponse} textToCopy={containerRef} />
