@@ -5,6 +5,7 @@
   gap: rem(50px);
   width: 100%;
   max-width: rem(1300px);
+  align-items: center;
 
   @include breakpoint(md) {
     flex-direction: row;

@@ -1,5 +1,6 @@
 import styles from "styles/dashboard/dashboard.module.scss";
 import { useState } from "react";
+import MainDashboard from "./maindashboard";
 const Dashboard = () => {
   const [currentOption, setCurrentOption] = useState("Dashboard");
   const options = ["Dashboard", "Personal Info", "Settings"];
@@ -27,7 +28,9 @@ const Dashboard = () => {
           <div className={styles["dashboard__nav-holder"]}></div>
         )}
       </div>
-      <div className={styles["dashboard__container"]}></div>
+      <div className={styles["dashboard__container"]}>
+        <MainDashboard />
+      </div>
     </div>
   );
 };
