@@ -71,6 +71,9 @@ const UploadCVStep: React.FC<UploadCVStepProps> = ({ dashboard }) => {
         handleDrop={handleDrop}
         handleChange={handleChange}
         dashboard={dashboard}
+        header={
+          "Upload your cv, Paste the job application, Get a tailored cover letter"
+        }
       />
       <div className={classes["cv__submit"]}>
         <SubmitButton

@@ -1,6 +1,7 @@
 import styles from "styles/dashboard/dashboard.module.scss";
 import { useState } from "react";
-import MainDashboard from "./maindashboard";
+import MainDashboard from "./mainDashboard";
+import PersonalDashboard from "./personalDashboard";
 const Dashboard = () => {
   const [currentOption, setCurrentOption] = useState("Dashboard");
   const options = ["Dashboard", "Personal Info", "Settings"];
@@ -29,7 +30,8 @@ const Dashboard = () => {
         )}
       </div>
       <div className={styles["dashboard__container"]}>
-        <MainDashboard />
+        {currentOption == "Dashboard" && <MainDashboard />}
+        {currentOption == "Personal Info" && <PersonalDashboard />}
       </div>
     </div>
   );

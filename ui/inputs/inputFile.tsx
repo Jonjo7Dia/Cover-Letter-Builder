@@ -8,6 +8,7 @@ type InputFileProps = {
   handleDragOver: (event: React.DragEvent) => void;
   handleDrop: (event: React.DragEvent) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  header: string;
   dashboard?: boolean | false;
 };
 
@@ -17,6 +18,7 @@ const InputFile: React.FC<InputFileProps> = ({
   handleDrop,
   handleChange,
   dashboard,
+  header,
 }) => {
   return (
     <div
@@ -26,9 +28,7 @@ const InputFile: React.FC<InputFileProps> = ({
         dashboard ? styles["inputFile--alternate"] : ""
       }`}
     >
-      <h2 className={styles["inputFile__instructions"]}>
-        Upload your cv, Paste the job application, Get a tailored cover letter
-      </h2>
+      <h2 className={styles["inputFile__instructions"]}>{header}</h2>
       <div className={styles["inputFile__wrapper"]}>
         <label className={styles["inputFile__label"]}>
           <div className={styles["inputFile__icon"]}>

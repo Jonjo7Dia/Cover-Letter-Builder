@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
-type ApiResponse = any; // Replace "any" with the actual type of your response, if known.
+type ApiResponse = any;
 
 type UserState = {
   parsedPdfText: any;
@@ -10,6 +10,11 @@ type UserState = {
   onboardingStep: 1 | 2 | 3;
   apiResponse: ApiResponse | null; // State for API response
   isFetching: boolean; // State for fetch status
+  userPdf: {
+    uploaded: boolean;
+    name: string;
+    text: string;
+  };
 };
 
 type UserContextType = UserState & {
@@ -18,8 +23,9 @@ type UserContextType = UserState & {
   setCompanyValues: (values: string[]) => void;
   setCompanyMissionStatement: (text: string) => void;
   setOnboardingStep: (step: 1 | 2 | 3) => void;
-  setApiResponse: (response: ApiResponse | null) => void; // Setter for API response
-  setIsFetching: (fetching: boolean) => void; // Setter for fetch status
+  setApiResponse: (response: ApiResponse | null) => void;
+  setIsFetching: (fetching: boolean) => void;
+  setUserPdf: (uploaded: boolean, name: string, text: string) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -36,6 +42,15 @@ export function UserProvider({ children }: UserProviderProps) {
   const [onboardingStep, setOnboardingStep] = useState<1 | 2 | 3>(1);
   const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null); // Initialize state for API response
   const [isFetching, setIsFetching] = useState(false); // Initialize state for fetch status
+  const [userPdfState, setUserPdfState] = useState({
+    uploaded: false,
+    name: "",
+    text: "",
+  });
+
+  const setUserPdf = (uploaded: boolean, name: string, text: string) => {
+    setUserPdfState({ uploaded, name, text });
+  };
 
   return (
     <UserContext.Provider
@@ -47,6 +62,7 @@ export function UserProvider({ children }: UserProviderProps) {
         onboardingStep,
         apiResponse, // Provide API response state
         isFetching, // Provide fetch status state
+        userPdf: userPdfState,
         setParsedPdfText,
         setJobApplicationText,
         setCompanyValues,
@@ -54,6 +70,7 @@ export function UserProvider({ children }: UserProviderProps) {
         setOnboardingStep,
         setApiResponse, // Provide setter for API response
         setIsFetching, // Provide setter for fetch status
+        setUserPdf, // Adjusted setter for userPdf
       }}
     >
       {children}

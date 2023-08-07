@@ -1,0 +1,12 @@
+[
+  {
+    "origin": [
+      "http://localhost:3000",
+      "https://staging.tailoredapplication.com",
+      "https://tailoredapplication.com"
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": ["Content-Type", "x-goog-resumable"]
+  }
+]
