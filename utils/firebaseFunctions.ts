@@ -1,9 +1,9 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
-export async function uploadPDF(userId: any, file: any) {
+export async function uploadCV(userId: any, file: any) {
   const storage = getStorage();
-  const storageRef = ref(storage, `${userId}/${file.name}`);
+  const storageRef = ref(storage, `${userId}/cv/${file.name}`);
   uploadBytes(storageRef, file).then((snapshot) => {
     console.log("Uploaded a blob or file!");
   });

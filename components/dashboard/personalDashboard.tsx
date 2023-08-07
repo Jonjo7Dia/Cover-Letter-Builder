@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "styles/dashboard/personalDashboard.module.scss";
 import InputFile from "ui/inputs/inputFile";
-import { uploadPDF } from "utils/firebaseFunctions";
+import { uploadCV } from "utils/firebaseFunctions";
 import { auth } from "lib/firebaseConfig";
 import SubmitButton from "ui/buttons/submit";
 const PersonalDashboard = () => {
@@ -37,7 +37,7 @@ const PersonalDashboard = () => {
   const uploadFile = async () => {
     try {
       console.log(selectedFile);
-      await uploadPDF(auth.currentUser?.uid, selectedFile);
+      await uploadCV(auth.currentUser?.uid, selectedFile);
     } catch (error) {
       console.error("Failed to upload PDF:", error);
     }
