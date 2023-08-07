@@ -3,6 +3,7 @@ import styles from "styles/dashboard/personalDashboard.module.scss";
 import InputFile from "ui/inputs/inputFile";
 import { uploadPDF } from "utils/firebaseFunctions";
 import { auth } from "lib/firebaseConfig";
+import SubmitButton from "ui/buttons/submit";
 const PersonalDashboard = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -56,7 +57,11 @@ const PersonalDashboard = () => {
           dashboard={true}
           header={""}
         />
-        <button onClick={uploadFile}></button>
+        <SubmitButton
+          text={"Upload"}
+          disabled={selectedFile == null}
+          onClick={uploadFile}
+        />
       </div>
     </div>
   );
