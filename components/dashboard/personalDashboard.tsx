@@ -36,9 +36,7 @@ const PersonalDashboard = () => {
   const uploadFile = async () => {
     try {
       console.log(selectedFile);
-
-      const downloadURL = await uploadPDF(auth.currentUser?.uid, selectedFile);
-      console.log("Uploaded PDF and got URL:", downloadURL);
+      await uploadPDF(auth.currentUser?.uid, selectedFile);
     } catch (error) {
       console.error("Failed to upload PDF:", error);
     }

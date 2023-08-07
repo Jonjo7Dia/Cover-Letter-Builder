@@ -1,30 +1,11 @@
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export async function uploadPDF(userId: any, file: any) {
   const storage = getStorage();
-  const storageRef = ref(storage, `user_pdfs/${userId}/${file.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
-
-  return new Promise((resolve, reject) => {
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // You can monitor the progress here
-      },
-      (error) => {
-        reject(error);
-      },
-      async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        resolve(downloadURL);
-      }
-    );
+  const storageRef = ref(storage, `${userId}/${file.name}`);
+  uploadBytes(storageRef, file).then((snapshot) => {
+    console.log("Uploaded a blob or file!");
   });
 }
 
