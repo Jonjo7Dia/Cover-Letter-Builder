@@ -9,11 +9,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
+import { fetchUserCV } from "utils/firebaseFunctions";
 
 interface UserType {
   email: string | null;
   uid: string | null;
   displayName: string | null;
+  pdfURL: string | null;
 }
 
 const AuthContext = createContext({});
@@ -29,6 +31,7 @@ export const AuthContextProvider = ({
     email: null,
     uid: null,
     displayName: null,
+    pdfURL: null,
   });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,6 +45,7 @@ export const AuthContextProvider = ({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
+          pdfURL: null, // At this point, we're not fetching the PDF URL immediately after a Google sign-in.
         });
       })
       .catch((error: any) => {
@@ -50,15 +54,18 @@ export const AuthContextProvider = ({
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const pdfURL = await fetchUserCV(user.displayName, user.uid);
+        console.log(pdfURL);
         setUser({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
+          pdfURL: pdfURL,
         });
       } else {
-        setUser({ email: null, uid: null, displayName: null });
+        setUser({ email: null, uid: null, displayName: null, pdfURL: null });
       }
       setLoading(false);
     });
@@ -79,29 +86,23 @@ export const AuthContextProvider = ({
       if (userCredential.user) {
         await updateProfile(userCredential.user, { displayName });
       }
-      return null; // Return null if no errors occurred
+      return null;
     } catch (error: any) {
-      return error.message; // Return the error code
+      return error.message;
     }
   };
 
   const logIn = async (email: string, password: string) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      return null; // Return null if no errors occurred
+      await signInWithEmailAndPassword(auth, email, password);
+      return null;
     } catch (error: any) {
-      console.log(error);
-      return error.message; // Return the error message
+      return error.message;
     }
   };
 
   const logOut = async () => {
-    setUser({ email: null, uid: null, displayName: null });
+    setUser({ email: null, uid: null, displayName: null, pdfURL: null });
     await signOut(auth);
   };
 

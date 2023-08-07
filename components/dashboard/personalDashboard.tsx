@@ -4,9 +4,10 @@ import InputFile from "ui/inputs/inputFile";
 import { uploadCV } from "utils/firebaseFunctions";
 import { auth } from "lib/firebaseConfig";
 import SubmitButton from "ui/buttons/submit";
+import { useAuth } from "contexts/authContext";
 const PersonalDashboard = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+  const { user } = useAuth();
   const handleDragOver = (event: React.DragEvent) => {
     event.preventDefault();
   };
@@ -37,7 +38,11 @@ const PersonalDashboard = () => {
   const uploadFile = async () => {
     try {
       console.log(selectedFile);
-      await uploadCV(auth.currentUser?.uid, selectedFile);
+      await uploadCV(
+        auth.currentUser?.displayName,
+        auth.currentUser?.uid,
+        selectedFile
+      );
     } catch (error) {
       console.error("Failed to upload PDF:", error);
     }
@@ -45,24 +50,28 @@ const PersonalDashboard = () => {
 
   return (
     <div className={styles["personal-dashboard"]}>
-      <h1 className={styles["personal-dashboard__add-cv"]}>
-        Skip the upload step, add a CV
-      </h1>
-      <div className={styles["personal-dashboard__upload-wrapper"]}>
-        <InputFile
-          selectedFile={selectedFile}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
-          handleChange={handleChange}
-          dashboard={true}
-          header={""}
-        />
-        <SubmitButton
-          text={"Upload"}
-          disabled={selectedFile == null}
-          onClick={uploadFile}
-        />
-      </div>
+      {user.pdfURL == null && (
+        <h1 className={styles["personal-dashboard__add-cv"]}>
+          Skip the upload step, add a CV
+        </h1>
+      )}
+      {user.pdfURL == null && (
+        <div className={styles["personal-dashboard__upload-wrapper"]}>
+          <InputFile
+            selectedFile={selectedFile}
+            handleDragOver={handleDragOver}
+            handleDrop={handleDrop}
+            handleChange={handleChange}
+            dashboard={true}
+            header={""}
+          />
+          <SubmitButton
+            text={"Upload"}
+            disabled={selectedFile == null}
+            onClick={uploadFile}
+          />
+        </div>
+      )}
     </div>
   );
 };
