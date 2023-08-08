@@ -1,5 +1,4 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const storage = getStorage();
 

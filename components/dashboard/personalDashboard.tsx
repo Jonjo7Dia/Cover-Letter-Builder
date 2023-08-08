@@ -5,6 +5,7 @@ import { uploadCV } from "utils/firebaseFunctions";
 import { auth } from "lib/firebaseConfig";
 import SubmitButton from "ui/buttons/submit";
 import { useAuth } from "contexts/authContext";
+import UserInfo from "./userInfo";
 const PersonalDashboard = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { user } = useAuth();
@@ -72,6 +73,7 @@ const PersonalDashboard = () => {
           />
         </div>
       )}
+      {user.pdfURL !== null && <UserInfo url={`${user.pdfURL}`} />}
     </div>
   );
 };

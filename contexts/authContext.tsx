@@ -57,7 +57,7 @@ export const AuthContextProvider = ({
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const pdfURL = await fetchUserCV(user.displayName, user.uid);
-        console.log(pdfURL);
+        console.log(typeof pdfURL);
         setUser({
           email: user.email,
           uid: user.uid,
