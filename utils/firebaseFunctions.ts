@@ -10,9 +10,9 @@ const storage = getStorage();
 
 export async function uploadCV(displayName: any, userId: any, file: any) {
   const storageRef = ref(storage, `${userId}/cv/${displayName} CV`);
-  uploadBytes(storageRef, file).then((snapshot) => {
-    console.log("Uploaded a blob or file!");
-  });
+  await uploadBytes(storageRef, file);
+  const downloadURL = await getDownloadURL(storageRef);
+  return downloadURL;
 }
 
 export const fetchUserCV = async (displayName: any, uid: any) => {

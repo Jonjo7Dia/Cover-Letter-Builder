@@ -8,7 +8,7 @@ import { useAuth } from "contexts/authContext";
 import UserInfo from "./userInfo";
 const PersonalDashboard = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const handleDragOver = (event: React.DragEvent) => {
     event.preventDefault();
   };
@@ -38,12 +38,14 @@ const PersonalDashboard = () => {
   };
   const uploadFile = async () => {
     try {
-      console.log(selectedFile);
-      await uploadCV(
+      const downloadURL = await uploadCV(
         auth.currentUser?.displayName,
         auth.currentUser?.uid,
         selectedFile
       );
+
+      // Now that we have the download URL, we can update the user state's pdfURL property.
+      setUser((prevState: any) => ({ ...prevState, pdfURL: downloadURL }));
     } catch (error) {
       console.error("Failed to upload PDF:", error);
     }

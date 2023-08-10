@@ -114,7 +114,15 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, signUp, logIn, logOut, googleSignIn, setPDFURLToNull }}
+      value={{
+        user,
+        signUp,
+        logIn,
+        logOut,
+        googleSignIn,
+        setPDFURLToNull,
+        setUser,
+      }}
     >
       {loading ? null : children}
     </AuthContext.Provider>
