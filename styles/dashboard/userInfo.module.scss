@@ -1,7 +1,20 @@
+@import "../variables.scss";
+
 .userInfo {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  gap: rem(25px);
 
   &__cv {
     width: auto;
+    height: rem(500px);
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: rem(25px);
   }
 }

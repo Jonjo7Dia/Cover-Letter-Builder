@@ -57,7 +57,6 @@ export const AuthContextProvider = ({
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const pdfURL = await fetchUserCV(user.displayName, user.uid);
-        console.log(typeof pdfURL);
         setUser({
           email: user.email,
           uid: user.uid,
@@ -106,8 +105,17 @@ export const AuthContextProvider = ({
     await signOut(auth);
   };
 
+  const setPDFURLToNull = () => {
+    setUser((prevState) => ({
+      ...prevState,
+      pdfURL: null,
+    }));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, googleSignIn }}>
+    <AuthContext.Provider
+      value={{ user, signUp, logIn, logOut, googleSignIn, setPDFURLToNull }}
+    >
       {loading ? null : children}
     </AuthContext.Provider>
   );
