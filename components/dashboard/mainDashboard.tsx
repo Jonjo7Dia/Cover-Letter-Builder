@@ -1,10 +1,20 @@
 import AddJobStep from "components/addJobStep";
 import GeneralProduct from "components/generalProduct";
+import PreviewCoverLetter from "components/previewCoverLetter";
 import { useAuth } from "contexts/authContext";
+import { useUser } from "contexts/userContext";
+import { useEffect } from "react";
 import styles from "styles/dashboard/mainDashboard.module.scss";
 
 const MainDashboard = () => {
   const { user } = useAuth();
+  const { parsedPdfText, setParsedPdfText, onboardingStep } = useUser();
+  useEffect(() => {
+    if (user.parsedCVText) {
+      setParsedPdfText(user.parsedCVText);
+      console.log(parsedPdfText);
+    }
+  });
 
   return (
     <div className={styles["main-dashboard"]}>
@@ -16,7 +26,8 @@ const MainDashboard = () => {
           <GeneralProduct dashboard={true} />
         </>
       )}
-      {user.pdfURL && <AddJobStep />}
+      {user.pdfURL && onboardingStep < 3 && <AddJobStep />}
+      {onboardingStep == 3 && <PreviewCoverLetter dashboard={true} />}
     </div>
   );
 };

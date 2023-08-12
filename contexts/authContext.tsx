@@ -9,13 +9,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
-import { fetchUserCV } from "utils/firebaseFunctions";
+import { fetchParsedCVText, fetchUserCV } from "utils/firebaseFunctions";
 
 interface UserType {
   email: string | null;
   uid: string | null;
   displayName: string | null;
   pdfURL: string | null;
+  parsedCVText: string | null;
 }
 
 const AuthContext = createContext({});
@@ -32,6 +33,7 @@ export const AuthContextProvider = ({
     uid: null,
     displayName: null,
     pdfURL: null,
+    parsedCVText: null,
   });
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -45,7 +47,8 @@ export const AuthContextProvider = ({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
-          pdfURL: null, // At this point, we're not fetching the PDF URL immediately after a Google sign-in.
+          pdfURL: null,
+          parsedCVText: null,
         });
       })
       .catch((error: any) => {
@@ -57,14 +60,22 @@ export const AuthContextProvider = ({
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const pdfURL = await fetchUserCV(user.displayName, user.uid);
+        const parsedCVText = await fetchParsedCVText(user.uid); // Fetch the parsed CV text here
         setUser({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
           pdfURL: pdfURL,
+          parsedCVText: parsedCVText, // Add this to the state
         });
       } else {
-        setUser({ email: null, uid: null, displayName: null, pdfURL: null });
+        setUser({
+          email: null,
+          uid: null,
+          displayName: null,
+          pdfURL: null,
+          parsedCVText: null,
+        }); // Make sure to reset this as well
       }
       setLoading(false);
     });
@@ -101,7 +112,13 @@ export const AuthContextProvider = ({
   };
 
   const logOut = async () => {
-    setUser({ email: null, uid: null, displayName: null, pdfURL: null });
+    setUser({
+      email: null,
+      uid: null,
+      displayName: null,
+      pdfURL: null,
+      parsedCVText: null,
+    });
     await signOut(auth);
   };
 

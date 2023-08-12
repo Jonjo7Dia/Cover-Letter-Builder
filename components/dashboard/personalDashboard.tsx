@@ -6,9 +6,13 @@ import { auth } from "lib/firebaseConfig";
 import SubmitButton from "ui/buttons/submit";
 import { useAuth } from "contexts/authContext";
 import UserInfo from "./userInfo";
+import { usePdfParse } from "hooks/pdfHooks";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { firestore } from "lib/firebaseConfig";
 const PersonalDashboard = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { user, setUser } = useAuth();
+  const { parsePdf } = usePdfParse();
   const handleDragOver = (event: React.DragEvent) => {
     event.preventDefault();
   };
@@ -38,14 +42,22 @@ const PersonalDashboard = () => {
   };
   const uploadFile = async () => {
     try {
-      const downloadURL = await uploadCV(
-        auth.currentUser?.displayName,
-        auth.currentUser?.uid,
-        selectedFile
-      );
+      if (selectedFile) {
+        const downloadURL = await uploadCV(
+          auth.currentUser?.displayName,
+          auth.currentUser?.uid,
+          selectedFile
+        );
+        const parsedText = await parsePdf(selectedFile);
+        if (auth.currentUser && parsedText) {
+          console.log(parsedText);
+          const userRef = doc(firestore, "users", auth.currentUser.uid);
+          await setDoc(userRef, { parsedCVText: parsedText }, { merge: true });
+        }
+        setUser((prevState: any) => ({ ...prevState, pdfURL: downloadURL }));
+      }
 
       // Now that we have the download URL, we can update the user state's pdfURL property.
-      setUser((prevState: any) => ({ ...prevState, pdfURL: downloadURL }));
     } catch (error) {
       console.error("Failed to upload PDF:", error);
     }
