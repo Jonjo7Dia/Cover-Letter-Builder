@@ -13,7 +13,7 @@ type UploadCVStepProps = {
 
 const UploadCVStep: React.FC<UploadCVStepProps> = ({ dashboard }) => {
   const { trackUpload } = useTracking();
-  const { setOnboardingStep, setIsFetching } = useUser();
+  const { setOnboardingStep, setIsFetching, setParsedPdfText } = useUser();
   const { error, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -49,6 +49,7 @@ const UploadCVStep: React.FC<UploadCVStepProps> = ({ dashboard }) => {
     if (selectedFile) {
       const isParsed = await parsePdf(selectedFile);
       if (isParsed) {
+        setParsedPdfText(isParsed);
         setOnboardingStep(2);
       }
     } else {
