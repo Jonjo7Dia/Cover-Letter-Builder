@@ -4,21 +4,43 @@ import UploadCVStep from "./uploadCVStep";
 import AddJobStep from "./addJobStep";
 import PreviewCoverLetter from "./previewCoverLetter";
 import Loader from "./loader";
+import { useAuth } from "contexts/authContext";
+import { useEffect } from "react";
 
 type GeneralProductProps = {
   dashboard?: boolean | false;
 };
 
 const GeneralProduct: React.FC<GeneralProductProps> = ({ dashboard }) => {
-  const { onboardingStep, isFetching } = useUser();
-
+  const { user } = useAuth();
+  const {
+    parsedPdfText,
+    setParsedPdfText,
+    onboardingStep,
+    isFetching,
+    setOnboardingStep,
+  } = useUser();
+  useEffect(() => {
+    if (user) {
+      if (localStorage.getItem("userPDF")) {
+        setParsedPdfText(localStorage.getItem("userPDF"));
+        setOnboardingStep(2);
+      } else if (user.parsedCVText) {
+        setParsedPdfText(user.parsedCVText);
+        localStorage.setItem("userPDF", user.parsedCVText);
+      }
+    }
+  }, []);
+  console.log(onboardingStep);
   return (
     <>
-      <Steps />
+      {user.parsedCVText == null && <Steps />}
       {onboardingStep == 1 && !isFetching && (
         <UploadCVStep dashboard={dashboard} />
       )}
-      {onboardingStep == 2 && !isFetching && <AddJobStep />}
+      {onboardingStep == 2 && !isFetching && (
+        <AddJobStep dashboard={dashboard} />
+      )}
       {onboardingStep == 3 && !isFetching && (
         <PreviewCoverLetter dashboard={dashboard} />
       )}

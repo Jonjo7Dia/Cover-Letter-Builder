@@ -8,7 +8,12 @@ import RepeatInputString from "ui/inputs/repeatableInputString";
 import { useUser } from "contexts/userContext";
 import { useOpenAI } from "hooks/gptHooks";
 import { useTracking } from "tracking/useTracking";
-const AddJobStep = () => {
+
+type AddJobProps = {
+  dashboard?: boolean | false;
+};
+
+const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
   const { trackJob } = useTracking();
 
   const {
@@ -73,6 +78,27 @@ const AddJobStep = () => {
         handleSubmit();
       }}
     >
+      {dashboard && (
+        <>
+          <InputString
+            placeholder={"Add Job Title"}
+            inputTitle={"Add Job Title"}
+            info={"Add a job tile, to add to the dashboard"}
+            onChange={() => {
+              console.log("hello");
+            }}
+          />
+          <InputString
+            placeholder={"Add Company Name"}
+            inputTitle={"Add Company Name"}
+            info={"Add a company name, to add to the dashboard"}
+            onChange={() => {
+              console.log("hello");
+            }}
+          />
+        </>
+      )}
+      <h3>Paste the Job Application</h3>
       <InputText
         placeholder="Copy & Paste Content of the Job Ad..."
         onChange={handleInputTextField}

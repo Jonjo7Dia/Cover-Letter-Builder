@@ -111,7 +111,7 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
           ref={containerRef}
         ></div>
         <div className={`${styles["preview__download"]}`}>
-          <Restart />
+          <Restart showStartOver={!dashboard} />
           <DownloadOptions text={apiResponse} textToCopy={containerRef} />
         </div>
       </div>
