@@ -13,9 +13,11 @@ const MainDashboard = () => {
   const { user } = useAuth();
   const { parsedPdfText, setParsedPdfText, onboardingStep } = useUser();
   useEffect(() => {
-    if (user.parsedCVText) {
+    if (localStorage.getItem("userPDF")) {
+      setParsedPdfText(localStorage.getItem("userPDF"));
+    } else if (user.parsedCVText) {
       setParsedPdfText(user.parsedCVText);
-      console.log(parsedPdfText);
+      localStorage.setItem("userPDF", user.parsedCVText);
     }
   });
 

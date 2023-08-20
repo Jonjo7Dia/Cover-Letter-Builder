@@ -50,7 +50,7 @@ const PersonalDashboard = () => {
         );
         const parsedText = await parsePdf(selectedFile);
         if (auth.currentUser && parsedText) {
-          console.log(parsedText);
+          localStorage.setItem("userPDF", parsedText);
           const userRef = doc(firestore, "users", auth.currentUser.uid);
           await setDoc(userRef, { parsedCVText: parsedText }, { merge: true });
         }
