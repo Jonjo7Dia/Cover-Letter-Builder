@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import styles from "styles/dashboard/mainDashboard.module.scss";
 
 const MainDashboard = () => {
+  //to optimize => we should set local storage of the parsed cv text;
+  //if local storage != null then fetch local storage, if not fetch cv from firebase
+
   const { user } = useAuth();
   const { parsedPdfText, setParsedPdfText, onboardingStep } = useUser();
   useEffect(() => {
