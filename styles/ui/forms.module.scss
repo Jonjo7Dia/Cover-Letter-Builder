@@ -6,7 +6,7 @@
   gap: rem(30px);
   width: 100%;
   margin: 0 auto;
-  @include breakpoint(sm) {
+  @include breakpoint(desktop) {
     width: rem(568px);
   }
 }
