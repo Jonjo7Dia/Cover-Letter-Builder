@@ -1,14 +1,17 @@
 import styles from "styles/dashboard/appliedJobs.module.scss";
 
-type deleteJobProps = {
+type DeleteJobProps = {
   close: () => void;
+  onDelete: (index: number) => void; // changed name here
+  index: number;
 };
 
-const DeleteJob: React.FC<deleteJobProps> = ({ close }) => {
+const DeleteJob: React.FC<DeleteJobProps> = ({ close, onDelete, index }) => {
   return (
     <div className={styles["deleteJob"]}>
       <button
         className={`${styles["addJob__submit"]} ${styles["addJob__cancel"]}`}
+        onClick={() => onDelete(index)} // and here
       >
         Confirm
       </button>

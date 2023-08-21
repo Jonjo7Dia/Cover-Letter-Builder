@@ -58,7 +58,11 @@ const AppliedJobs = () => {
     setJobs([...jobs, newJob]);
     closeModal();
   };
-
+  const deleteJob = (index: number) => {
+    const updatedJobs = [...jobs];
+    updatedJobs.splice(index, 1);
+    setJobs(updatedJobs);
+  };
   return (
     <div className={styles["appliedJobs"]}>
       <div className={styles["appliedJobs__job"]}>
@@ -119,6 +123,7 @@ const AppliedJobs = () => {
             key={job.companyName + job.dateApplied}
             last={index == jobs.length - 1}
             ad={job.jobAd}
+            onDelete={deleteJob}
           />
         );
       })}
