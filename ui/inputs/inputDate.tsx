@@ -8,7 +8,7 @@ type InputStringProps = {
   required?: boolean | false;
 };
 
-const InputString: React.FC<InputStringProps> = ({
+const InputDate: React.FC<InputStringProps> = ({
   placeholder,
   inputTitle,
   info,
@@ -24,7 +24,7 @@ const InputString: React.FC<InputStringProps> = ({
         {info && <Info info={info} />}
       </div>
       <input
-        type="text"
+        type="date"
         className={styles["inputString__input"]}
         placeholder={placeholder}
         onChange={(e) => {
@@ -36,4 +36,4 @@ const InputString: React.FC<InputStringProps> = ({
   );
 };
 
-export default InputString;
+export default InputDate;

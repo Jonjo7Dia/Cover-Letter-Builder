@@ -86,3 +86,73 @@
     }
   }
 }
+
+.addJob {
+  width: rem(1000px);
+  background-color: $color-white;
+  border: solid rem(1px) $color-main-blue;
+  border-radius: rem(4px);
+  z-index: 5;
+  position: absolute;
+  transform: translateY(-100%);
+  padding: rem(15px) rem(10px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(25px);
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: rem(20px);
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: rem(25px);
+    width: 50%;
+    align-items: flex-start;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: rem(25px);
+    width: 50%;
+    align-items: flex-end;
+  }
+
+  &__adTitle {
+    width: 100%;
+    font-size: rem(18px);
+    font-family: "Roboto";
+  }
+
+  &__submit {
+    width: rem(100px);
+    padding: rem(10px);
+    font-size: rem(18px);
+    background-color: $color-main-blue;
+    border: none;
+    color: $color-white;
+    border-radius: rem(4px);
+    justify-self: flex-end;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__cancel {
+    background-color: $color-red;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: rem(25px);
+  }
+}
