@@ -1,0 +1,88 @@
+@import "../variables.scss";
+.appliedJobs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+
+  &__job {
+    min-width: rem(1005px);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    &:hover > *:not(:last-child) {
+      background-color: $color-light-grey;
+      cursor: pointer;
+    }
+  }
+  &__header {
+    background-color: $color-light-grey;
+  }
+
+  &__last {
+    border-bottom: solid rem(1px) $color-main-blue;
+  }
+
+  &__num {
+    width: 5%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-left: solid rem(1px) $color-main-blue;
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__company {
+    width: 15%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__position {
+    width: 15%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__date {
+    width: 10%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__replied {
+    width: 15%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__interview {
+    width: 10%;
+    border-top: solid rem(1px) $color-main-blue;
+
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__offer {
+    width: 10%;
+    border-top: solid rem(1px) $color-main-blue;
+    border-right: solid rem(1px) $color-main-blue;
+    padding: rem(5px) 0 rem(5px) rem(5px);
+  }
+  &__add {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
