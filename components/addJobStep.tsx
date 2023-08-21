@@ -87,6 +87,7 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
             onChange={() => {
               console.log("hello");
             }}
+            required={true}
           />
           <InputString
             placeholder={"Add Company Name"}
@@ -95,6 +96,7 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
             onChange={() => {
               console.log("hello");
             }}
+            required={true}
           />
         </>
       )}

@@ -1,5 +1,8 @@
 import styles from "styles/dashboard/appliedJobs.module.scss";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import ViewJob from "./viewJob";
 type jobProps = {
   company: string;
   position: string;
@@ -9,6 +12,7 @@ type jobProps = {
   offer: boolean | null;
   index: number;
   last: boolean;
+  ad: string;
 };
 
 const Job: React.FC<jobProps> = ({
@@ -20,7 +24,9 @@ const Job: React.FC<jobProps> = ({
   offer,
   index,
   last,
+  ad,
 }) => {
+  const [showJob, setShowJob] = useState(false);
   function formatDate(date: Date) {
     let day: any = date.getDate();
     let month: any = date.getMonth() + 1;
@@ -30,6 +36,9 @@ const Job: React.FC<jobProps> = ({
 
     return day + "/" + month + "/" + year;
   }
+  const closeModal = () => {
+    setShowJob(false);
+  };
   return (
     <div className={styles["appliedJobs__job"]}>
       <div
@@ -81,7 +90,31 @@ const Job: React.FC<jobProps> = ({
       >
         {offer == null ? "Not Yet" : interview}
       </div>
-      <div className={styles["appliedJobs__add"]}></div>
+      <div className={styles["appliedJobs__add"]}>
+        <FontAwesomeIcon
+          icon={faEye}
+          className={styles["appliedJobs__view"]}
+          onClick={() => {
+            setShowJob(true);
+          }}
+        />
+        <FontAwesomeIcon
+          icon={faTrash}
+          className={styles["appliedJobs__trash"]}
+        />
+      </div>
+      {showJob && (
+        <ViewJob
+          company={company}
+          position={position}
+          ad={ad}
+          date={date}
+          interview={interview}
+          offer={offer}
+          replied={replied}
+          close={closeModal}
+        />
+      )}
     </div>
   );
 };

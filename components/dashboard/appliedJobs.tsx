@@ -118,6 +118,7 @@ const AppliedJobs = () => {
             date={job.dateApplied}
             key={job.companyName + job.dateApplied}
             last={index == jobs.length - 1}
+            ad={job.jobAd}
           />
         );
       })}
