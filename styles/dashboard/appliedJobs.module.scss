@@ -171,8 +171,6 @@
   z-index: 5;
   position: absolute;
   padding: rem(15px) rem(10px);
-  display: flex;
-  flex-direction: column;
   gap: rem(25px);
   top: 50%;
   transform: translateY(-50%);
@@ -188,4 +186,20 @@
     max-height: rem(400px);
     overflow-y: scroll;
   }
+}
+
+.deleteJob {
+  background-color: $color-white;
+  border: solid rem(1px) $color-main-blue;
+  border-radius: rem(4px);
+  z-index: 5;
+  position: absolute;
+  padding: rem(15px) rem(10px);
+  display: flex;
+  gap: rem(25px);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: rem(500px);
 }

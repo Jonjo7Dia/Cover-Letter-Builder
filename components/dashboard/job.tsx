@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ViewJob from "./viewJob";
+import DeleteJob from "./deleteJob";
 type jobProps = {
   company: string;
   position: string;
@@ -27,6 +28,7 @@ const Job: React.FC<jobProps> = ({
   ad,
 }) => {
   const [showJob, setShowJob] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   function formatDate(date: Date) {
     let day: any = date.getDate();
     let month: any = date.getMonth() + 1;
@@ -38,6 +40,10 @@ const Job: React.FC<jobProps> = ({
   }
   const closeModal = () => {
     setShowJob(false);
+  };
+
+  const closeConfirm = () => {
+    setConfirm(false);
   };
   return (
     <div className={styles["appliedJobs__job"]}>
@@ -96,11 +102,16 @@ const Job: React.FC<jobProps> = ({
           className={styles["appliedJobs__view"]}
           onClick={() => {
             setShowJob(true);
+            setConfirm(false);
           }}
         />
         <FontAwesomeIcon
           icon={faTrash}
           className={styles["appliedJobs__trash"]}
+          onClick={() => {
+            setConfirm(true);
+            setShowJob(false);
+          }}
         />
       </div>
       {showJob && (
@@ -115,6 +126,7 @@ const Job: React.FC<jobProps> = ({
           close={closeModal}
         />
       )}
+      {confirm && <DeleteJob close={closeConfirm} />}
     </div>
   );
 };
