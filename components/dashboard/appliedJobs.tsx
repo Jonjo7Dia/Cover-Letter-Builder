@@ -19,23 +19,40 @@ const AppliedJobs = () => {
     {
       companyName: "WealthArc",
       dateApplied: new Date(),
-      replied: null,
-      interview: null,
-      offer: null,
+      replied: "Not Yet",
+      interview: "Not Yet",
+      offer: "Not Yet",
       position: "Front End Engineer",
       jobAd: "",
     },
     {
       companyName: "Wealth",
       dateApplied: new Date(),
-      replied: null,
-      interview: null,
-      offer: null,
+      replied: "Not Yet",
+      interview: "Not Yet",
+      offer: "Not Yet",
       position: "Front End Engineer",
       jobAd: "",
     },
   ]);
   const [popUp, setPopUp] = useState(false);
+  const handleReplyChange = (index: number, newReply: string) => {
+    const updatedJobs = [...jobs];
+    updatedJobs[index].replied = newReply;
+    setJobs(updatedJobs);
+  };
+
+  const handleInterviewChange = (index: number, newInterview: string) => {
+    const updatedJobs = [...jobs];
+    updatedJobs[index].interview = newInterview;
+    setJobs(updatedJobs);
+  };
+
+  const handleOfferChange = (index: number, newOffer: string) => {
+    const updatedJobs = [...jobs];
+    updatedJobs[index].offer = newOffer;
+    setJobs(updatedJobs);
+  };
 
   const closeModal = () => {
     setPopUp(false);
@@ -49,9 +66,9 @@ const AppliedJobs = () => {
     const newJob = {
       companyName: company,
       dateApplied: new Date(date),
-      replied: null,
-      interview: null,
-      offer: null,
+      replied: "Not Yet",
+      interview: "Not Yet",
+      offer: "Not Yet",
       position: position,
       jobAd: jobAd,
     };
@@ -124,6 +141,15 @@ const AppliedJobs = () => {
             last={index == jobs.length - 1}
             ad={job.jobAd}
             onDelete={deleteJob}
+            onReplyChange={(newReply: string) =>
+              handleReplyChange(index, newReply)
+            }
+            onInterviewChange={(newInterview: string) =>
+              handleInterviewChange(index, newInterview)
+            }
+            onOfferChange={(newOffer: string) =>
+              handleOfferChange(index, newOffer)
+            }
           />
         );
       })}

@@ -90,6 +90,11 @@
       color: $color-red;
     }
   }
+  &__select {
+    height: 100%;
+    font-size: rem(16px);
+    border: none;
+  }
 }
 
 .addJob {

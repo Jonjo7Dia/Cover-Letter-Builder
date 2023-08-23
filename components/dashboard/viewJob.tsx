@@ -4,9 +4,9 @@ type viewJob = {
   company: string;
   position: string;
   date: Date;
-  replied: boolean | null;
-  interview: boolean | null;
-  offer: boolean | null;
+  replied: string;
+  interview: string;
+  offer: string;
   ad: string;
   close: () => void;
 };
@@ -30,6 +30,7 @@ const ViewJob: React.FC<viewJob> = ({
 
     return day + "/" + month + "/" + year;
   }
+  console.log(company, position, date, replied, interview, offer, ad);
   return (
     <div className={styles["viewJob"]}>
       <h4 className={styles["viewJob__title"]}> Company Name: {company}</h4>
@@ -39,15 +40,11 @@ const ViewJob: React.FC<viewJob> = ({
       <h4 className={styles["viewJob__title"]}>
         Date of Application: {formatDate(date)}
       </h4>
+      <h4 className={styles["viewJob__title"]}>Recieved a Reply: {replied}</h4>
       <h4 className={styles["viewJob__title"]}>
-        Recieved a Reply: {replied == null ? "Not Yet" : replied}
+        Interview Scheduled: {interview}
       </h4>
-      <h4 className={styles["viewJob__title"]}>
-        Interview Scheduled: {interview == null ? "Not Yet" : interview}
-      </h4>
-      <h4 className={styles["viewJob__title"]}>
-        Recieved an Offer: {offer == null ? "Not Yet" : interview}
-      </h4>
+      <h4 className={styles["viewJob__title"]}>Recieved an Offer: {offer}</h4>
       {ad.length > 0 && (
         <>
           <h4 className={styles["viewJob__title"]}>Job Ad:</h4>

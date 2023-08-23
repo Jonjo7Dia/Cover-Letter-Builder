@@ -8,13 +8,16 @@ type jobProps = {
   company: string;
   position: string;
   date: Date;
-  replied: boolean | null;
-  interview: boolean | null;
-  offer: boolean | null;
+  replied: string;
+  interview: string;
+  offer: string;
   index: number;
   last: boolean;
   ad: string;
   onDelete: (index: number) => void;
+  onReplyChange: (newReply: string) => void;
+  onInterviewChange: (newInterview: string) => void;
+  onOfferChange: (newOffer: string) => void;
 };
 
 const Job: React.FC<jobProps> = ({
@@ -28,9 +31,15 @@ const Job: React.FC<jobProps> = ({
   last,
   ad,
   onDelete,
+  onReplyChange,
+  onInterviewChange,
+  onOfferChange,
 }) => {
   const [showJob, setShowJob] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(offer);
+  const [selectedInterview, setSelectedInterview] = useState(interview);
+  const [selectedReply, setSelectedReply] = useState(replied);
   function formatDate(date: Date) {
     let day: any = date.getDate();
     let month: any = date.getMonth() + 1;
@@ -82,21 +91,54 @@ const Job: React.FC<jobProps> = ({
           last ? styles["appliedJobs__last"] : ""
         }`}
       >
-        {replied == null ? "Not Yet" : replied}
+        <select
+          value={selectedReply}
+          onChange={(e) => {
+            setSelectedReply(e.target.value);
+            onReplyChange(e.target.value);
+          }}
+          className={styles["appliedJobs__select"]}
+        >
+          <option value="Not Yet">Not Yet</option>
+          <option value="Next Step">Next Step</option>
+          <option value="Rejected">Rejected</option>
+        </select>
       </div>
       <div
         className={`${styles["appliedJobs__interview"]} ${
           last ? styles["appliedJobs__last"] : ""
         }`}
       >
-        {interview == null ? "Not Yet" : interview}
+        <select
+          value={selectedInterview}
+          onChange={(e) => {
+            setSelectedInterview(e.target.value);
+            onInterviewChange(e.target.value);
+          }}
+          className={styles["appliedJobs__select"]}
+        >
+          <option value="Not Yet">Not Yet</option>
+          <option value="Ongoing">Ongoing</option>
+          <option value="No">No</option>
+        </select>
       </div>
       <div
         className={`${styles["appliedJobs__offer"]} ${
           last ? styles["appliedJobs__last"] : ""
         }`}
       >
-        {offer == null ? "Not Yet" : interview}
+        <select
+          value={selectedOffer}
+          onChange={(e) => {
+            setSelectedOffer(e.target.value);
+            onOfferChange(e.target.value);
+          }}
+          className={styles["appliedJobs__select"]}
+        >
+          <option value="Not Yet">Not Yet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
       </div>
       <div className={styles["appliedJobs__add"]}>
         <FontAwesomeIcon
