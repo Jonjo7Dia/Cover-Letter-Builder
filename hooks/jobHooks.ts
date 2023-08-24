@@ -1,3 +1,4 @@
+import { useAuth } from "contexts/authContext";
 import { useUser } from "contexts/userContext";
 import {
   collection,
@@ -23,27 +24,34 @@ type Job = {
 
 function useJobs() {
   const { jobs, setJobs } = useUser();
-  const jobsCollection = collection(firestore, "jobs");
+  const { user } = useAuth();
+  if (!user || !user.uid) {
+    throw new Error(
+      "Attempted to use jobs hook without an authenticated user."
+    );
+  }
+
+  const userJobsCollection = collection(firestore, "users", user.uid, "jobs");
 
   const fetchJobsFromFirebase = async () => {
-    const jobDocs = await getDocs(jobsCollection);
+    const jobDocs = await getDocs(userJobsCollection);
     const fetchedJobs = jobDocs.docs.map((doc) => doc.data() as Job);
     setJobs(fetchedJobs);
   };
 
   const addJob = async (job: Job) => {
-    await addDoc(jobsCollection, job);
+    await addDoc(userJobsCollection, job);
     fetchJobsFromFirebase();
   };
 
   const updateJob = async (updatedJob: Job, docId: string) => {
-    const jobDoc = doc(firestore, "jobs", docId);
+    const jobDoc = doc(firestore, "users", user.uid, "jobs", docId);
     await updateDoc(jobDoc, updatedJob);
     fetchJobsFromFirebase();
   };
 
   const deleteJob = async (docId: string) => {
-    const jobDoc = doc(firestore, "jobs", docId);
+    const jobDoc = doc(firestore, "users", user.uid, "jobs", docId);
     await deleteDoc(jobDoc);
     fetchJobsFromFirebase();
   };

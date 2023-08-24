@@ -8,6 +8,7 @@ import RepeatInputString from "ui/inputs/repeatableInputString";
 import { useUser } from "contexts/userContext";
 import { useOpenAI } from "hooks/gptHooks";
 import { useTracking } from "tracking/useTracking";
+import useJobs from "hooks/jobHooks";
 
 type AddJobProps = {
   dashboard?: boolean | false;
@@ -15,7 +16,7 @@ type AddJobProps = {
 
 const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
   const { trackJob } = useTracking();
-
+  const { addJob } = useJobs();
   const {
     setOnboardingStep,
     setJobApplicationText,
@@ -29,6 +30,8 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
   const [inputFields, setInputFields] = useState([""]);
   const [inputTextField, setInputTextField] = useState("");
   const [missionStatement, setMissionStatement] = useState("");
+  const [jobPosition, setJobPosition] = useState("");
+  const [company, setCompany] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const handleAddField = () => {
     setInputFields([...inputFields, ""]);
@@ -47,16 +50,28 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
   };
 
   const handleInputTextField = (input: string) => {
-    setInputTextField(
-      input.replace(/\n/g, "<linebreak>").replace(/^\s*[\r\n]/gm, "")
-    );
+    setInputTextField(input);
   };
   const handleMissionStatement = (input: string) => {
     setMissionStatement(input);
   };
   const handleSubmit = async () => {
+    if (dashboard) {
+      const job = {
+        companyName: company,
+        dateApplied: new Date(),
+        replied: "Not Yet",
+        interview: "Not Yet",
+        offer: "Not Yet",
+        position: jobPosition,
+        jobAd: inputTextField,
+      };
+      addJob(job);
+    }
     trackJob();
-    setJobApplicationText(inputTextField);
+    setJobApplicationText(
+      inputTextField.replace(/\n/g, "<linebreak>").replace(/^\s*[\r\n]/gm, "")
+    );
     setCompanyValues(inputFields);
     setCompanyMissionStatement(missionStatement);
     setIsLoading(false);
@@ -70,6 +85,13 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
     setOnboardingStep(3);
   };
 
+  const handleJobPosition = (input: string) => {
+    setJobPosition(input);
+  };
+  const handleCompany = (input: string) => {
+    setCompany(input);
+  };
+
   return (
     <form
       className={styles["form"]}
@@ -81,21 +103,17 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
       {dashboard && (
         <>
           <InputString
-            placeholder={"Add Job Title"}
-            inputTitle={"Add Job Title"}
-            info={"Add a job tile, to add to the dashboard"}
-            onChange={() => {
-              console.log("hello");
-            }}
-            required={true}
-          />
-          <InputString
             placeholder={"Add Company Name"}
             inputTitle={"Add Company Name"}
             info={"Add a company name, to add to the dashboard"}
-            onChange={() => {
-              console.log("hello");
-            }}
+            onChange={handleCompany}
+            required={true}
+          />
+          <InputString
+            placeholder={"Add Job Title"}
+            inputTitle={"Add Job Title"}
+            info={"Add a job tile, to add to the dashboard"}
+            onChange={handleJobPosition}
             required={true}
           />
         </>

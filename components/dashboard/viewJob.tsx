@@ -1,9 +1,10 @@
 import styles from "styles/dashboard/appliedJobs.module.scss";
+import { Timestamp } from "firebase/firestore";
 
 type viewJob = {
   company: string;
   position: string;
-  date: Date;
+  date: Timestamp;
   replied: string;
   interview: string;
   offer: string;
@@ -21,7 +22,8 @@ const ViewJob: React.FC<viewJob> = ({
   ad,
   close,
 }) => {
-  function formatDate(date: Date) {
+  function formatDate(timestamp: Timestamp) {
+    const date = timestamp.toDate();
     let day: any = date.getDate();
     let month: any = date.getMonth() + 1;
     let year = date.getFullYear();

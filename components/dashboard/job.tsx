@@ -1,13 +1,15 @@
 import styles from "styles/dashboard/appliedJobs.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Timestamp } from "firebase/firestore";
+
 import { useState } from "react";
 import ViewJob from "./viewJob";
 import DeleteJob from "./deleteJob";
 type jobProps = {
   company: string;
   position: string;
-  date: Date;
+  date: Timestamp;
   replied: string;
   interview: string;
   offer: string;
@@ -40,7 +42,8 @@ const Job: React.FC<jobProps> = ({
   const [selectedOffer, setSelectedOffer] = useState(offer);
   const [selectedInterview, setSelectedInterview] = useState(interview);
   const [selectedReply, setSelectedReply] = useState(replied);
-  function formatDate(date: Date) {
+  function formatDate(timestamp: Timestamp) {
+    const date = timestamp.toDate();
     let day: any = date.getDate();
     let month: any = date.getMonth() + 1;
     let year = date.getFullYear();

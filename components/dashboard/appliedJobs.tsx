@@ -4,28 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import AddJob from "./addJob";
-
+import { useUser } from "contexts/userContext";
 const AppliedJobs = () => {
-  const [jobs, setJobs] = useState([
-    {
-      companyName: "WealthArc",
-      dateApplied: new Date(),
-      replied: "Not Yet",
-      interview: "Not Yet",
-      offer: "Not Yet",
-      position: "Front End Engineer",
-      jobAd: "",
-    },
-    {
-      companyName: "Wealth",
-      dateApplied: new Date(),
-      replied: "Not Yet",
-      interview: "Not Yet",
-      offer: "Not Yet",
-      position: "Front End Engineer",
-      jobAd: "",
-    },
-  ]);
+  const { jobs, setJobs } = useUser();
+  console.log(jobs);
   const [popUp, setPopUp] = useState(false);
   const handleReplyChange = (index: number, newReply: string) => {
     const updatedJobs = [...jobs];

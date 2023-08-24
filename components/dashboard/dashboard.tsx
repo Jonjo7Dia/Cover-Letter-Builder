@@ -1,10 +1,23 @@
 import styles from "styles/dashboard/dashboard.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // <-- Import useEffect
 import MainDashboard from "./mainDashboard";
 import PersonalDashboard from "./personalDashboard";
+import useJobs from "hooks/jobHooks"; // <-- Import useJobs hook
+import { useAuth } from "contexts/authContext"; // <-- Import useAuth to get user
+
 const Dashboard = () => {
   const [currentOption, setCurrentOption] = useState("Dashboard");
   const options = ["Dashboard", "Personal Info", "Settings"];
+  const { user } = useAuth(); // <-- Get the current user
+  const { fetchJobsFromFirebase, jobs } = useJobs(); // <-- Use the functions from the hook
+
+  // Fetch jobs when the dashboard component mounts
+  useEffect(() => {
+    if (user && user.uid) {
+      fetchJobsFromFirebase();
+    }
+  }, [user]);
+
   return (
     <div className={`${styles["dashboard"]} wrapper`}>
       <div className={styles["dashboard__nav"]}>
