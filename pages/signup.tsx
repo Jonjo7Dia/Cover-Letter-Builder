@@ -7,9 +7,11 @@ import googleLogo from "assets/icons/google-icon.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
+import useJobs from "hooks/jobHooks"; // Ensure you provide the correct path to your useJobs hook
 
 const SignupPage = () => {
   const { signUp, googleSignIn, user } = useAuth();
+  const { fetchJobsFromFirebase } = useJobs();
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -19,11 +21,16 @@ const SignupPage = () => {
   const [hasLowerCase, setHasLowerCase] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [isLongEnough, setIsLongEnough] = useState(false);
+
   const errorMessages = {
-    "Firebase: Error (auth/email-already-in-use).": `This email address is already in use. Please try a different one.`,
-    "Firebase: Error (auth/invalid-email).": `The email address you entered is invalid. Please check it and try again.`,
-    "Firebase: Error (auth/operation-not-allowed).": `An error occurred during sign up. Please try again later.`,
-    "Firebase: Error (auth/weak-password).": `Your password is not strong enough. Please add additional characters including special characters and numbers.`,
+    "Firebase: Error (auth/email-already-in-use).":
+      "This email address is already in use. Please try a different one.",
+    "Firebase: Error (auth/invalid-email).":
+      "The email address you entered is invalid. Please check it and try again.",
+    "Firebase: Error (auth/operation-not-allowed).":
+      "An error occurred during sign up. Please try again later.",
+    "Firebase: Error (auth/weak-password).":
+      "Your password is not strong enough. Please add additional characters including special characters and numbers.",
   };
 
   useEffect(() => {
@@ -33,11 +40,14 @@ const SignupPage = () => {
   }, [user]);
 
   const submitHandler = async () => {
-    if (password != confirmPasswords) {
+    if (password !== confirmPasswords) {
       alert("passwords do not match");
     } else {
       const errorCode = await signUp(email, password, username);
-      if (errorCode) {
+      if (!errorCode) {
+        await fetchJobsFromFirebase();
+        router.push("/dashboard");
+      } else {
         console.log(errorCode);
         const errorMessage =
           errorMessages[errorCode as keyof typeof errorMessages] ||
@@ -49,6 +59,8 @@ const SignupPage = () => {
 
   const googleSignUpHandler = async () => {
     await googleSignIn();
+    await fetchJobsFromFirebase();
+    router.push("/dashboard");
   };
 
   const checkPassword = (password: string) => {
@@ -57,6 +69,7 @@ const SignupPage = () => {
     setHasSpecialChar(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password));
     setIsLongEnough(password.length >= 8);
   };
+
   return (
     <WithNoAuth>
       <Layout>
@@ -64,7 +77,7 @@ const SignupPage = () => {
           <a className={styles["signup__google"]} onClick={googleSignUpHandler}>
             <Image
               src={googleLogo}
-              alt={"google logo"}
+              alt="google logo"
               className={styles["signup__google-logo"]}
             />
             Sign up with Google
@@ -85,9 +98,7 @@ const SignupPage = () => {
                 <input
                   id="username"
                   type="text"
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
+                  onChange={(e) => setUsername(e.target.value)}
                   className={styles["signup__inputField"]}
                   required
                 />
@@ -99,14 +110,11 @@ const SignupPage = () => {
                 <input
                   id="email"
                   type="email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={styles["signup__inputField"]}
                   required
                 />
               </div>
-
               <div className={styles["signup__inputs"]}>
                 <label htmlFor="password">Password</label>
                 <input
@@ -135,21 +143,16 @@ const SignupPage = () => {
                     </div>
                   )}
               </div>
-
               <div className={styles["signup__inputs"]}>
                 <label htmlFor="confirmPassword">Confirm Password</label>
-
                 <input
                   id="confirmPassword"
                   type="password"
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                  }}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className={styles["signup__inputField"]}
                   required
                 />
               </div>
-
               <button type="submit" className={styles["signup__submit"]}>
                 Sign Up
               </button>
