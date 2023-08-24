@@ -5,9 +5,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import AddJob from "./addJob";
 import { useUser } from "contexts/userContext";
+import useJobs from "hooks/jobHooks";
 const AppliedJobs = () => {
   const { jobs, setJobs } = useUser();
   console.log(jobs);
+
+  const { addJob, deleteJob } = useJobs();
   const [popUp, setPopUp] = useState(false);
   const handleReplyChange = (index: number, newReply: string) => {
     const updatedJobs = [...jobs];
@@ -30,9 +33,9 @@ const AppliedJobs = () => {
   const closeModal = () => {
     setPopUp(false);
   };
-  const addJob = (
+  const addJobHandler = (
     company: string,
-    date: string,
+    date: Date,
     position: string,
     jobAd: string | ""
   ) => {
@@ -45,13 +48,11 @@ const AppliedJobs = () => {
       position: position,
       jobAd: jobAd,
     };
-    setJobs([...jobs, newJob]);
+    addJob(newJob);
     closeModal();
   };
-  const deleteJob = (index: number) => {
-    const updatedJobs = [...jobs];
-    updatedJobs.splice(index, 1);
-    setJobs(updatedJobs);
+  const deleteJobHandler = (id: string) => {
+    deleteJob(id);
   };
   return (
     <div className={styles["appliedJobs"]}>
@@ -110,10 +111,11 @@ const AppliedJobs = () => {
             offer={job.offer}
             index={index}
             date={job.dateApplied}
-            key={job.companyName + job.dateApplied}
+            key={job.id}
             last={index == jobs.length - 1}
             ad={job.jobAd}
-            onDelete={deleteJob}
+            onDelete={deleteJobHandler}
+            id={job.id}
             onReplyChange={(newReply: string) =>
               handleReplyChange(index, newReply)
             }
@@ -126,7 +128,7 @@ const AppliedJobs = () => {
           />
         );
       })}
-      {popUp && <AddJob close={closeModal} addJob={addJob} />}
+      {popUp && <AddJob close={closeModal} addJob={addJobHandler} />}
     </div>
   );
 };

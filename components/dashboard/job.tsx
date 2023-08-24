@@ -16,7 +16,8 @@ type jobProps = {
   index: number;
   last: boolean;
   ad: string;
-  onDelete: (index: number) => void;
+  id: string;
+  onDelete: (id: string) => void;
   onReplyChange: (newReply: string) => void;
   onInterviewChange: (newInterview: string) => void;
   onOfferChange: (newOffer: string) => void;
@@ -32,6 +33,7 @@ const Job: React.FC<jobProps> = ({
   index,
   last,
   ad,
+  id,
   onDelete,
   onReplyChange,
   onInterviewChange,
@@ -178,7 +180,7 @@ const Job: React.FC<jobProps> = ({
         />
       )}
       {confirm && (
-        <DeleteJob close={closeConfirm} onDelete={onDelete} index={index} />
+        <DeleteJob close={closeConfirm} onDelete={onDelete} id={id} />
       )}
     </div>
   );

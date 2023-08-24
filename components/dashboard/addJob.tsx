@@ -8,7 +8,7 @@ type addJobProps = {
   close: () => void;
   addJob: (
     company: string,
-    date: string,
+    date: Date,
     position: string,
     jobAd: string | ""
   ) => void;
@@ -17,19 +17,8 @@ type addJobProps = {
 const AddJob: React.FC<addJobProps> = ({ close, addJob }) => {
   const [companyName, setCompanyName] = useState("");
   const [applicationRole, setApplicationRole] = useState("");
-  const [applicationDate, setApplicationDate] = useState("");
+  const [applicationDate, setApplicationDate] = useState(new Date());
   const [jobAdvertisement, setJobAdvertisement] = useState("");
-
-  function formatDate(date: Date) {
-    let day: any = date.getDate();
-    let month: any = date.getMonth() + 1;
-    let year = date.getFullYear();
-    day = day < 10 ? "0" + day : day;
-    month = month < 10 ? "0" + month : month;
-
-    return day + "/" + month + "/" + year;
-  }
-
   return (
     <div className={styles["addJob"]}>
       <form
@@ -62,10 +51,10 @@ const AddJob: React.FC<addJobProps> = ({ close, addJob }) => {
             required={true}
           />
           <InputDate
-            placeholder={formatDate(new Date())}
+            placeholder={new Date().toDateString()}
             inputTitle={"Application date"}
             onChange={(date) => {
-              setApplicationDate(date);
+              setApplicationDate(new Date(date));
             }}
             required={true}
           />

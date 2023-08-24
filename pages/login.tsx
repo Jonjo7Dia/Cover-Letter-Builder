@@ -8,12 +8,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
 
-// 1. Import the useJobs hook
-import useJobs from "hooks/jobHooks";
-
 const LoginPage = () => {
   const { logIn, googleSignIn, user } = useAuth();
-  const { fetchJobsFromFirebase } = useJobs(); // Use the function from the hook
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +17,6 @@ const LoginPage = () => {
   const submitHandler = async () => {
     const errorCode = await logIn(email, password);
     if (!errorCode) {
-      await fetchJobsFromFirebase(); // 2. Fetch jobs after successful login
       router.push("dashboard");
     } else {
       alert(errorCode);
@@ -30,7 +25,6 @@ const LoginPage = () => {
 
   const googleSignUpHandler = async () => {
     await googleSignIn();
-    await fetchJobsFromFirebase(); // Fetch jobs after successful Google sign in
     router.push("dashboard");
   };
 

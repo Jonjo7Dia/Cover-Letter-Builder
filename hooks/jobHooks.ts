@@ -13,6 +13,7 @@ import {
 import { firestore } from "lib/firebaseConfig";
 
 type Job = {
+  id?: string;
   companyName: string;
   dateApplied: Date;
   replied: string;
@@ -35,7 +36,10 @@ function useJobs() {
 
   const fetchJobsFromFirebase = async () => {
     const jobDocs = await getDocs(userJobsCollection);
-    const fetchedJobs = jobDocs.docs.map((doc) => doc.data() as Job);
+    const fetchedJobs = jobDocs.docs.map((doc) => ({
+      id: doc.id, // Include the document ID here.
+      ...(doc.data() as Job),
+    }));
     setJobs(fetchedJobs);
   };
 

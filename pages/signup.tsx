@@ -7,11 +7,9 @@ import googleLogo from "assets/icons/google-icon.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
-import useJobs from "hooks/jobHooks"; // Ensure you provide the correct path to your useJobs hook
 
 const SignupPage = () => {
   const { signUp, googleSignIn, user } = useAuth();
-  const { fetchJobsFromFirebase } = useJobs();
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +43,6 @@ const SignupPage = () => {
     } else {
       const errorCode = await signUp(email, password, username);
       if (!errorCode) {
-        await fetchJobsFromFirebase();
         router.push("/dashboard");
       } else {
         console.log(errorCode);
@@ -59,7 +56,6 @@ const SignupPage = () => {
 
   const googleSignUpHandler = async () => {
     await googleSignIn();
-    await fetchJobsFromFirebase();
     router.push("/dashboard");
   };
 
