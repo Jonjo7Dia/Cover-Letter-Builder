@@ -1,6 +1,7 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
 type Job = {
+  id: string;
   companyName: string;
   dateApplied: Date;
   replied: string;

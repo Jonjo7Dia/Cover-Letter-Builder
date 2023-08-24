@@ -10,24 +10,29 @@ const AppliedJobs = () => {
   const { jobs, setJobs } = useUser();
   console.log(jobs);
 
-  const { addJob, deleteJob } = useJobs();
+  const { addJob, deleteJob, updateJob } = useJobs();
   const [popUp, setPopUp] = useState(false);
-  const handleReplyChange = (index: number, newReply: string) => {
-    const updatedJobs = [...jobs];
-    updatedJobs[index].replied = newReply;
-    setJobs(updatedJobs);
+  const handleReplyChange = async (docId: string, newReply: string) => {
+    const jobToUpdate = jobs.find((job) => job.id === docId);
+    if (jobToUpdate) {
+      jobToUpdate.replied = newReply;
+      await updateJob(jobToUpdate, docId);
+    }
   };
 
-  const handleInterviewChange = (index: number, newInterview: string) => {
-    const updatedJobs = [...jobs];
-    updatedJobs[index].interview = newInterview;
-    setJobs(updatedJobs);
+  const handleInterviewChange = async (docId: string, newInterview: string) => {
+    const jobToUpdate = jobs.find((job) => job.id === docId);
+    if (jobToUpdate) {
+      jobToUpdate.interview = newInterview;
+      await updateJob(jobToUpdate, docId);
+    }
   };
-
-  const handleOfferChange = (index: number, newOffer: string) => {
-    const updatedJobs = [...jobs];
-    updatedJobs[index].offer = newOffer;
-    setJobs(updatedJobs);
+  const handleOfferChange = async (docId: string, newOffer: string) => {
+    const jobToUpdate = jobs.find((job) => job.id === docId);
+    if (jobToUpdate) {
+      jobToUpdate.offer = newOffer;
+      await updateJob(jobToUpdate, docId);
+    }
   };
 
   const closeModal = () => {
@@ -117,13 +122,13 @@ const AppliedJobs = () => {
             onDelete={deleteJobHandler}
             id={job.id}
             onReplyChange={(newReply: string) =>
-              handleReplyChange(index, newReply)
+              handleReplyChange(job.id, newReply)
             }
             onInterviewChange={(newInterview: string) =>
-              handleInterviewChange(index, newInterview)
+              handleInterviewChange(job.id, newInterview)
             }
             onOfferChange={(newOffer: string) =>
-              handleOfferChange(index, newOffer)
+              handleOfferChange(job.id, newOffer)
             }
           />
         );
