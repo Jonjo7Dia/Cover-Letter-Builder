@@ -89,7 +89,9 @@ const Job: React.FC<jobProps> = ({
       <div
         className={`${styles["appliedJobs__replied"]} ${
           last ? styles["appliedJobs__last"] : ""
-        }`}
+        } ${selectedReply == "Next Step" ? styles["appliedJobs__green"] : ""}
+        ${selectedReply == "Rejected" ? styles["appliedJobs__red"] : ""}
+        `}
       >
         <select
           value={selectedReply}
@@ -107,7 +109,8 @@ const Job: React.FC<jobProps> = ({
       <div
         className={`${styles["appliedJobs__interview"]} ${
           last ? styles["appliedJobs__last"] : ""
-        }`}
+        } ${selectedInterview == "Ongoing" ? styles["appliedJobs__yellow"] : ""}
+        ${selectedInterview == "No" ? styles["appliedJobs__red"] : ""}`}
       >
         <select
           value={selectedInterview}
@@ -125,7 +128,8 @@ const Job: React.FC<jobProps> = ({
       <div
         className={`${styles["appliedJobs__offer"]} ${
           last ? styles["appliedJobs__last"] : ""
-        }`}
+        } ${selectedOffer == "Yes" ? styles["appliedJobs__green"] : ""}
+        ${selectedOffer == "No" ? styles["appliedJobs__red"] : ""}`}
       >
         <select
           value={selectedOffer}

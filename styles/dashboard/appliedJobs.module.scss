@@ -94,6 +94,22 @@
     height: 100%;
     font-size: rem(16px);
     border: none;
+    background-color: transparent;
+
+    &:active {
+      border: none;
+    }
+  }
+  &__green {
+    background-color: $color-green;
+  }
+
+  &__red {
+    background-color: $color-red;
+  }
+
+  &__yellow {
+    background-color: $color-yellow;
   }
 }
 
