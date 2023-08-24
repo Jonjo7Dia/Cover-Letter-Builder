@@ -7,9 +7,7 @@ import AddJob from "./addJob";
 import { useUser } from "contexts/userContext";
 import useJobs from "hooks/jobHooks";
 const AppliedJobs = () => {
-  const { jobs, setJobs } = useUser();
-  console.log(jobs);
-
+  const { jobs } = useUser();
   const { addJob, deleteJob, updateJob } = useJobs();
   const [popUp, setPopUp] = useState(false);
   const handleReplyChange = async (docId: string, newReply: string) => {
