@@ -5,7 +5,18 @@ import {
   uploadBytes,
   deleteObject,
 } from "firebase/storage";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  deleteDoc,
+  updateDoc,
+  setDoc,
+  getDocs,
+  QuerySnapshot,
+} from "firebase/firestore";
 import { firestore } from "lib/firebaseConfig";
 const storage = getStorage();
 
@@ -50,4 +61,26 @@ export const fetchParsedCVText = async (uid: any) => {
     console.log("No such document!");
     return null;
   }
+};
+
+export const fetchJobs = async (uid: any) => {
+  const jobsRef = collection(firestore, `users/${uid}/jobs`);
+  const jobsSnap: QuerySnapshot = await getDocs(jobsRef);
+  return jobsSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
+
+export const addJob = async (uid: any, job: any) => {
+  const jobsRef = collection(firestore, `users/${uid}/jobs`);
+  const docRef = await addDoc(jobsRef, job);
+  return { id: docRef.id, ...job };
+};
+
+export const updateJob = async (uid: any, jobId: any, updatedJob: any) => {
+  const jobRef = doc(firestore, `users/${uid}/jobs`, jobId);
+  await updateDoc(jobRef, updatedJob);
+};
+
+export const deleteJob = async (uid: any, jobId: any) => {
+  const jobRef = doc(firestore, `users/${uid}/jobs`, jobId);
+  await deleteDoc(jobRef);
 };

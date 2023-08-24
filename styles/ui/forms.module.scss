@@ -9,4 +9,9 @@
   @include breakpoint(desktop) {
     width: rem(568px);
   }
+
+  &__label {
+    width: 100%;
+    text-align: left;
+  }
 }

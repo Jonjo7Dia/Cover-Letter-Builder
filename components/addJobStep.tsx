@@ -100,7 +100,7 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
           />
         </>
       )}
-      <h3>Paste the Job Application</h3>
+      <h3 className={styles["form__label"]}>Paste the Job Application</h3>
       <InputText
         placeholder="Copy & Paste Content of the Job Ad..."
         onChange={handleInputTextField}

@@ -6,15 +6,6 @@ import { useState } from "react";
 import AddJob from "./addJob";
 
 const AppliedJobs = () => {
-  function formatDate(date: Date) {
-    let day: any = date.getDate();
-    let month: any = date.getMonth() + 1;
-    let year = date.getFullYear();
-    day = day < 10 ? "0" + day : day;
-    month = month < 10 ? "0" + month : month;
-
-    return day + "/" + month + "/" + year;
-  }
   const [jobs, setJobs] = useState([
     {
       companyName: "WealthArc",

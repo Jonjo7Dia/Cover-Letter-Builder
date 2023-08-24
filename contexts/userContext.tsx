@@ -1,5 +1,15 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
+type Job = {
+  companyName: string;
+  dateApplied: Date;
+  replied: string;
+  interview: string;
+  offer: string;
+  position: string;
+  jobAd: string;
+};
+
 type ApiResponse = any;
 
 type UserState = {
@@ -8,13 +18,14 @@ type UserState = {
   companyValues: string[];
   companyMissionStatement: string;
   onboardingStep: 1 | 2 | 3;
-  apiResponse: ApiResponse | null; // State for API response
-  isFetching: boolean; // State for fetch status
+  apiResponse: ApiResponse | null;
+  isFetching: boolean;
   userPdf: {
     uploaded: boolean;
     name: string;
     text: string;
   };
+  jobs: Job[];
 };
 
 type UserContextType = UserState & {
@@ -26,6 +37,7 @@ type UserContextType = UserState & {
   setApiResponse: (response: ApiResponse | null) => void;
   setIsFetching: (fetching: boolean) => void;
   setUserPdf: (uploaded: boolean, name: string, text: string) => void;
+  setJobs: (jobs: Job[] | ((prevJobs: Job[]) => Job[])) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -35,18 +47,20 @@ type UserProviderProps = {
 };
 
 export function UserProvider({ children }: UserProviderProps) {
-  const [parsedPdfText, setParsedPdfText] = useState("");
-  const [jobApplicationText, setJobApplicationText] = useState("");
+  const [parsedPdfText, setParsedPdfText] = useState<any>("");
+  const [jobApplicationText, setJobApplicationText] = useState<string>("");
   const [companyValues, setCompanyValues] = useState<string[]>([]);
-  const [companyMissionStatement, setCompanyMissionStatement] = useState("");
+  const [companyMissionStatement, setCompanyMissionStatement] =
+    useState<string>("");
   const [onboardingStep, setOnboardingStep] = useState<1 | 2 | 3>(1);
-  const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null); // Initialize state for API response
-  const [isFetching, setIsFetching] = useState(false); // Initialize state for fetch status
+  const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [userPdfState, setUserPdfState] = useState({
     uploaded: false,
     name: "",
     text: "",
   });
+  const [jobs, setJobs] = useState<Job[]>([]);
 
   const setUserPdf = (uploaded: boolean, name: string, text: string) => {
     setUserPdfState({ uploaded, name, text });
@@ -60,17 +74,19 @@ export function UserProvider({ children }: UserProviderProps) {
         companyValues,
         companyMissionStatement,
         onboardingStep,
-        apiResponse, // Provide API response state
-        isFetching, // Provide fetch status state
+        apiResponse,
+        isFetching,
         userPdf: userPdfState,
+        jobs,
         setParsedPdfText,
         setJobApplicationText,
         setCompanyValues,
         setCompanyMissionStatement,
         setOnboardingStep,
-        setApiResponse, // Provide setter for API response
-        setIsFetching, // Provide setter for fetch status
-        setUserPdf, // Adjusted setter for userPdf
+        setApiResponse,
+        setIsFetching,
+        setUserPdf,
+        setJobs,
       }}
     >
       {children}
