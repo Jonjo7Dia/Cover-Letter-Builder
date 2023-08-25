@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "assets/tailoredApplicationLogo.svg";
 import SEO from "components/seo";
 import { useAuth } from "contexts/authContext";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,6 +15,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, logOut } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter(); // Using the hook
+
   let userIcon;
   if (user.uid) {
     userIcon = user.displayName
@@ -56,9 +58,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           />
           {!user.uid && (
             <div className={styles["layout__nav-button"]}>
-              <button className={styles["layout__nav-signup"]}>Sign Up</button>
+              <button
+                className={styles["layout__nav-signup"]}
+                onClick={() => router.push("/signup")}
+              >
+                Sign Up
+              </button>
               <button
                 className={`${styles["layout__nav-signup"]} ${styles["layout__nav-signup--login"]}`}
+                onClick={() => router.push("/login")}
               >
                 Login
               </button>
