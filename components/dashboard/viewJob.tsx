@@ -32,7 +32,7 @@ const ViewJob: React.FC<viewJob> = ({
 
     return day + "/" + month + "/" + year;
   }
-  console.log(company, position, date, replied, interview, offer, ad);
+  console.log(ad);
   return (
     <div className={styles["viewJob"]}>
       <h4 className={styles["viewJob__title"]}> Company Name: {company}</h4>
