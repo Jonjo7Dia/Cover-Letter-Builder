@@ -6,8 +6,6 @@ import {
   updateDoc,
   deleteDoc,
   getDocs,
-  query,
-  where,
   doc,
 } from "firebase/firestore";
 import { firestore } from "lib/firebaseConfig";
@@ -26,36 +24,45 @@ type Job = {
 function useJobs() {
   const { jobs, setJobs } = useUser();
   const { user } = useAuth();
-  if (!user || !user.uid) {
-    throw new Error(
-      "Attempted to use jobs hook without an authenticated user."
-    );
-  }
 
-  const userJobsCollection = collection(firestore, "users", user.uid, "jobs");
+  // Make this a helper function to avoid duplication.
+  const ensureAuthenticated = () => {
+    if (!user || !user.uid) {
+      throw new Error(
+        "Attempted to use jobs functionality without an authenticated user."
+      );
+    }
+  };
 
   const fetchJobsFromFirebase = async () => {
+    ensureAuthenticated();
+    const userJobsCollection = collection(firestore, "users", user.uid, "jobs");
     const jobDocs = await getDocs(userJobsCollection);
     const fetchedJobs = jobDocs.docs.map((doc) => ({
-      id: doc.id, // Include the document ID here.
+      id: doc.id,
       ...(doc.data() as Job),
     }));
     setJobs(fetchedJobs);
   };
 
   const addJob = async (job: Job) => {
+    ensureAuthenticated();
+    const userJobsCollection = collection(firestore, "users", user.uid, "jobs");
     await addDoc(userJobsCollection, job);
     fetchJobsFromFirebase();
   };
 
   const updateJob = async (updatedJob: Job, docId: string) => {
+    ensureAuthenticated();
     const jobDoc = doc(firestore, "users", user.uid, "jobs", docId);
     await updateDoc(jobDoc, updatedJob);
     fetchJobsFromFirebase();
   };
 
   const deleteJob = async (docId: string) => {
-    const jobDoc = doc(firestore, "users", user.uid, "jobs", docId);
+    ensureAuthenticated();
+    const userJobsCollection = collection(firestore, "users", user.uid, "jobs");
+    const jobDoc = doc(userJobsCollection, docId);
     await deleteDoc(jobDoc);
     fetchJobsFromFirebase();
   };

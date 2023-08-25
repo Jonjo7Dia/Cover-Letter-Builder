@@ -13,15 +13,11 @@ type GeneralProductProps = {
 
 const GeneralProduct: React.FC<GeneralProductProps> = ({ dashboard }) => {
   const { user } = useAuth();
-  const {
-    parsedPdfText,
-    setParsedPdfText,
-    onboardingStep,
-    isFetching,
-    setOnboardingStep,
-  } = useUser();
+  const { setParsedPdfText, onboardingStep, isFetching, setOnboardingStep } =
+    useUser();
+
   useEffect(() => {
-    if (user) {
+    if (user.email != null) {
       if (localStorage.getItem("userPDF")) {
         setParsedPdfText(localStorage.getItem("userPDF"));
         setOnboardingStep(2);

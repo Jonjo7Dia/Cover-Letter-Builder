@@ -115,7 +115,7 @@ export const AuthContextProvider = ({
   };
 
   const logOut = async () => {
-    localStorage.removeItem("userPdf");
+    localStorage.removeItem("userPDF");
     setUser({
       email: null,
       uid: null,
