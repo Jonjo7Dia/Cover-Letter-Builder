@@ -77,8 +77,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   >
                     Dashboard
                   </a>
-                  <a className={styles["layout__nav-item"]}>Personal Info</a>
-                  <a className={styles["layout__nav-item"]}>Settings</a>
                   <a
                     onClick={logOutHandler}
                     className={`${styles["layout__nav-item"]} ${styles["layout__nav-item--warning"]}`}
