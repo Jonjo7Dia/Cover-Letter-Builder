@@ -59,51 +59,53 @@ const AppliedJobs = () => {
   };
   return (
     <div className={styles["appliedJobs"]}>
-      <div className={styles["appliedJobs__job"]}>
-        <div
-          className={`${styles["appliedJobs__num"]} ${styles["appliedJobs__header"]}`}
-        >
-          {" "}
+      {jobs.length > 0 && (
+        <div className={styles["appliedJobs__job"]}>
+          <div
+            className={`${styles["appliedJobs__num"]} ${styles["appliedJobs__header"]}`}
+          >
+            {" "}
+          </div>
+          <div
+            className={`${styles["appliedJobs__company"]} ${styles["appliedJobs__header"]}`}
+          >
+            Company Name
+          </div>
+          <div
+            className={`${styles["appliedJobs__position"]} ${styles["appliedJobs__header"]}`}
+          >
+            Position
+          </div>
+          <div
+            className={`${styles["appliedJobs__date"]} ${styles["appliedJobs__header"]}`}
+          >
+            Date
+          </div>
+          <div
+            className={`${styles["appliedJobs__replied"]} ${styles["appliedJobs__header"]}`}
+          >
+            Company Reply
+          </div>
+          <div
+            className={`${styles["appliedJobs__interview"]} ${styles["appliedJobs__header"]}`}
+          >
+            Interview
+          </div>
+          <div
+            className={`${styles["appliedJobs__offer"]} ${styles["appliedJobs__header"]}`}
+          >
+            Offer
+          </div>
+          <div
+            className={styles["appliedJobs__add"]}
+            onClick={() => {
+              setPopUp(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </div>
         </div>
-        <div
-          className={`${styles["appliedJobs__company"]} ${styles["appliedJobs__header"]}`}
-        >
-          Company Name
-        </div>
-        <div
-          className={`${styles["appliedJobs__position"]} ${styles["appliedJobs__header"]}`}
-        >
-          Position
-        </div>
-        <div
-          className={`${styles["appliedJobs__date"]} ${styles["appliedJobs__header"]}`}
-        >
-          Date
-        </div>
-        <div
-          className={`${styles["appliedJobs__replied"]} ${styles["appliedJobs__header"]}`}
-        >
-          Company Reply
-        </div>
-        <div
-          className={`${styles["appliedJobs__interview"]} ${styles["appliedJobs__header"]}`}
-        >
-          Interview
-        </div>
-        <div
-          className={`${styles["appliedJobs__offer"]} ${styles["appliedJobs__header"]}`}
-        >
-          Offer
-        </div>
-        <div
-          className={styles["appliedJobs__add"]}
-          onClick={() => {
-            setPopUp(true);
-          }}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </div>
-      </div>
+      )}
       {jobs.map((job: any, index: number) => {
         return (
           <Job

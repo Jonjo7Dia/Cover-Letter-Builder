@@ -18,6 +18,9 @@ const Dashboard = () => {
       fetchJobsFromFirebase();
     }
   }, [user]);
+  const optionHandler = (option: string) => {
+    setCurrentOption(option);
+  };
 
   return (
     <div className={`${styles["dashboard"]} wrapper`}>
@@ -44,7 +47,9 @@ const Dashboard = () => {
         )}
       </div>
       <div className={styles["dashboard__container"]}>
-        {currentOption == "Dashboard" && <MainDashboard />}
+        {currentOption == "Dashboard" && (
+          <MainDashboard setOption={optionHandler} />
+        )}
         {currentOption == "Personal Info" && <PersonalDashboard />}
         {currentOption == "Settings" && <Settings />}
       </div>
