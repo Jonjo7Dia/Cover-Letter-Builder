@@ -4,6 +4,7 @@ import MainDashboard from "./mainDashboard";
 import PersonalDashboard from "./personalDashboard";
 import useJobs from "hooks/jobHooks"; // <-- Import useJobs hook
 import { useAuth } from "contexts/authContext"; // <-- Import useAuth to get user
+import Settings from "./settings";
 
 const Dashboard = () => {
   const [currentOption, setCurrentOption] = useState("Dashboard");
@@ -45,6 +46,7 @@ const Dashboard = () => {
       <div className={styles["dashboard__container"]}>
         {currentOption == "Dashboard" && <MainDashboard />}
         {currentOption == "Personal Info" && <PersonalDashboard />}
+        {currentOption == "Settings" && <Settings />}
       </div>
     </div>
   );

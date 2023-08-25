@@ -4,7 +4,7 @@ import GeneralProduct from "components/generalProduct";
 const HeroProduct = () => {
   return (
     <div className={styles["hero__product"]}>
-      <GeneralProduct />
+      <GeneralProduct dashboard={false} />
     </div>
   );
 };

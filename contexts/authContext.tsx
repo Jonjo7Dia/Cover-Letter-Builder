@@ -7,6 +7,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
+  sendPasswordResetEmail,
+  updatePassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import { auth } from "lib/firebaseConfig";
 import { fetchParsedCVText, fetchUserCV } from "utils/firebaseFunctions";
@@ -36,7 +40,6 @@ export const AuthContextProvider = ({
     parsedCVText: null,
   });
   const [loading, setLoading] = useState<boolean>(true);
-
   const googleProvider = new GoogleAuthProvider();
 
   const googleSignIn = async () => {
@@ -60,13 +63,13 @@ export const AuthContextProvider = ({
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const pdfURL = await fetchUserCV(user.displayName, user.uid);
-        const parsedCVText = await fetchParsedCVText(user.uid); // Fetch the parsed CV text here
+        const parsedCVText = await fetchParsedCVText(user.uid);
         setUser({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
           pdfURL: pdfURL,
-          parsedCVText: parsedCVText, // Add this to the state
+          parsedCVText: parsedCVText,
         });
       } else {
         setUser({
@@ -75,7 +78,7 @@ export const AuthContextProvider = ({
           displayName: null,
           pdfURL: null,
           parsedCVText: null,
-        }); // Make sure to reset this as well
+        });
       }
       setLoading(false);
     });
@@ -112,6 +115,7 @@ export const AuthContextProvider = ({
   };
 
   const logOut = async () => {
+    localStorage.removeItem("userPdf");
     setUser({
       email: null,
       uid: null,
@@ -129,6 +133,46 @@ export const AuthContextProvider = ({
     }));
   };
 
+  const forgotPassword = async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return "Reset link sent!";
+    } catch (error: any) {
+      return error.message;
+    }
+  };
+
+  const changePassword = async (newPassword: string) => {
+    if (auth.currentUser) {
+      try {
+        await updatePassword(auth.currentUser, newPassword);
+        return "Password updated successfully!";
+      } catch (error: any) {
+        return error.message;
+      }
+    } else {
+      return "No user is logged in!";
+    }
+  };
+
+  const reauthenticate = async (currentPassword: string) => {
+    if (auth.currentUser && auth.currentUser.email) {
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        currentPassword
+      );
+
+      try {
+        await reauthenticateWithCredential(auth.currentUser, credential);
+        return "Reauthenticated successfully!";
+      } catch (error: any) {
+        return error.message;
+      }
+    } else {
+      return "No user is logged in!";
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -139,6 +183,9 @@ export const AuthContextProvider = ({
         googleSignIn,
         setPDFURLToNull,
         setUser,
+        forgotPassword,
+        changePassword,
+        reauthenticate, // Added this line
       }}
     >
       {loading ? null : children}

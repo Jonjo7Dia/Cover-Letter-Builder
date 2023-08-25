@@ -185,7 +185,12 @@
 }
 
 .viewJob {
-  width: rem(1000px);
+  width: 100%;
+
+  @include breakpoint(lg) {
+    width: rem(1000px);
+  }
+
   background-color: $color-white;
   border: solid rem(1px) $color-main-blue;
   border-radius: rem(4px);

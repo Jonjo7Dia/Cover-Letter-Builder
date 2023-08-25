@@ -15,8 +15,6 @@ config.autoAddCss = false;
 
 export default function Index() {
   const [acceptedTOC, setAcceptedTOC] = useState<boolean>(true);
-  const { user } = useAuth();
-  const router = useRouter();
 
   useEffect(() => {
     // Once we're on the client, check if the value is actually in localStorage
