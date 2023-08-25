@@ -7,9 +7,13 @@ import { useUser } from "contexts/userContext";
 import { usePdfParse } from "hooks/pdfHooks"; // import the custom hook
 import { useTracking } from "tracking/useTracking";
 
-const UploadCVStep = () => {
+type UploadCVStepProps = {
+  dashboard?: boolean | false;
+};
+
+const UploadCVStep: React.FC<UploadCVStepProps> = ({ dashboard }) => {
   const { trackUpload } = useTracking();
-  const { setOnboardingStep, setIsFetching } = useUser();
+  const { setOnboardingStep, setIsFetching, setParsedPdfText } = useUser();
   const { error, parsePdf } = usePdfParse();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -45,6 +49,7 @@ const UploadCVStep = () => {
     if (selectedFile) {
       const isParsed = await parsePdf(selectedFile);
       if (isParsed) {
+        setParsedPdfText(isParsed);
         setOnboardingStep(2);
       }
     } else {
@@ -66,6 +71,10 @@ const UploadCVStep = () => {
         handleDragOver={handleDragOver}
         handleDrop={handleDrop}
         handleChange={handleChange}
+        dashboard={dashboard}
+        header={
+          "Upload your cv, Paste the job application, Get a tailored cover letter"
+        }
       />
       <div className={classes["cv__submit"]}>
         <SubmitButton

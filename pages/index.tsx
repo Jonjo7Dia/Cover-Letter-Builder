@@ -8,11 +8,14 @@ import Hero from "components/hero/hero";
 import Usp from "components/usp/usp";
 import Footer from "components/footer/footer";
 import Link from "next/link";
+import { useAuth } from "contexts/authContext";
+import { useRouter } from "next/router";
 
 config.autoAddCss = false;
 
 export default function Index() {
   const [acceptedTOC, setAcceptedTOC] = useState<boolean>(true);
+
   useEffect(() => {
     // Once we're on the client, check if the value is actually in localStorage
     const isAccepted = JSON.parse(

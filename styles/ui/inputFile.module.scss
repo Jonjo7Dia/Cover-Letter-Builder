@@ -10,6 +10,10 @@
   align-items: center;
   justify-content: center;
   position: relative;
+
+  &--alternate {
+    background-color: $color-light-blue;
+  }
   &__wrapper {
     display: flex;
     flex-direction: column;

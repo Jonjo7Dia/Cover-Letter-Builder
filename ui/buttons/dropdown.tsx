@@ -9,7 +9,7 @@ type DropDownElement = {
 };
 
 type DropDownProps = {
-  buttonLabel: string;
+  buttonLabel?: string;
   elements: DropDownElement[];
 };
 
@@ -26,7 +26,9 @@ const DropDown: React.FC<DropDownProps> = ({ buttonLabel, elements }) => {
         });
       }}
     >
-      <p className={styles["dropdown__label"]}>{buttonLabel}</p>
+      {buttonLabel && (
+        <p className={styles["dropdown__label"]}>{buttonLabel}</p>
+      )}
       <FontAwesomeIcon icon={faCaretDown} />
 
       <div
