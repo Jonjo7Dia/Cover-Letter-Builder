@@ -58,7 +58,6 @@ export const fetchParsedCVText = async (uid: any) => {
   if (docSnap.exists()) {
     return docSnap.data().parsedCVText; // Assuming the field in Firestore is named 'parsedCVText'
   } else {
-    console.log("No such document!");
     return null;
   }
 };

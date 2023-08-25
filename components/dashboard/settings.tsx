@@ -36,7 +36,6 @@ const Settings = () => {
 
     if (hasUpperCase && hasLowerCase && hasSpecialChar && isLongEnough) {
       const response = await changePassword(password);
-      console.log(response);
       if (response === "Password updated successfully!") {
         setPasswordChanged(true);
         handleCancel();

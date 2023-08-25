@@ -27,7 +27,6 @@ const GeneralProduct: React.FC<GeneralProductProps> = ({ dashboard }) => {
       }
     }
   }, []);
-  console.log(onboardingStep);
   return (
     <>
       {user.parsedCVText == null && <Steps />}

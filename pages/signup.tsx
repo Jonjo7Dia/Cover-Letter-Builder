@@ -45,7 +45,6 @@ const SignupPage = () => {
       if (!errorCode) {
         router.push("/dashboard");
       } else {
-        console.log(errorCode);
         const errorMessage =
           errorMessages[errorCode as keyof typeof errorMessages] ||
           "An unknown error occurred.";
