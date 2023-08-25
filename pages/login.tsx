@@ -7,13 +7,14 @@ import googleLogo from "assets/icons/google-icon.svg";
 import Image from "next/image";
 import React, { useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
+import ForgotPassword from "components/forgotPassword";
 
 const LoginPage = () => {
   const { logIn, googleSignIn, user } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [forgotPassword, setForgotPassword] = useState(false);
   const submitHandler = async () => {
     const errorCode = await logIn(email, password);
     if (!errorCode) {
@@ -28,6 +29,9 @@ const LoginPage = () => {
     router.push("dashboard");
   };
 
+  const closeForgotHandler = () => {
+    setForgotPassword(false);
+  };
   return (
     <WithNoAuth>
       <Layout>
@@ -89,6 +93,15 @@ const LoginPage = () => {
           >
             Dont have an Account?
           </button>
+          <button
+            className={styles["signup__login"]}
+            onClick={() => {
+              setForgotPassword(true);
+            }}
+          >
+            Forgot Password?
+          </button>
+          {forgotPassword && <ForgotPassword close={closeForgotHandler} />}
         </div>
       </Layout>
     </WithNoAuth>
