@@ -88,6 +88,48 @@
         }
       }
     }
+    &-button {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: rem(10px);
+      align-items: center;
+
+      @include breakpoint(sm) {
+        gap: rem(25px);
+      }
+    }
+
+    &-signup {
+      padding: rem(10px) rem(10px);
+      background-color: $color-main-blue;
+      border: none;
+      font-size: rem(16px);
+      color: $color-white;
+      border-radius: rem(4px);
+      width: 100%;
+      white-space: nowrap;
+      &:hover {
+        cursor: pointer;
+      }
+
+      &--login {
+        display: none;
+        background-color: white;
+        border: solid rem(1px) $color-main-blue;
+        color: $color-main-blue;
+
+        @include breakpoint(xs) {
+          display: block;
+        }
+
+        &:hover {
+          background-color: $color-main-blue;
+          color: $color-white;
+        }
+      }
+    }
+
     &-item {
       user-select: none;
       color: $color-black;

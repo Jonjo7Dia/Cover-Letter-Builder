@@ -54,6 +54,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               router.push("/");
             }}
           />
+          {!user.uid && (
+            <div className={styles["layout__nav-button"]}>
+              <button className={styles["layout__nav-signup"]}>Sign Up</button>
+              <button
+                className={`${styles["layout__nav-signup"]} ${styles["layout__nav-signup--login"]}`}
+              >
+                Login
+              </button>
+            </div>
+          )}
           {user.uid && (
             <div
               className={styles["layout__nav-user"]}
