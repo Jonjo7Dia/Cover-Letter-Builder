@@ -41,7 +41,6 @@ const Settings = () => {
         setPasswordChanged(true);
         handleCancel();
       }
-      alert(response);
     } else {
       alert("Password doesn't meet the requirements!");
     }
@@ -125,7 +124,19 @@ const Settings = () => {
           </button>
         </div>
       </form>
-      {passwordChanged && <div className={styles["settings__success"]}></div>}
+      {passwordChanged && (
+        <div className={styles["settings__success"]}>
+          <p>Password Changed Successfully</p>
+          <button
+            onClick={() => {
+              setPasswordChanged(false);
+            }}
+            className={styles["settings__button"]}
+          >
+            Close
+          </button>
+        </div>
+      )}
     </div>
   );
 };
