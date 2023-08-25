@@ -16,7 +16,13 @@
     font-size: rem(18px);
     border: none;
     border-radius: rem(4px);
+    border: solid rem(1px) $color-main-blue;
 
+    &:hover {
+      cursor: pointer;
+      background-color: $color-white;
+      color: $color-main-blue;
+    }
     @include breakpoint(xs) {
       font-size: rem(20px);
     }
