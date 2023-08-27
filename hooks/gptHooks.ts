@@ -34,5 +34,12 @@ export const useOpenAI = () => {
     }
   };
 
+  const generateRejectionResponseLetter = async () => {};
+
+  const generateRejectionLetter = async () => {};
+
+  const generateFollowUpLetter = async () => {};
+
+  const generateThankyouLetter = async () => {};
   return { data, error, generateCoverLetter };
 };

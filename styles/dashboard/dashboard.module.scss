@@ -1,0 +1,75 @@
+@import "../variables.scss";
+.dashboard {
+  width: 100%;
+  min-height: rem(400px);
+  margin-top: rem(90px);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  @include breakpoint(md) {
+    padding: 0 rem(10px);
+    flex-direction: row;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+
+    @include breakpoint(md) {
+      justify-content: flex-start;
+      flex-direction: column;
+      width: auto;
+    }
+
+    &-item {
+      user-select: none;
+      width: 100%;
+      text-align: center;
+      padding: rem(10px) 0;
+      border-bottom: solid rem(2px) $color-main-blue;
+      font-size: rem(18px);
+      white-space: nowrap;
+
+      @include breakpoint(xs) {
+        font-size: rem(22px);
+      }
+
+      @include breakpoint(md) {
+        font-size: rem(26px);
+        width: auto;
+        flex-grow: 0;
+        border-bottom: 0;
+        border-right: solid rem(2px) $color-main-blue;
+        padding: rem(10px) rem(20px);
+        padding-left: 0;
+        text-align: left;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $color-main-blue;
+      }
+
+      &--selected {
+        border: none;
+        color: $color-main-blue;
+      }
+    }
+    &-holder {
+      display: none;
+
+      @include breakpoint(md) {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-right: rem(2px) $color-main-blue solid;
+      }
+    }
+  }
+
+  &__container {
+    width: 100%;
+  }
+}

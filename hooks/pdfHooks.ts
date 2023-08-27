@@ -34,7 +34,7 @@ export const usePdfParse = () => {
         .replace(/^\s*[\r\n]/gm, "");
 
       setParsedText(cleanedText);
-      setParsedPdfText(cleanedText);
+      return cleanedText;
     } catch (err: any) {
       setError(err.message);
       return false;

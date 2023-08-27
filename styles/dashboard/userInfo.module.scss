@@ -1,0 +1,29 @@
+@import "../variables.scss";
+
+.userInfo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  padding: rem(40px) rem(10px);
+  gap: rem(25px);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: rem(25px);
+  }
+
+  &__cv {
+    width: auto;
+    height: rem(500px);
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: rem(25px);
+  }
+}

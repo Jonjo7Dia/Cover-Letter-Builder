@@ -31,6 +31,12 @@
       backdrop-filter: blur(rem(7px));
       padding-bottom: rem(300px);
     }
+    &--alternate {
+      position: relative;
+      max-height: none;
+      padding-bottom: 0;
+      backdrop-filter: none;
+    }
   }
 
   &__retry {
