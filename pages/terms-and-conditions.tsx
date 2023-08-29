@@ -9,6 +9,11 @@ import Footer from "components/footer/footer";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
+
 export default function TermsAndConditions() {
   const { trackAcceptTerms } = useTracking();
   const router = useRouter();

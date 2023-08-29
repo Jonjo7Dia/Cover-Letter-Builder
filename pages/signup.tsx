@@ -8,6 +8,11 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
+
 const SignupPage = () => {
   const { signUp, googleSignIn, user } = useAuth();
   const router = useRouter();

@@ -8,8 +8,6 @@ import Hero from "components/hero/hero";
 import Usp from "components/usp/usp";
 import Footer from "components/footer/footer";
 import Link from "next/link";
-import { useAuth } from "contexts/authContext";
-import { useRouter } from "next/router";
 
 config.autoAddCss = false;
 
