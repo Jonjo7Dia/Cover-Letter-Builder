@@ -10,6 +10,7 @@ import { useTracking } from "tracking/useTracking";
 type PreviewCoverLetterProps = {
   dashboard?: boolean | false;
 };
+
 const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
   dashboard,
 }) => {
@@ -21,10 +22,12 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
     companyMissionStatement,
     setIsFetching,
   } = useUser();
+
   const { generateCoverLetter } = useOpenAI();
-  const { trackError } = useTracking();
+  const { trackError, trackCopyCoverLetter } = useTracking();
   const containerRef = useRef<HTMLDivElement>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [hasCopiedOnce, setHasCopiedOnce] = useState(false);
   const maxRetries = 3;
 
   const parseContent = (contentElement: {
@@ -77,13 +80,29 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
     handleResize();
     window.addEventListener("resize", handleResize);
 
+    const handleCopyEvent = (e: ClipboardEvent) => {
+      if (hasCopiedOnce) return;
+
+      const selection = document.getSelection();
+      if (
+        containerRef.current &&
+        selection?.containsNode(containerRef.current, true)
+      ) {
+        trackCopyCoverLetter();
+        setHasCopiedOnce(true);
+      }
+    };
+
+    document.addEventListener("copy", handleCopyEvent);
+
     return () => {
       window.removeEventListener("resize", handleResize);
       document.body.style.overflow = "auto";
+      document.removeEventListener("copy", handleCopyEvent);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiResponse]);
+  }, [apiResponse, hasCopiedOnce]);
 
   if (apiResponse.error) {
     trackError(apiResponse.error);
