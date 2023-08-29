@@ -9,6 +9,11 @@ import React, { useState } from "react";
 import WithNoAuth from "hoc/withNoAuth";
 import ForgotPassword from "components/forgotPassword";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
+
 const LoginPage = () => {
   const { logIn, googleSignIn, user } = useAuth();
   const router = useRouter();
