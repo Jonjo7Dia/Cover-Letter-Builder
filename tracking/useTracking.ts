@@ -23,11 +23,16 @@ export const useTracking = () => {
     plausible("Accept Terms");
   };
 
+  const trackCopyCoverLetter = () => {
+    plausible("Copy Letter");
+  };
+
   return {
     trackDownload,
     trackJob,
     trackUpload,
     trackError,
     trackAcceptTerms,
+    trackCopyCoverLetter,
   };
 };
