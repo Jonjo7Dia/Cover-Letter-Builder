@@ -59,22 +59,16 @@ export default async function handler(
            The application may mention certain skills, experience or background that are needed, but the cover letter can only include such skills if they are written verbatim in the CV. Under no circumstances should the cover letter contain misinformation or embellished information about any skills and knowledge, for example programming languages or technical background.
           `;
   try {
-    const result = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
+    const result = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `
             "you are a cover letter writer using the users cv to help write a nice coverletter to a job application. only use the available information of the cv but highight the relvant experience and skills, dont place any information that the user has to input themselves",
-        },
-        {
-          role: "user",
-          content: question,
-        },
-      ],
+      
+        content: ${question},
+       `,
     });
 
-    const data = result.data.choices[0].message?.content;
+    const data = result.data.choices[0].text;
     res.status(200).json({ data });
   } catch (err: any) {
     console.error(err);
