@@ -61,11 +61,11 @@ export default async function handler(
   try {
     const result = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `
-            "you are a cover letter writer using the users cv to help write a nice coverletter to a job application. only use the available information of the cv but highight the relvant experience and skills, dont place any information that the user has to input themselves",
-      
-        content: ${question},
-       `,
+      prompt: question,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0
     });
 
     const data = result.data.choices[0].text;
