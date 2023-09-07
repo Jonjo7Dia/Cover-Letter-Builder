@@ -60,7 +60,7 @@ export default async function handler(
           `;
   try {
     const result = await openai.createChatCompletion({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
