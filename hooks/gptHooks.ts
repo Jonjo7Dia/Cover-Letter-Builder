@@ -22,9 +22,8 @@ export const useOpenAI = () => {
         companyMission,
         temperature: 0.0,
       });
-
-      setData(response.data.data);
-      setApiResponse(response.data.data);
+      setData(parseCompletedData(response.data));
+      setApiResponse(parseCompletedData(response.data));
       setIsFetching(false);
     } catch (err: any) {
       const errorMessage = err.message;
@@ -32,6 +31,34 @@ export const useOpenAI = () => {
       setApiResponse({ error: errorMessage }); // set error message in apiResponse
       setIsFetching(false);
     }
+  };
+  const parseCompletedData = (rawData: string) => {
+    // Split rawData by '\n\n' to get individual messages
+    const messages = rawData
+      .split("\n\n")
+      .map((msg) => {
+        const dataPart = msg.replace("data: ", "");
+        try {
+          return JSON.parse(dataPart);
+        } catch (err) {
+          return null;
+        }
+      })
+      .filter(Boolean); // filter out null values
+
+    // Find the message with "completed" status
+    const completedMessage = messages.find((msg) => msg.status === "completed");
+
+    // If there's a completed message, parse and return its data content
+    if (completedMessage && completedMessage.data) {
+      try {
+        return JSON.parse(completedMessage.data);
+      } catch (err) {
+        return null;
+      }
+    }
+
+    return null;
   };
 
   const generateRejectionResponseLetter = async () => {};
