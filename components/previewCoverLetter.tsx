@@ -58,7 +58,7 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
   useEffect(() => {
     if (containerRef.current && !apiResponse.error) {
       try {
-        const coverLetter = JSON.parse(apiResponse);
+        const coverLetter = apiResponse;
         const parsedHTMLArray = coverLetter.map(parseContent);
         const combinedHTML = parsedHTMLArray.join("");
         containerRef.current.innerHTML = combinedHTML;
