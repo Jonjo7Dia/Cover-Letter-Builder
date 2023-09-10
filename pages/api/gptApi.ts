@@ -58,39 +58,78 @@ export default async function handler(
            Please avoid using headers for the above information. Ensure that salutations and valedictions have the same HTML tag as the body contents. Please include the position of the application at the top. The requirements are as follows: do not use h1/h2 tags, subheadings, or include company or personal addresses, use only paragraphs to divide the body.
            The application may mention certain skills, experience or background that are needed, but the cover letter can only include such skills if they are written verbatim in the CV. Under no circumstances should the cover letter contain misinformation or embellished information about any skills and knowledge, for example programming languages or technical background.
           `;
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Connection", "keep-alive");
+  res.flushHeaders();
+
+  // Send keep-alive messages every 5 seconds
+  const keepAliveInterval = setInterval(() => {
+    res.write(`data: ${JSON.stringify({ status: "pending" })}\n\n`);
+  }, 5000);
+
   try {
-    const result = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: question,
-      temperature: 0.7,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0
+    const result = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "you are a cover letter writer using the users cv to help write a nice coverletter to a job application. only use the available information of the cv but highight the relvant experience and skills, dont place any information that the user has to input themselves",
+        },
+        {
+          role: "user",
+          content: question,
+        },
+      ],
     });
 
-    const data = result.data.choices[0].text;
-    res.status(200).json({ data });
+    clearInterval(keepAliveInterval); // Stop the keep-alive messages
+    const data = result.data.choices[0].message?.content;
+    // res.status(200).json({ data });
+    res.write(`data: ${JSON.stringify({ status: "completed", data })}\n\n`);
+    res.end();
   } catch (err: any) {
+    clearInterval(keepAliveInterval); // Stop the keep-alive messages in case of error
+
     console.error(err);
 
     if (err.status === 401) {
       // Unauthorized Error
-      res
-        .status(401)
-        .json({ error: "Unauthorized. Please check your API key." });
+      res.write(
+        `data: ${JSON.stringify({
+          status: "error",
+          message: "Unauthorized. Please check your API key.",
+        })}\n\n`
+      );
+      res.end();
     } else if (err.status === 429) {
       // Too Many Requests Error
-      res.status(429).json({
-        error: "Rate limit exceeded. Please slow down your requests.",
-      });
+      res.write(
+        `data: ${JSON.stringify({
+          status: "error",
+          message: "Rate limit exceeded. Please slow down your requests.",
+        })}\n\n`
+      );
+      res.end();
     } else if (err.status === 502) {
       // Bad Gateway Error
-      res
-        .status(502)
-        .json({ error: "Bad gateway. The API server or a proxy is down." });
+      res.write(
+        `data: ${JSON.stringify({
+          status: "error",
+          message: "Bad gateway. The API server or a proxy is down.",
+        })}\n\n`
+      );
+      res.end();
     } else {
       // Generic Error Response
-      res.status(500).json({ error: err.message || "An error occurred." });
+      res.write(
+        `data: ${JSON.stringify({
+          status: "error",
+          message: err.message || "An error occurred.",
+        })}\n\n`
+      );
+      res.end();
     }
   }
 }

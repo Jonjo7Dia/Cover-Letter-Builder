@@ -24,7 +24,6 @@ const AddJobStep: React.FC<AddJobProps> = ({ dashboard }) => {
     setCompanyValues,
     parsedPdfText,
     setIsFetching,
-    setApiResponse,
   } = useUser();
   const { data, error, generateCoverLetter } = useOpenAI();
   const [inputFields, setInputFields] = useState([""]);
