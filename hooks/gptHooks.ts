@@ -35,12 +35,14 @@ export const useOpenAI = () => {
       const reader = data.getReader();
       const decoder = new TextDecoder();
       let done = false;
-      let answer = "";
+      let answer = "[";
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
-        answer += chunkValue;
+        if (chunkValue !== "[") {
+          answer += chunkValue;
+        }
       }
       setData(answer);
       setApiResponse(answer);
