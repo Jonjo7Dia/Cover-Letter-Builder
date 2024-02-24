@@ -104,8 +104,8 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponse, hasCopiedOnce]);
 
-  if (apiResponse.error) {
-    trackError(apiResponse.error);
+  if (!apiResponse && apiResponse.error) {
+    trackError("error");
     return (
       <div className={styles["preview__retry"]}>
         <p>{apiResponse.error}</p>
