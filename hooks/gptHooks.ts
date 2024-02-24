@@ -1,7 +1,7 @@
-// utils/useOpenAI.tsx
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "contexts/userContext";
+import { coverLetterPrompt } from "utils/promptCreator";
 
 export const useOpenAI = () => {
   const [data, setData] = useState<any>(null);
@@ -15,15 +15,35 @@ export const useOpenAI = () => {
     companyMission: string
   ) => {
     try {
-      const response = await axios.post("/api/gptApi", {
+      const prompt = coverLetterPrompt(
         parsedPdfText,
         jobApplicationText,
         companyValues,
-        companyMission,
-        temperature: 0.0,
+        companyMission
+      );
+      const testResponse = await fetch("/api/gptApi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: prompt }),
       });
-      setData(parseCompletedData(response.data));
-      setApiResponse(parseCompletedData(response.data));
+      if (!testResponse.ok) throw new Error(testResponse.statusText);
+      const data = testResponse.body;
+      if (!data) return;
+
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      let answer = "";
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        answer += chunkValue;
+      }
+      setData(answer);
+      setApiResponse(answer);
       setIsFetching(false);
     } catch (err: any) {
       const errorMessage = err.message;
@@ -31,34 +51,6 @@ export const useOpenAI = () => {
       setApiResponse({ error: errorMessage }); // set error message in apiResponse
       setIsFetching(false);
     }
-  };
-  const parseCompletedData = (rawData: string) => {
-    // Split rawData by '\n\n' to get individual messages
-    const messages = rawData
-      .split("\n\n")
-      .map((msg) => {
-        const dataPart = msg.replace("data: ", "");
-        try {
-          return JSON.parse(dataPart);
-        } catch (err) {
-          return null;
-        }
-      })
-      .filter(Boolean); // filter out null values
-
-    // Find the message with "completed" status
-    const completedMessage = messages.find((msg) => msg.status === "completed");
-
-    // If there's a completed message, parse and return its data content
-    if (completedMessage && completedMessage.data) {
-      try {
-        return JSON.parse(completedMessage.data);
-      } catch (err) {
-        return null;
-      }
-    }
-
-    return null;
   };
 
   const generateRejectionResponseLetter = async () => {};

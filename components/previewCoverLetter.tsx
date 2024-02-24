@@ -56,9 +56,9 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
   };
 
   useEffect(() => {
-    if (containerRef.current && !apiResponse.error) {
+    if (containerRef.current && !apiResponse?.error) {
       try {
-        const coverLetter = apiResponse;
+        const coverLetter = JSON.parse(apiResponse);
         const parsedHTMLArray = coverLetter.map(parseContent);
         const combinedHTML = parsedHTMLArray.join("");
         containerRef.current.innerHTML = combinedHTML;
@@ -104,8 +104,8 @@ const PreviewCoverLetter: React.FC<PreviewCoverLetterProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponse, hasCopiedOnce]);
 
-  if (!apiResponse && apiResponse.error) {
-    trackError("error");
+  if (apiResponse?.error) {
+    trackError(apiResponse.error);
     return (
       <div className={styles["preview__retry"]}>
         <p>{apiResponse.error}</p>
